@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    tools:context=".Activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imvLoginLogo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/img_logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:scaleType="fitCenter"
+         />
+    <EditText
+        android:id="@+id/edtTaiKhoan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tài khoản"
+        android:textSize="@dimen/textNormal"
+        app:layout_constraintTop_toBottomOf="@+id/imvLoginLogo"/>
+    <EditText
+        android:id="@+id/edtMatKhau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập mật khẩu"
+        android:textSize="@dimen/textNormal"
+        app:layout_constraintTop_toBottomOf="@+id/edtTaiKhoan"
+        android:layout_marginTop="@dimen/marginBase"
+        />
+    <Button
+        android:id="@+id/btnDangNhap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng Nhập"
+        android:backgroundTint="@color/green_main"
+        android:textColor="@color/white_word"
+        app:layout_constraintTop_toBottomOf="@+id/edtMatKhau"
+        android:layout_marginTop="@dimen/marginBase"
+    />
+    <Button
+        android:id="@+id/btnQuenMatKhau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="Quên mật khẩu?"
+        android:textColor="@color/green_main"
+        app:layout_constraintTop_toBottomOf="@id/btnDangNhap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/marginBase"
+        />
+
+    <TextView
+        android:id="@+id/txvHoacDangNhap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="_____Hoặc đăng nhập với_____"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnQuenMatKhau" />
+
+    <ImageButton
+        android:id="@+id/ibtnFacebook"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/img_facebook"
+        app:layout_constraintTop_toBottomOf="@+id/txvHoacDangNhap"
+        android:layout_marginTop="@dimen/marginBase"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ibtnGoogle"
+        />
+    <ImageButton
+        android:id="@+id/ibtnGoogle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/img_goole"
+        app:layout_constraintTop_toBottomOf="@+id/txvHoacDangNhap"
+        android:layout_marginTop="@dimen/marginBase"
+        app:layout_constraintLeft_toRightOf="@+id/ibtnFacebook"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/txvChuaCoTK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Chưa có tài khoản? Đăng ký"
+        android:textSize="@dimen/textNormal"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ibtnGoogle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
