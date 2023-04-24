@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/i1"
+        android:title="Không vận động" />
+    <item
+        android:title="Nhẹ (1-3 ngày/tuần)"
+        android:id="@+id/i2" />
+    <item
+        android:title="Vừa (3-5 ngày/tuần)"
+        android:id="@+id/i3" />
+    <item
+        android:title="Nặng (6-7 ngày/tuần"
+        android:id="@+id/i4" />
+</menu>

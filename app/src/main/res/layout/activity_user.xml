@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.UserActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/na"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_back_user"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+                android:text="Cá nhân"
+                android:textColor="#3C3C3E"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_morning"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_ca_nhan" />
+
+                <TextView
+                    android:id="@+id/txv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="18dp"
+                    android:text="Trần Nhung"
+                    android:textColor="@color/black_word"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@+id/img_morning"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:text="UserID: "
+                    android:textColor="@color/black_word"
+                    app:layout_constraintLeft_toRightOf="@+id/img_morning"
+                    app:layout_constraintTop_toBottomOf="@+id/txv_name" />
+
+                <TextView
+                    android:id="@+id/txv_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="308398"
+                    android:textColor="@color/black_word"
+                    app:layout_constraintLeft_toRightOf="@+id/txv2"
+                    app:layout_constraintTop_toBottomOf="@+id/txv_name" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/green_main"
+                android:elevation="10dp"
+                app:cardCornerRadius="15dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/card1"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="#FFFFFF"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tva1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"
+                            android:text="Mục tiêu hiện tại"
+                            android:textColor="@color/black_word"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txv_aim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Giảm cân"
+                            android:textColor="@color/black_word"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tva1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="26dp"
+                            android:onClick="showAimPopup"
+                            android:text="Thay đổi"
+                            android:textColor="@color/green_main"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="Calories hàng ngày (kcal): "
+                        android:textColor="@color/white_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/card1" />
+
+                    <TextView
+                        android:id="@+id/txv_max_calories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="1467"
+                        android:textColor="@color/white_word"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@+id/tv3"
+                        app:layout_constraintTop_toBottomOf="@+id/card1" />
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="Lượng nước hàng ngày (ml): "
+                        android:textColor="@color/white_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv3" />
+                    <TextView
+                        android:id="@+id/txv_max_water"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="12dp"
+                        android:text="1950"
+                        android:textColor="@color/white_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv4"
+                        app:layout_constraintTop_toBottomOf="@+id/tv3" />
+                    <TextView
+                        android:id="@+id/tv5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="BMI: "
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/white_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+                    <TextView
+                        android:id="@+id/txv_bmi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="12dp"
+                        android:text="26.67"
+                        android:textColor="@color/white_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv5"
+                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+                    <TextView
+                        android:id="@+id/tv6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="TTDE: "
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/white_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+                    <TextView
+                        android:id="@+id/txv_ttde"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="12dp"
+                        android:text="1649"
+                        android:textColor="@color/white_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv6"
+                        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginTop="30dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="15dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="25dp">
+
+                    <TextView
+                        android:id="@+id/tvi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thông tin cá nhân"
+                        android:textStyle="bold"
+                        android:textColor="@color/black_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Tuổi: "
+                        android:textColor="@color/black_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvi" />
+                    <TextView
+                        android:id="@+id/txv_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp"
+                        android:text="1950"
+                        android:textColor="@color/black_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv4"
+                        app:layout_constraintTop_toBottomOf="@+id/tvi" />
+                    <TextView
+                        android:id="@+id/tv5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Giới tính: "
+                        android:textColor="@color/black_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+                    <TextView
+                        android:id="@+id/txv_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp"
+                        android:text="Nam"
+                        android:textColor="@color/black_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv5"
+                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+                    <TextView
+                        android:id="@+id/tv6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Chiều cao: "
+                        android:textColor="@color/black_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+                    <TextView
+                        android:id="@+id/txv_height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp"
+                        android:text="160"
+                        android:textColor="@color/black_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv6"
+                        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+                    <TextView
+                        android:id="@+id/tv7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Cân nặng: "
+                        android:textColor="@color/black_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv6" />
+                    <TextView
+                        android:id="@+id/txv_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp"
+                        android:text="60"
+                        android:textColor="@color/black_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv7"
+                        app:layout_constraintTop_toBottomOf="@+id/tv6" />
+                    <TextView
+                        android:id="@+id/tv8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Mức độ vận động: "
+                        android:textColor="@color/black_word"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv7" />
+                    <TextView
+                        android:id="@+id/txv_exercise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp"
+                        android:text="Vận động nhẹ (1-3 ngày/tuần)"
+                        android:textColor="@color/black_word"
+                        app:layout_constraintLeft_toRightOf="@+id/tv8"
+                        app:layout_constraintTop_toBottomOf="@+id/tv7" />
+                    <Button
+                        android:id="@+id/btn_update"
+                        android:layout_width="match_parent"
+                        android:background="@color/green_main"
+                        android:textColor="@color/white_word"
+                        android:text="Cập nhật"
+                        android:layout_margin="25dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/tv8"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/na"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/navigation_bottom_menu"
+        ></com.google.android.material.bottomnavigation.BottomNavigationView>
+</androidx.constraintlayout.widget.ConstraintLayout>

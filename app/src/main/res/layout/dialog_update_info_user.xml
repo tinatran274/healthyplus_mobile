@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tuổi: "
+            android:textColor="@color/black_word" />
+        <EditText
+            android:id="@+id/edit_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:inputType="number"
+            android:textSize="15dp"
+            android:textColor="@color/black_word"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giới tính: "
+            android:textColor="@color/black_word"/>
+        <RadioGroup
+            android:id="@+id/rdg_gender"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        <RadioButton
+            android:id="@+id/rd_female"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nữ" />
+            <RadioButton
+                android:id="@+id/rd_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nam" />
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chiều cao: "
+            android:textColor="@color/black_word"/>
+        <EditText
+            android:id="@+id/edit_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text=""
+            android:inputType="number"
+            android:textColor="@color/black_word"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cân nặng: "
+            android:textColor="@color/black_word"/>
+        <EditText
+            android:id="@+id/edit_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text=""
+            android:inputType="number"
+            android:textColor="@color/black_word"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mức độ vận động: "
+            android:textColor="@color/black_word"/>
+        <RadioGroup
+            android:id="@+id/rdg_exercise"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/rd_khong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Không vận động" />
+
+            <RadioButton
+                android:id="@+id/rd_nhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vận động nhẹ (1-3 ngày/tuần)" />
+
+            <RadioButton
+                android:id="@+id/rd_vua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vận động vừa (4-5 ngày/tuần)" />
+            <RadioButton
+                android:id="@+id/rd_nang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vận động nặng (6-7 ngày/tuần)" />
+        </RadioGroup>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_reup"
+        android:layout_width="match_parent"
+        android:background="@color/green_main"
+        android:textColor="@color/white_word"
+        android:text="Cập nhật"
+        android:layout_margin="25dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+
