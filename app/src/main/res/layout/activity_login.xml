@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:padding="10dp"
     >
 
     <ScrollView
@@ -48,7 +49,7 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="   Nhập email hoặc tên tài khoản"
+                    android:hint=" Nhập email hoặc tên tài khoản"
                     android:background="@drawable/edit_text_background"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
@@ -58,7 +59,7 @@
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="   Nhập mật khẩu"
+                    android:hint=" Nhập mật khẩu"
                     android:background="@drawable/edit_text_background"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
@@ -105,29 +106,43 @@
                     >
                     <ImageButton
                         android:id="@+id/ibtnFacebook"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/img_facebook"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/icon_facebook"
                         android:layout_marginRight="20dp"
                         android:contentDescription="Dang nhap bang Facebook"
                         />
                     <ImageButton
                         android:id="@+id/ibtnGoogle"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/img_goole"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/icon_goole"
                         android:layout_marginLeft="20dp"
                         android:contentDescription="Dang nhap bang Google"
                         />
 
                 </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:text="Chưa có tài khoản? Đăng ký"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="30dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chưa có tài khoản?" />
+                    <TextView
+                        android:id="@+id/txvDangKy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green_main"
+                        android:text="  Đăng ký" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
