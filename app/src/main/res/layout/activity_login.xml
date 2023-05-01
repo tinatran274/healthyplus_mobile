@@ -67,7 +67,7 @@
                     android:inputType="textPassword"
                     />
                 <Button
-                    android:id="@+id/btnDangKy"
+                    android:id="@+id/btnDangNhap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"

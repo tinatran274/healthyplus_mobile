@@ -30,9 +30,18 @@
 
         <activity android:name=".Activity.RegisterActivity"
             android:exported="false" />
+
+        <!-- BasicInfo activity -->
         <activity android:name=".Activity.BasicInfo.GenderActivity"
-            android:exported="true"
-            />
+            android:exported="true" />
+        <activity android:name=".Activity.BasicInfo.AgeHeightWeightActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.BasicInfo.ExerciseFrequentActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.BasicInfo.TargetActivity"
+            android:exported="true"/>
+
+
     </application>
 
 </manifest>
