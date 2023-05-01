@@ -13,21 +13,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 
-public class ExerciseFrequentActivity extends AppCompatActivity {
+public class AimActivity extends AppCompatActivity {
+
     Button btnTiepTuc;
+    RadioButton rbTang, rbDuyTri, rbGiam;
     RadioGroup radioGroup;
-    RadioButton rbKhong, rbNhe, rbVua, rbNang;
     View rbChecked;
     User user;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_frequent);
+        setContentView(R.layout.activity_target);
 
-        rbKhong = findViewById(R.id.rbKhong);
-        rbVua = findViewById(R.id.rbVua);
-        rbNhe = findViewById(R.id.rbNhe);
-        rbNang = findViewById(R.id.rbNang);
+        rbTang = findViewById(R.id.rbTangCan);
+        rbDuyTri = findViewById(R.id.rbDuyTri);
+        rbTang = findViewById(R.id.rbTangCan);
         radioGroup = findViewById(R.id.radioGroup);
         btnTiepTuc = findViewById(R.id.btnTiepTuc);
         user = new User();
@@ -38,14 +38,13 @@ public class ExerciseFrequentActivity extends AppCompatActivity {
 
                 user = (User) getIntent().getSerializableExtra("user");
 
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                rbChecked = (View)findViewById(selectedId);
-
+                int selectedID = radioGroup.getCheckedRadioButtonId();
+                rbChecked = findViewById(selectedID);
                 int position = radioGroup.indexOfChild(rbChecked);
 
-                user.setExerciseFrequency(position);
+                user.setAim(position);
 
-                Intent intent = new Intent(getApplicationContext(), AimActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FinishActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
             }

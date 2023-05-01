@@ -1,7 +1,9 @@
 package com.example.healthyplus.Model;
 
-public class User {
-    private int id;
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private String id;
     private String name;
     private int gender; // 0:Nu 1:Nam
     private int age;
@@ -11,7 +13,7 @@ public class User {
     private int exerciseFrequency; // 0:Khong 1:Nhe 2:Vua 3:Nang
 
     public User() {
-        this.id = -1;
+        this.id = "";
         this.name = "";
         this.gender = 0;
         this.age = 0;
@@ -20,7 +22,7 @@ public class User {
         this.aim = 0;
         this.exerciseFrequency = 0;
     }
-    public User(int id, String name, int gender, int age, int height, int weight, int aim, int exerciseFrequency) {
+    public User(String id, String name, int gender, int age, int height, int weight, int aim, int exerciseFrequency) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -31,11 +33,11 @@ public class User {
         this.exerciseFrequency = exerciseFrequency;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "824936000871",
-    "project_id": "healthyplus-612a6",
-    "storage_bucket": "healthyplus-612a6.appspot.com"
+    "project_number": "246239854824",
+    "project_id": "healthyplus-19833",
+    "storage_bucket": "healthyplus-19833.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:824936000871:android:ebe5d6bf0ad50f0c7d13c2",
+        "mobilesdk_app_id": "1:246239854824:android:77aa2cca50948b3ba8c95d",
         "android_client_info": {
           "package_name": "com.example.healthyplus"
         }
       },
       "oauth_client": [
         {
-          "client_id": "824936000871-sujecpe19h864jg3bdkobifj548cs8ri.apps.googleusercontent.com",
+          "client_id": "246239854824-2n5jcbfrpn9kumhv2ajr62qu5kn9soeu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA3GYmm-gm_1jG9XgyYa7_GIIMgATNSgkw"
+          "current_key": "AIzaSyCGK0YUniGpC7CjOnv1KbBs3TqcQrkk5fs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "824936000871-sujecpe19h864jg3bdkobifj548cs8ri.apps.googleusercontent.com",
+              "client_id": "246239854824-2n5jcbfrpn9kumhv2ajr62qu5kn9soeu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

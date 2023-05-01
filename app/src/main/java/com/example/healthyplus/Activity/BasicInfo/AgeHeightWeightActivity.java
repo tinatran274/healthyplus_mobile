@@ -10,11 +10,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 
 public class AgeHeightWeightActivity extends AppCompatActivity {
     Button btnTiepTuc;
     EditText edtAge, edtHeight, edtWeight;
+    User user;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,25 +26,34 @@ public class AgeHeightWeightActivity extends AppCompatActivity {
         edtHeight = findViewById(R.id.edtHeight);
         edtAge = findViewById(R.id.edtAge);
         btnTiepTuc = findViewById(R.id.btnTiepTuc);
-
+        user = new User();
 
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //Check if the information is filled
-                if(edtAge.getText().toString() == "") {
+                if(edtAge.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AgeHeightWeightActivity.this, "Vui lòng thêm tuổi của bạn", Toast.LENGTH_SHORT).show();
                 }
-                else if (edtHeight.getText().toString() == "") {
+                else if (edtHeight.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AgeHeightWeightActivity.this, "Vui lòng thêm chiều cao của bạn", Toast.LENGTH_SHORT).show();
                 } 
-                else if (edtWeight.getText().toString() == "") {
+                else if (edtWeight.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AgeHeightWeightActivity.this, "Vui lòng thêm cân nặng của bạn", Toast.LENGTH_SHORT).show();
                 }
                 // Move to next activity
                 else {
-                    Intent intent = new Intent(getApplicationContext(), AgeHeightWeightActivity.class);
+
+                    user = (User) getIntent().getSerializableExtra("user");
+                    user.setAge(Integer.valueOf(edtAge.getText().toString().trim()));
+                    user.setHeight(Integer.valueOf(edtHeight.getText().toString().trim()));
+                    user.setWeight(Integer.valueOf(edtWeight.getText().toString().trim()));
+
+                    System.out.println(user.getAge() + " " + user.getHeight() + " " + user.getGender());
+
+                    Intent intent = new Intent(getApplicationContext(), ExerciseFrequentActivity.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }
             }
