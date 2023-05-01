@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:padding="10dp">
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progress="75"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:weightSum="2"
+        android:layout_weight="1"
+        android:gravity="center|top"
+        android:padding="@dimen/marginBase"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mức độ vận động của bạn"
+            android:textSize="@dimen/textNormal"
+            android:gravity="center"/>
+        />
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rbKhong"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Không vận động"
+                android:padding="@dimen/marginBase"
+                android:background="@drawable/text_view_background"
+                android:gravity="left|center"
+                android:layoutDirection="rtl"
+                android:textSize="@dimen/textNormal"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/marginBase"/>
+            />
+            <RadioButton
+                android:id="@+id/rbNhe"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Vận động nhẹ (1-3 ngày/tuần)"
+                android:padding="@dimen/marginBase"
+                android:background="@drawable/text_view_background"
+                android:gravity="left|center"
+                android:layoutDirection="rtl"
+                android:textSize="@dimen/textNormal"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/marginBase"/>
+            />
+            <RadioButton
+                android:id="@+id/rbVua"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Vận động vừa (3-5 ngày/tuần)"
+                android:padding="@dimen/marginBase"
+                android:background="@drawable/text_view_background"
+                android:gravity="left|center"
+                android:layoutDirection="rtl"
+                android:textSize="@dimen/textNormal"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/marginBase"/>
+            />
+            <RadioButton
+                android:id="@+id/rbNang"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Vận động nặng (5-7 ngày/tuần)"
+                android:padding="@dimen/marginBase"
+                android:background="@drawable/text_view_background"
+                android:gravity="left|center"
+                android:layoutDirection="rtl"
+                android:textSize="@dimen/textNormal"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/marginBase"/>
+            />
+
+        </RadioGroup>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnTiepTuc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tiếp tục"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white_word"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/marginBase"
+        />
+</LinearLayout>

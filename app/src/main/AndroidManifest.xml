@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -31,13 +35,26 @@
             android:exported="true" />
         <activity
             android:name=".Activity.MainActivity"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:exported="true" />
+
+        <activity android:name=".Activity.RegisterActivity"
+            android:exported="false" />
+
+        <!-- BasicInfo activity -->
+        <activity android:name=".Activity.BasicInfo.GenderActivity"
+            android:exported="true" />
+        <activity android:name=".Activity.BasicInfo.AgeHeightWeightActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.BasicInfo.ExerciseFrequentActivity"
+            android:exported="true"/>
+        <activity android:name=".Activity.BasicInfo.TargetActivity"
+            android:exported="true"/>
+
+
     </application>
 
 </manifest>
