@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginBase">15dp</dimen>
+    <dimen name="textNormal">14dp</dimen>
+    <dimen name="linearMargin">9dp</dimen>
+</resources>
