@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".IgredientActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.LikedDishActivity"
             android:exported="false" />
         <activity

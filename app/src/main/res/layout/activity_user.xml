@@ -96,7 +96,7 @@
                         android:id="@+id/card1"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:background="#FFFFFF"
+                        android:background="@drawable/text_view_background"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -342,7 +342,7 @@
                     <Button
                         android:id="@+id/btn_update"
                         android:layout_width="match_parent"
-                        android:background="@color/green_main"
+                        android:background="@drawable/button_background"
                         android:textColor="@color/white_word"
                         android:text="Cập nhật"
                         android:layout_margin="25dp"

@@ -126,14 +126,15 @@
         </RadioGroup>
 
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_reup"
         android:layout_width="match_parent"
-        android:background="@color/green_main"
-        android:textColor="@color/white_word"
-        android:text="Cập nhật"
+        android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/button_background"
+        android:text="Cập nhật"
+        android:textColor="@color/white_word" />
 </LinearLayout>
 
 
