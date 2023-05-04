@@ -19,19 +19,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black_word"
+        android:layout_marginLeft="10dp"
         android:text="Để bắt đầu hãy cho chúng tôi một số thông tin về bạn"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bạn là"
-        android:gravity="center"
-        android:layout_marginTop="15dp"
-        android:textSize="14dp"
+        android:text="Bạn là ..."
+        android:textColor="@color/black_word"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,16 +53,14 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/icon_male"
-            android:layout_marginTop="@dimen/marginBase"
+            android:layout_marginTop="25dp"
             android:layout_gravity="center|top"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nam"
             android:layout_gravity="center|bottom"
-            android:textSize="@dimen/textNormal"
-            android:textStyle="bold"
-            android:layout_marginBottom="@dimen/marginBase"
+            android:layout_marginBottom="20dp"
             />
 
     </androidx.cardview.widget.CardView>
@@ -81,16 +78,14 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/icon_female"
-                android:layout_marginTop="@dimen/marginBase"
+                android:layout_marginTop="25dp"
                 android:layout_gravity="center|top"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nữ"
                 android:layout_gravity="center|bottom"
-                android:textSize="@dimen/textNormal"
-                android:textStyle="bold"
-                android:layout_marginBottom="@dimen/marginBase"
+                android:layout_marginBottom="20dp"
                 />
         </androidx.cardview.widget.CardView>
 

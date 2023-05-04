@@ -1,22 +1,22 @@
 package com.example.healthyplus.Model;
 
 public class Product {
-    private int id;
+    private String id;
     private String name;
-    private int cost;
+    private String cost;
     private String img;
     private String supplierName;
-    private int type; // 1:Thuc pham 2:Do cong nghe
+    private String type;
 
     public Product() {
-        this.id = 0;
+        this.id = "";
         this.name = "";
-        this.cost = 0;
+        this.cost = "";
         this.img = "";
         this.supplierName = "";
-        this.type = -1;
+        this.type = "";
     }
-    public Product(int id, String name, int cost, String img, String supllierName, int type) {
+    public Product(String id, String name, String cost, String img, String supllierName, String type) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -25,7 +25,7 @@ public class Product {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -33,7 +33,7 @@ public class Product {
         return name;
     }
 
-    public int getCost() {
+    public String getCost() {
         return cost;
     }
 
@@ -45,11 +45,11 @@ public class Product {
         return supplierName;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -57,7 +57,7 @@ public class Product {
         this.name = name;
     }
 
-    public void setCost(int cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 
@@ -69,7 +69,7 @@ public class Product {
         this.supplierName = supllierName;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

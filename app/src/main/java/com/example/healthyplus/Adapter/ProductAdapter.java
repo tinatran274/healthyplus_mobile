@@ -74,7 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             throw new RuntimeException(e);
         }
         holder.name.setText(product.getName());
-        holder.cost.setText(String.valueOf(product.getCost()));
+        holder.cost.setText(product.getCost());
         holder.supplier.setText(product.getSupplierName());
     }
 
