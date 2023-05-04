@@ -9,13 +9,45 @@
     android:padding="10dp"
     tools:context=".Activity.BasicInfo.FinishActivity">
 
-        <Button
-            android:id="@+id/btnHoanThanh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hoàn thành"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white_word"
-            android:layout_marginBottom="@dimen/marginBase"
-            />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@drawable/img_diet" />
+    <TextView
+        android:text="HealthyPlus đã hiểu!"
+        android:textStyle="bold"
+        android:textColor="@color/black_word"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="Mục tiêu của bạn là duy trì cân nặng bền vững, còn mục tiêu của HealthyPlus là giúp bạn trở nên khỏe mạnh hơn."
+        android:layout_width="320dp"
+        android:textColor="@color/black_word"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="Làm thế nào để chinh phục cả 2 mục tiêu? Không gì khác ngoài việc tập trung vào 3 yếu tố?"
+        android:layout_width="320dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black_word"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="Dinh dưỡng – Tập Luyện – Thói quen"
+        android:gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/black_word"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnHoanThanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hoàn thành"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white_word"
+        android:layout_marginBottom="@dimen/marginBase"
+        />
+</LinearLayout>

@@ -9,37 +9,217 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/txv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="cube"/>
+        android:textStyle="bold"
+        android:layout_marginBottom="25dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/green_main"
+        android:text="THỐNG KÊ CÁC CHỈ SỐ"/>
+
     <TextView
-        android:id="@+id/txv2"
+        android:textStyle="bold"
+        android:textColor="@color/black_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="cube"/>
+        android:text="Chỉ số khối của cơ thể"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="15dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txv_1"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="BMI"/>
+            <TextView
+                android:id="@+id/txv_bmi"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textSize="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txv_1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="26.67"/>
+            <TextView
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txv_bmi"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Thừa cân"/>
+
+            <TextView
+                android:id="@+id/txv_2"
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="80dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/txv_bmi"
+                android:text="Chiều cao (cm): "/>
+            <TextView
+                android:id="@+id/txv_height"
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/txv_2"
+                android:text="150"/>
+            <TextView
+                android:id="@+id/txv_3"
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="80dp"
+                app:layout_constraintTop_toBottomOf="@id/txv_2"
+                app:layout_constraintLeft_toRightOf="@id/txv_bmi"
+                android:text="Cân nặng (kg): "/>
+            <TextView
+                android:id="@+id/txv_weight"
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/txv_2"
+                app:layout_constraintLeft_toRightOf="@+id/txv_3"
+                android:text="50"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
     <TextView
-        android:id="@+id/txv3"
+        android:textStyle="bold"
+        android:textColor="@color/black_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="cube"/>
+        android:layout_marginTop="25dp"
+        android:text="Năng lượng cơ thể cần để đạt mục tiêu"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="15dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txv_kcal"
+                android:paddingBottom="5dp"
+                android:textSize="12dp"
+                android:textColor="@color/black_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/txv_ttde"
+                android:text="Kcal/ngày"/>
+            <TextView
+                android:id="@+id/txv_ttde"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textSize="20dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="1467"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
     <TextView
-        android:id="@+id/txv4"
+        android:textStyle="bold"
+        android:textColor="@color/black_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="cube"
-/>
-    <TextView
-        android:id="@+id/txv5"
+        android:layout_marginTop="25dp"
+        android:text="Bạn nên uống bao nhiên nước"/>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="cube"
-        android:layout_weight="1"/>
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/txv_ml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="ml"
+                android:textColor="@color/black_word"
+                android:textSize="12dp"
+                app:layout_constraintLeft_toRightOf="@+id/txv_n"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txv_n"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:text="1950"
+                android:textColor="@color/red"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_alarm"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintRight_toLeftOf="@+id/txv_notify"
+                app:layout_constraintTop_toBottomOf="@+id/txv_n"
+                app:srcCompat="@drawable/img_alarm" />
+
+            <TextView
+                android:id="@+id/txv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Bật nhắc nhở uống nước"
+                android:textColor="#FFC000"
+                android:textSize="12dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txv_n" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"/>
     <Button
         android:id="@+id/btnBatDau"
         android:layout_width="match_parent"

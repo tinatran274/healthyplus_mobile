@@ -28,12 +28,9 @@ public class StatisticActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
-
-        txv1 = findViewById(R.id.txv1);
-        txv2 = findViewById(R.id.txv2);
-        txv3 = findViewById(R.id.txv3);
-        txv4 = findViewById(R.id.txv4);
-        txv5 = findViewById(R.id.txv5);
+        
+        txv4 = findViewById(R.id.txv_bmi);
+        txv5 = findViewById(R.id.txv_ttde);
         btnBatDau = findViewById(R.id.btnBatDau);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -49,8 +46,8 @@ public class StatisticActivity extends AppCompatActivity {
                                     txv1.setText(userBase.getId() + "");
                                     txv2.setText(userBase.getAge() + "");
                                     txv3.setText(userBase.getName());
-                                    txv4.setText("BMI: " + String.valueOf(userBase.BMICal()));
-                                    txv5.setText("TTDE: " + String.valueOf(userBase.TTDECal()));
+                                    txv4.setText(String.valueOf(userBase.BMICal()));
+                                    txv5.setText(String.valueOf(userBase.TTDECal()));
                                 }
                         }
                     }
@@ -61,6 +58,7 @@ public class StatisticActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

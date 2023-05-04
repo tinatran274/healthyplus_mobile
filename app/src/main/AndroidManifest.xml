@@ -26,10 +26,10 @@
             android:exported="false" />
         <activity
             android:name=".Activity.BasicInfo.StatisticActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.BasicInfo.FinishActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.ControlWaterActivity"
             android:exported="true" />
