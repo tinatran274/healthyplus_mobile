@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 
-public class AimActivity extends AppCompatActivity {
+public class TargetActivity extends AppCompatActivity {
 
     Button btnTiepTuc;
     RadioButton rbTang, rbDuyTri, rbGiam;

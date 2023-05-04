@@ -16,6 +16,15 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.LikedDishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ExerciseTimerActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.BasicInfo.StatisticActivity"
             android:exported="false" />
         <activity
@@ -58,7 +67,7 @@
             android:name=".Activity.BasicInfo.ExerciseFrequentActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.BasicInfo.AimActivity"
+            android:name=".Activity.BasicInfo.TargetActivity"
             android:exported="true" />
     </application>
 

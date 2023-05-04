@@ -7,7 +7,7 @@
     android:gravity="center|top"
     android:padding="10dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activity.BasicInfo.AimActivity">
+    tools:context=".Activity.BasicInfo.TargetActivity">
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="20dp"

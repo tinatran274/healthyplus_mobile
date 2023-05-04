@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class ControlWaterActivity extends AppCompatActivity {
 
@@ -36,7 +38,7 @@ public class ControlWaterActivity extends AppCompatActivity {
     TextView progressWater, maxWater, infWater;
     EditText editWater;
     ProgressBar circleWaterBar;
-
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,35 @@ public class ControlWaterActivity extends AppCompatActivity {
         btn100=findViewById(R.id.btn_100);
         btn200=findViewById(R.id.btn_200);
 
+        // Set water and progress to 0 when new day
+        prefs = getSharedPreferences("WaterPrefs", MODE_PRIVATE);
+        int lastDay = prefs.getInt("lastDay", 0);
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+
+        if (currentDay != lastDay) {
+            prefs.edit().putInt("waterConsumption", 0).apply();
+            prefs.edit().putInt("lastDay", currentDay).apply();
+            progressWater.setText("0");
+            circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_red));
+        }
+
+        // When open activity, Set water to red if it pass the maximum
+        int max = Integer.valueOf(maxWater.getText().toString().trim());
+        int sumWater = prefs.getInt("waterConsumption", 0);
+        if(sumWater > max){
+            int color = getColor(R.color.red);
+            progressWater.setTextColor(color);
+            circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+        }
+
+
+
+        // Set water and progress when open the activity
+        progressWater.setText(Integer.toString(prefs.getInt("waterConsumption", 0)));
+        circleWaterBar.setProgress(prefs.getInt("waterConsumption", 0)*100
+                /Integer.valueOf(maxWater.getText().toString().trim()));
+
+
         addWater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,14 +93,21 @@ public class ControlWaterActivity extends AppCompatActivity {
                 int add = Integer.parseInt(String.valueOf(editWater.getText()));
                 int inf = Integer.parseInt(String.valueOf(infWater.getText()));
                 int circle=((progress+add)*100)/max;
-                progressWater.setText(String.valueOf(progress+add));
+
+                prefs.edit().putInt("waterConsumption", progress + add).apply();
+                int sumWater = prefs.getInt("waterConsumption", 0);
+
+                progressWater.setText(String.valueOf(sumWater));
                 infWater.setText(String.valueOf(inf+add));
                 circleWaterBar.setProgress(circle);
                 editWater.setText("");
+
                 if((progress+add)>max) {
-                    int color = getResources().getColor(R.color.red);
+                    int color = getColor(R.color.red);
                     progressWater.setTextColor(color);
+                    circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
                 }
+
             }
         });
         btn50.setOnClickListener(new View.OnClickListener() {
@@ -79,13 +117,18 @@ public class ControlWaterActivity extends AppCompatActivity {
                 int max = Integer.parseInt(String.valueOf(maxWater.getText()));
                 int inf = Integer.parseInt(String.valueOf(infWater.getText()));
                 int circle=((progress+50)*100)/max;
-                progressWater.setText(String.valueOf(progress+50));
+
+                prefs.edit().putInt("waterConsumption", progress + 50).apply();
+                int sumWater = prefs.getInt("waterConsumption", 0);
+
+                progressWater.setText(String.valueOf(sumWater));
                 infWater.setText(String.valueOf(inf+50));
                 circleWaterBar.setProgress(circle);
                 editWater.setText("");
                 if((progress+50)>max) {
-                    int color = getResources().getColor(R.color.red);
+                    int color = getColor(R.color.red);
                     progressWater.setTextColor(color);
+                    circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
                 }
             }
         });
@@ -96,13 +139,18 @@ public class ControlWaterActivity extends AppCompatActivity {
                 int max = Integer.parseInt(String.valueOf(maxWater.getText()));
                 int inf = Integer.parseInt(String.valueOf(infWater.getText()));
                 int circle=((progress+100)*100)/max;
-                progressWater.setText(String.valueOf(progress+100));
+
+                prefs.edit().putInt("waterConsumption", progress + 100).apply();
+                int sumWater = prefs.getInt("waterConsumption", 0);
+
+                progressWater.setText(String.valueOf(sumWater));
                 infWater.setText(String.valueOf(inf+100));
                 circleWaterBar.setProgress(circle);
                 editWater.setText("");
                 if((progress+100)>max) {
-                    int color = getResources().getColor(R.color.red);
+                    int color = getColor(R.color.red);
                     progressWater.setTextColor(color);
+                    circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
                 }
             }
         });
@@ -113,16 +161,25 @@ public class ControlWaterActivity extends AppCompatActivity {
                 int max = Integer.parseInt(String.valueOf(maxWater.getText()));
                 int inf = Integer.parseInt(String.valueOf(infWater.getText()));
                 int circle=((progress+200)*100)/max;
-                progressWater.setText(String.valueOf(progress+200));
+
+                prefs.edit().putInt("waterConsumption", progress + 200).apply();
+                int sumWater = prefs.getInt("waterConsumption", 0);
+
+                progressWater.setText(String.valueOf(sumWater));
                 infWater.setText(String.valueOf(inf+200));
                 circleWaterBar.setProgress(circle);
                 editWater.setText("");
                 if((progress+200)>max) {
-                    int color = getResources().getColor(R.color.red);
+                    int color = getColor(R.color.red);
                     progressWater.setTextColor(color);
+                    circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
                 }
             }
         });
+
+
+
+
         btnBackControlWater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

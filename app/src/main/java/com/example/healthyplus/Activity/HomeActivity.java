@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
+import com.example.healthyplus.Model.Dish;
 import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
 
@@ -22,7 +23,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
-    private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView, controlWaterCardView;
+    private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
+            controlWaterCardView, dishCardView, exerciseCardView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,8 @@ public class HomeActivity extends AppCompatActivity {
         productCardView=findViewById(R.id.cv_product);
         technologyCardView=findViewById(R.id.cv_technology_product);
         controlWaterCardView=findViewById(R.id.cv_control_water);
+        dishCardView=findViewById(R.id.cv_dish);
+        exerciseCardView=findViewById(R.id.cv_exercise);
 
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
@@ -43,6 +47,14 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        exerciseCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), ExerciseTimerActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         userCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +95,16 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        dishCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), DishActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
     private List<Product> getListProduct()
     {
