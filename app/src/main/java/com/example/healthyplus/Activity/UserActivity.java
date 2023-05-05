@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,6 +37,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency;
     Button btnUpdate, btnBackUser;
     FirebaseFirestore db;
+    ImageView imv_log_out;
     User u;
 
     @Override
@@ -56,8 +58,19 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         exerciseFrequency = findViewById(R.id.txv_exercise);
         btnUpdate = findViewById(R.id.btn_update);
         btnBackUser = findViewById(R.id.btn_back_user);
+        imv_log_out = findViewById(R.id.imv_log_out);
 
         setInfoUser();
+
+        imv_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Sign out
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
