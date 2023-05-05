@@ -28,7 +28,7 @@ public class StatisticActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
-        
+
         txv4 = findViewById(R.id.txv_bmi);
         txv5 = findViewById(R.id.txv_ttde);
         btnBatDau = findViewById(R.id.btnBatDau);

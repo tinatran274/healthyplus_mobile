@@ -1,5 +1,8 @@
 package com.example.healthyplus.Activity;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,12 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
 import com.example.healthyplus.Model.Dish;
 import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +34,8 @@ public class HomeActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
             controlWaterCardView, dishCardView, exerciseCardView ;
+    List<Product> list = new ArrayList<>();
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +53,28 @@ public class HomeActivity extends AppCompatActivity {
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        productAdapter.setData(getListProduct());
+        productAdapter.setData(list);
         recyclerView.setAdapter(productAdapter);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        db = FirebaseFirestore.getInstance();
+        db.collection("product").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Product p = document.toObject(Product.class);
+                                list.add(p);
+                                productAdapter.notifyDataSetChanged();
+                                Log.e(TAG, document.getId() + " => " + document.getData() + p.getImg());
+                            }
+                        } else {
+                            Log.e(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
         exerciseCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
