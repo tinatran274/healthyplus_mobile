@@ -1,12 +1,13 @@
 package com.example.healthyplus.Model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String id;
     private String name;
     private String cost;
     private String img;
     private String supplierName;
-    private String type;
 
     public Product() {
         this.id = "";
@@ -14,15 +15,13 @@ public class Product {
         this.cost = "";
         this.img = "";
         this.supplierName = "";
-        this.type = "";
     }
-    public Product(String id, String name, String cost, String img, String supllierName, String type) {
+    public Product(String id, String name, String cost, String img, String supllierName) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.img = img;
         this.supplierName = supllierName;
-        this.type = type;
     }
 
     public String getId() {
@@ -45,10 +44,6 @@ public class Product {
         return supplierName;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -69,9 +64,6 @@ public class Product {
         this.supplierName = supllierName;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {
@@ -81,7 +73,6 @@ public class Product {
                 ", cost=" + cost +
                 ", img='" + img + '\'' +
                 ", supllierName='" + supplierName + '\'' +
-                ", type=" + type +
                 '}';
     }
 }

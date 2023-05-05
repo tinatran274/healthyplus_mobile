@@ -18,6 +18,7 @@ import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,6 +31,8 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button btnBackProduct;
+
+    List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,26 @@ public class ProductActivity extends AppCompatActivity {
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        productAdapter.setData(getListProduct());
+        productAdapter.setData(list);
         recyclerView.setAdapter(productAdapter);
+
+        db = FirebaseFirestore.getInstance();
+        db.collection("product").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Product p = document.toObject(Product.class);
+                                list.add(p);
+                                productAdapter.notifyDataSetChanged();
+                                Log.e(TAG, document.getId() + " => " + document.getData() + p.getImg());
+                            }
+                        } else {
+                            Log.e(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         btnBackProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +79,7 @@ public class ProductActivity extends AppCompatActivity {
     private List<Product> getListProduct()
     {
         List<Product> list = new ArrayList<>();
+
 
         return list;
     }
