@@ -86,6 +86,20 @@
                 android:layout_marginBottom="10dp"
                 android:inputType="textPassword"
                 />
+                <EditText
+                    android:id="@+id/edtPassword2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint=" Nhập lại mật khẩu"
+                    android:textSize="14dp"
+                    android:textColor="@color/black_word"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textPassword"
+                    />
             <Button
                 android:id="@+id/btnDangKy"
                 android:layout_width="match_parent"

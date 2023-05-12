@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText email, username, password;
+    EditText email, username, password, password2;
     Button btnDangKy;
     FirebaseAuth auth;
     @Override
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.edtEmail);
         username = findViewById(R.id.edtName);
         password = findViewById(R.id.edtPassword);
-
+        password2 = findViewById(R.id.edtPassword2);
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Enter username", Toast.LENGTH_SHORT).show();
                 else if(isEmpty(password))
                     Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                else if(isEmpty(password2))
+                    Toast.makeText(RegisterActivity.this, "Nhập mật khẩu xác nhận", Toast.LENGTH_SHORT).show();
+                else if(password.getText().toString().trim().equals(password2.getText().toString().trim()))
+                    Toast.makeText(RegisterActivity.this, "Mật khẩu trùng khớp", Toast.LENGTH_SHORT).show();
                 else {
                     String user_email = email.getText().toString().trim();
                     String user_name = username.getText().toString().trim();

@@ -1,25 +1,45 @@
 package com.example.healthyplus.Model;
 
+import java.util.ArrayList;
+
 public class Dish {
     private String id;
     private String name;
-    private String calories;
-    private String carb;
-    private String protein;
-    private String fat;
-    private String recipe;
+    private double calo;
+    private String img;
+    private double carb;
+    private  double protein;
+    private double fat;
+    private ArrayList<String> recipe;
+    private ArrayList<String> ingredients;
 
     public Dish() {
     }
 
-    public Dish(String id, String name, String calories, String carb, String protein, String fat, String recipe) {
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setFat(double fat) {
+        this.fat = fat;
+    }
+
+    public double getFat() {
+        return fat;
+    }
+
+    public Dish(String id, String name, double calo, double carb, double protein, ArrayList<String> recipe, ArrayList<String> ingredients) {
         this.id = id;
         this.name = name;
-        this.calories = calories;
+        this.calo = calo;
         this.carb = carb;
         this.protein = protein;
-        this.fat = fat;
         this.recipe = recipe;
+        this.ingredients = ingredients;
     }
 
     public void setId(String id) {
@@ -30,24 +50,24 @@ public class Dish {
         this.name = name;
     }
 
-    public void setCalories(String calories) {
-        this.calories = calories;
+    public void setCalo(double calo) {
+        this.calo = calo;
     }
 
-    public void setCarb(String carb) {
+    public void setCarb(double carb) {
         this.carb = carb;
     }
 
-    public void setProtein(String protein) {
+    public void setProtein(double protein) {
         this.protein = protein;
     }
 
-    public void setFat(String fat) {
-        this.fat = fat;
+    public void setRecipe(ArrayList<String> recipe) {
+        this.recipe = recipe;
     }
 
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
+    public void setIngredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getId() {
@@ -58,23 +78,23 @@ public class Dish {
         return name;
     }
 
-    public String getCalories() {
-        return calories;
+    public double getCalo() {
+        return calo;
     }
 
-    public String getCarb() {
+    public double getCarb() {
         return carb;
     }
 
-    public String getProtein() {
+    public double getProtein() {
         return protein;
     }
 
-    public String getFat() {
-        return fat;
+    public ArrayList<String> getRecipe() {
+        return recipe;
     }
 
-    public String getRecipe() {
-        return recipe;
+    public ArrayList<String> getIngredients() {
+        return ingredients;
     }
 }

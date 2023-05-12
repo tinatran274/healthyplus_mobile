@@ -34,16 +34,18 @@
                     android:text="Ten mon an"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:textStyle="bold"
                     />
+
                 <ImageView
                     android:id="@+id/imvHeart"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/icon_heart"
+                    android:layout_width="18dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center_vertical"
-                    />
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/icon_heart" />
             </LinearLayout>
 
 
@@ -62,6 +64,7 @@
                     android:gravity="center"
                     android:textColor="@color/green_main"
                     android:textStyle="bold"
+                    android:textSize="10sp"
                     />
                 <TextView
                     android:id="@+id/txvCarbs"
@@ -72,6 +75,7 @@
                     android:gravity="center"
                     android:textColor="@color/green_main"
                     android:textStyle="bold"
+                    android:textSize="10sp"
                     />
                 <TextView
                     android:id="@+id/txvProtein"
@@ -82,6 +86,7 @@
                     android:gravity="center"
                     android:textColor="@color/green_main"
                     android:textStyle="bold"
+                    android:textSize="10sp"
                     />
                 <TextView
                     android:id="@+id/txvFat"
@@ -92,6 +97,7 @@
                     android:gravity="center"
                     android:textColor="@color/green_main"
                     android:textStyle="bold"
+                    android:textSize="10sp"
                     />
 
             </LinearLayout>
@@ -101,21 +107,21 @@
                 android:weightSum="4"
                 android:orientation="horizontal"
                 >
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="KCal"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-
-                    />
+                    android:text="Cal"
+                    android:textSize="10sp" />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Carbs"
                     android:layout_weight="1"
                     android:gravity="center"
-
+                    android:textSize="10sp"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -123,7 +129,7 @@
                     android:text="Protein"
                     android:layout_weight="1"
                     android:gravity="center"
-
+                    android:textSize="10sp"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -131,7 +137,7 @@
                     android:text="Fat"
                     android:layout_weight="1"
                     android:gravity="center"
-
+                    android:textSize="10sp"
                     />
 
             </LinearLayout>
