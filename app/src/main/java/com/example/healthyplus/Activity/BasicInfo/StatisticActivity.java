@@ -43,8 +43,8 @@ public class StatisticActivity extends AppCompatActivity {
                             DocumentSnapshot documentSnapshot = task.getResult();
                                 if(documentSnapshot != null){
                                     User userBase = documentSnapshot.toObject(User.class);
-                                    txv1.setText(userBase.getId() + "");
-                                    txv2.setText(userBase.getAge() + "");
+                                  //  txv1.setText(userBase.getId() + "");
+                                 //   txv2.setText(userBase.getAge() + "");
                                     txv3.setText(userBase.getName());
                                     txv4.setText(String.valueOf(userBase.BMICal()));
                                     txv5.setText(String.valueOf(userBase.TTDECal()));

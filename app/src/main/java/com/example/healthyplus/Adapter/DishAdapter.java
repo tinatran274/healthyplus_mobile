@@ -4,6 +4,7 @@ package com.example.healthyplus.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -24,11 +26,14 @@ import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+//import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder>{
@@ -36,6 +41,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     private Context context;
     List<Dish> DishList;
+    FirebaseStorage storage;
 
     public DishAdapter(Context context) {
         this.context = context;
@@ -68,6 +74,26 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 showDishDetail(dish);
             }
         });
+
+        storage = FirebaseStorage.getInstance();
+        StorageReference imgRef = storage.getReferenceFromUrl(dish.getImg());
+        try {
+            File localFile = File.createTempFile("images", "jpg");
+            imgRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    holder.img.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(context, "Loi", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
