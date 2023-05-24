@@ -30,19 +30,23 @@ public class DishActivity extends AppCompatActivity {
     Button btnYeuThich, btnBack;
     RecyclerView rec;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DishAdapter adapter = new DishAdapter(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish);
 
-        btnBack = findViewById(R.id.btn_back_dish);
-        btnYeuThich = findViewById(R.id.btnYeuThich);
-        rec = findViewById(R.id.rec);
+        findView();
 
+        showDishes();
 
-        DishAdapter adapter = new DishAdapter(this);
+        onClickButton();
+    }
+
+    private void showDishes() {
         rec.setLayoutManager(new GridLayoutManager(this, 2));
         List<Dish> list = new ArrayList<>();
+
         db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -51,17 +55,19 @@ public class DishActivity extends AppCompatActivity {
                         Dish dish = document.toObject(Dish.class);
                         list.add(dish);
                     }
-                        adapter.setDishList(list);
-                        adapter.notifyDataSetChanged();
+                    adapter.setDishList(list);
+                    adapter.notifyDataSetChanged();
                 }
                 else {
-                    Log.e(TAG, "Canont get data", task.getException());
+                    Log.e(TAG, "Cannot get data", task.getException());
                 }
             }
         });
 
         rec.setAdapter(adapter);
+    }
 
+    private void onClickButton() {
         btnYeuThich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,5 +83,11 @@ public class DishActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void findView() {
+        btnBack = findViewById(R.id.btn_back_dish);
+        btnYeuThich = findViewById(R.id.btnYeuThich);
+        rec = findViewById(R.id.rec);
     }
 }

@@ -55,17 +55,17 @@
                 android:weightSum="4"
                 android:orientation="horizontal"
                 >
+
                 <TextView
                     android:id="@+id/txvKcal"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="1"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="1"
                     android:textColor="@color/green_main"
-                    android:textStyle="bold"
                     android:textSize="10sp"
-                    />
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txvCarbs"
                     android:layout_width="0dp"
@@ -113,7 +113,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Cal"
+                    android:text="KCal"
                     android:textSize="10sp" />
                 <TextView
                     android:layout_width="0dp"

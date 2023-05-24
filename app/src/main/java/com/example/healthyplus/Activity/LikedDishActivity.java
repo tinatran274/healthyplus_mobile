@@ -16,12 +16,17 @@ public class LikedDishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liked_dish);
 
+        findView();
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DishActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
+    }
+
+    private void findView() {
+        btnBack = findViewById(R.id.btn_back_liked);
     }
 }

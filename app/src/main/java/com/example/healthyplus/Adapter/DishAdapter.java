@@ -2,6 +2,7 @@ package com.example.healthyplus.Adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthyplus.Activity.DishDetailActivity;
 import com.example.healthyplus.Model.Dish;
 import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
@@ -60,33 +62,19 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.fat.setText(Double.toString(dish.getFat()));
         holder.carbs.setText(Double.toString(dish.getCarb()));
 
-//        // Get a dish img
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference storageRef = storage.getReferenceFromUrl(dish.getImg());
-//        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                String imageUrl = uri.toString();
-//                Picasso.get().load(imageUrl).into(new Target() {
-//                    @Override
-//                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                        // Set the loaded bitmap as the background of the ImageView
-//                        holder.img.setBackground(new BitmapDrawable(context.getResources(), bitmap));
-//                    }
-//
-//                    @Override
-//                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//                    }
-//                });
-//                }
-//        });
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDishDetail(dish);
+            }
+        });
 
+    }
+
+    private void showDishDetail(Dish dish) {
+        Intent intent = new Intent(context, DishDetailActivity.class);
+        intent.putExtra("dish", dish);
+        context.startActivity(intent);
     }
 
     @Override
