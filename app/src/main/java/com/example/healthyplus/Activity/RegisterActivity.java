@@ -54,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                 else if(isEmpty(password2))
                     Toast.makeText(RegisterActivity.this, "Nhập mật khẩu xác nhận", Toast.LENGTH_SHORT).show();
-                else if(password.getText().toString().trim().equals(password2.getText().toString().trim()))
+                else if(!password.getText().toString().trim().equals(password2.getText().toString().trim()))
                     Toast.makeText(RegisterActivity.this, "Mật khẩu trùng khớp", Toast.LENGTH_SHORT).show();
                 else {
                     String user_email = email.getText().toString().trim();

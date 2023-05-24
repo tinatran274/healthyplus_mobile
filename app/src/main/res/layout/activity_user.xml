@@ -45,8 +45,8 @@
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/imv_log_out"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/img_log_out" />
         </LinearLayout>
