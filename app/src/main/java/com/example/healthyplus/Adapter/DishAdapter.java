@@ -86,33 +86,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             throw new RuntimeException(e);
         }
 
-//        // Get a dish img
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference storageRef = storage.getReferenceFromUrl(dish.getImg());
-//        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                String imageUrl = uri.toString();
-//                Picasso.get().load(imageUrl).into(new Target() {
-//                    @Override
-//                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                        // Set the loaded bitmap as the background of the ImageView
-//                        holder.img.setBackground(new BitmapDrawable(context.getResources(), bitmap));
-//                    }
-//
-//                    @Override
-//                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//                    }
-//                });
-//                }
-//        });
-
     }
 
     @Override
