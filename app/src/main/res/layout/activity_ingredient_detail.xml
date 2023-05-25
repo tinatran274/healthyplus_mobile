@@ -21,74 +21,93 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         >
+
         <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:background="@drawable/img_an_vat"
-            />
+            android:id="@+id/imgIngre"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/linearMargin"
             >
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
-                android:textColor="@color/black"
-                android:gravity="center"/>
+
                 <TextView
+                    android:id="@+id/txvKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="g"
-                    android:textColor="@color/black"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/green_main"
-                android:text="52"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                    android:text="52"
+                    android:textColor="@color/green_main"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" Kcal"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/green_main"
                     android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/txvWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="100"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="g"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="20dp"
         android:layout_marginTop="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_margin="10dp"
@@ -101,6 +120,7 @@
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:textColor="@color/black"
+                android:layout_margin="15dp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,6 +130,7 @@
                 android:weightSum="3"
                 >
                 <TextView
+                    android:id="@+id/txvFat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -118,6 +139,7 @@
                     android:textStyle="bold"
                     android:gravity="center"/>
                 <TextView
+                    android:id="@+id/txvProtein"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -126,6 +148,7 @@
                     android:textStyle="bold"
                     android:gravity="center"/>
                 <TextView
+                    android:id="@+id/txvCarb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -59,22 +60,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = edtName.getText().toString().trim();
                 String pass = edtPass.getText().toString().trim();
-//                FirebaseFirestore db = FirebaseFirestore.getInstance();
-//                db.collection("user")
-//                        .whereEqualTo("name", name)
-//                        .get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if (task.isSuccessful()) {
-//                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                        Log.d(TAG, document.getId() + " => " + document.getData().get("name"));
-//                                    }
-//                                } else {
-//                                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                                }
-//                            }
-//                        });
+
+                if(TextUtils.isEmpty(name)){
+                    edtName.setError("Vui Lòng nhập gmail.");
+                    return;
+                }
+                if(TextUtils.isEmpty(pass)){
+                    edtPass.setError("Vui Lòng nhập mật khẩu.");
+                    return;
+                }
 
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signInWithEmailAndPassword(name, pass)

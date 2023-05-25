@@ -36,18 +36,14 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="#F2F2F2" />
+
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

@@ -39,13 +39,16 @@
                     android:textStyle="bold"
                     />
 
-                <ImageView
-                    android:id="@+id/imvHeart"
+                <ToggleButton
+                    android:id="@+id/favButton"
                     android:layout_width="18dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/icon_heart" />
+                    android:textOn=""
+                    android:textOff=""
+                    android:background="@drawable/toggle_image" />
             </LinearLayout>
 
 

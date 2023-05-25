@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.healthyplus.Adapter.DishAdapter;
 import com.example.healthyplus.Model.Dish;
@@ -31,6 +33,9 @@ public class DishActivity extends AppCompatActivity {
     RecyclerView rec;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DishAdapter adapter = new DishAdapter(this);
+    SearchView svDish;
+    List<Dish> list = new ArrayList<>();
+    List<Dish> filterList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +46,36 @@ public class DishActivity extends AppCompatActivity {
         showDishes();
 
         onClickButton();
+
+
+        // Tim kiem mon an
+        svDish.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                return true;
+            }
+        });
+    }
+
+    private void filterList(String s) {
+        filterList.clear();
+        for(Dish dish: list){
+            if(dish.getName().toLowerCase().contains(s))
+                filterList.add(dish);
+        }
+        adapter.setDishList(filterList);
+        if(filterList.isEmpty())
+            Toast.makeText(this, "Không tìm thấy món ăn phù hợp", Toast.LENGTH_SHORT).show();
     }
 
     private void showDishes() {
         rec.setLayoutManager(new GridLayoutManager(this, 2));
-        List<Dish> list = new ArrayList<>();
-
         db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -56,10 +85,9 @@ public class DishActivity extends AppCompatActivity {
                         list.add(dish);
                     }
                     adapter.setDishList(list);
-                    adapter.notifyDataSetChanged();
                 }
                 else {
-                    Log.e(TAG, "Cannot get data", task.getException());
+                    Log.e(TAG, "Cannot get dish data", task.getException());
                 }
             }
         });
@@ -89,5 +117,6 @@ public class DishActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back_dish);
         btnYeuThich = findViewById(R.id.btnYeuThich);
         rec = findViewById(R.id.rec);
+        svDish = findViewById(R.id.svDish);
     }
 }
