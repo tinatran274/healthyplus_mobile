@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
-            controlWaterCardView, dishCardView, exerciseCardView ;
+            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView ;
     List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
     @Override
@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         controlWaterCardView=findViewById(R.id.cv_control_water);
         dishCardView=findViewById(R.id.cv_dish);
         exerciseCardView=findViewById(R.id.cv_exercise);
+        suggestionCardView = findViewById(R.id.cv_suggestion);
 
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
@@ -75,6 +76,14 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
+        suggestionCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), SuggestionActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         exerciseCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
