@@ -55,6 +55,7 @@ public class DishDetailActivity extends AppCompatActivity {
         txvCarb.setText(Double.toString(dish.getCarb()));
         txvFat.setText(Double.toString(dish.getFat()));
         txvProtein.setText(Double.toString(dish.getProtein()));
+        btnBack.setText(dish.getName());
 
         String ingredients = "", recipe = "";
 

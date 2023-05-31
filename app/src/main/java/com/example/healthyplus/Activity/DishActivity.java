@@ -43,10 +43,13 @@ public class DishActivity extends AppCompatActivity {
 
         findView();
 
-        showDishes();
-
         onClickButton();
 
+        readData(list -> {
+            rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            rec.setAdapter(adapter);
+            adapter.setDishList(list);
+        });
 
         // Tim kiem mon an
         svDish.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -63,6 +66,26 @@ public class DishActivity extends AppCompatActivity {
         });
     }
 
+    private void readData(FireStoreCallBack callBack){
+        db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Dish dish = document.toObject(Dish.class);
+                        list.add(dish);
+                    }
+                callBack.onCallBack(list);
+                }
+                else {
+                    Log.e(TAG, "Cannot get dish data", task.getException());
+                }
+            }
+        });
+    }
+    private interface FireStoreCallBack{
+        void onCallBack(List<Dish> list);
+    }
     private void filterList(String s) {
         filterList.clear();
         for(Dish dish: list){
@@ -75,24 +98,7 @@ public class DishActivity extends AppCompatActivity {
     }
 
     private void showDishes() {
-        rec.setLayoutManager(new GridLayoutManager(this, 2));
-        db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Dish dish = document.toObject(Dish.class);
-                        list.add(dish);
-                    }
-                    adapter.setDishList(list);
-                }
-                else {
-                    Log.e(TAG, "Cannot get dish data", task.getException());
-                }
-            }
-        });
 
-        rec.setAdapter(adapter);
     }
 
     private void onClickButton() {

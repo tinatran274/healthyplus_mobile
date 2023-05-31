@@ -98,6 +98,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
         // get image of the dish from firebase storage
         storage = FirebaseStorage.getInstance();
+        Log.d(TAG, dish.getImg());
         StorageReference imgRef = storage.getReferenceFromUrl(dish.getImg());
         try {
             File localFile = File.createTempFile("images", "jpg");
