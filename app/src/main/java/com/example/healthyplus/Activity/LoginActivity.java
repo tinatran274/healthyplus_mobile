@@ -2,16 +2,21 @@ package com.example.healthyplus.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.ChecksSdkIntAtLeast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,9 +38,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView txvDangKy;
+    TextView txvDangKy, txvQuenMK;
     EditText edtName, edtPass;
     Button btnDangNhap;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,56 @@ public class LoginActivity extends AppCompatActivity {
         edtName = findViewById(R.id.edtEmail);
         edtPass = findViewById(R.id.edtPassword);
         txvDangKy = findViewById(R.id.txvDangKy);
+        txvQuenMK = findViewById(R.id.txvQuenMK);
+
+
+        txvQuenMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater builder = LayoutInflater.from(LoginActivity.this);
+                View dialogView = builder.inflate(R.layout.dialog_forgot_password, null);
+                AlertDialog dialog = new AlertDialog.Builder(LoginActivity.this).create();
+
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+                dialog.setView(dialogView);
+
+
+                Button btnGetEmail = dialogView.findViewById(R.id.btnGetResetMail);
+                TextView txvBackLogin = dialogView.findViewById(R.id.txvBackLogin);
+                EditText edtMail = dialogView.findViewById(R.id.edtGetResetMail);
+
+                edtMail.setError("Vui lòng không để trống Email");
+
+                txvBackLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnGetEmail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String email = edtMail.getText().toString().trim();
+                        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) Toast.makeText(LoginActivity.this, "Gửi thành công", Toast.LENGTH_SHORT).show();
+                                else {
+                                    Log.e(TAG, "Cannot send reset password email");
+                                    Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                                }
+                                    
+                            }
+
+                        });
+                    }
+                });
+
+                dialog.show();
+            }
+        });
 
         // Move to Register Screen
         txvDangKy.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                FirebaseAuth auth = FirebaseAuth.getInstance();
+
                 auth.signInWithEmailAndPassword(name, pass)
                         .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
