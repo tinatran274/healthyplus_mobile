@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:gravity="center"
+    >
+
+    <EditText
+        android:id="@+id/edtTime"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edit_text_background"
+        android:inputType="number"
+        android:hint="Nhập thời gian đã vận động theo phút"
+        />
+
+</LinearLayout>

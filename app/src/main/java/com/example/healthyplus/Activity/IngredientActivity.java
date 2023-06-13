@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.healthyplus.Adapter.IngredientAdapter;
-import com.example.healthyplus.Model.Dish;
 import com.example.healthyplus.Model.Ingredient;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IgredientActivity extends AppCompatActivity {
+public class IngredientActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     IngredientAdapter adapter = new IngredientAdapter(this);
     List<Ingredient> list = new ArrayList<>();
@@ -46,6 +46,8 @@ public class IgredientActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 finish();
             }
         });

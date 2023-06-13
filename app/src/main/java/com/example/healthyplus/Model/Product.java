@@ -10,11 +10,6 @@ public class Product implements Serializable {
     private String supplierName;
 
     public Product() {
-        this.id = "";
-        this.name = "";
-        this.cost = "";
-        this.img = "";
-        this.supplierName = "";
     }
     public Product(String id, String name, String cost, String img, String supllierName) {
         this.id = id;
@@ -22,6 +17,10 @@ public class Product implements Serializable {
         this.cost = cost;
         this.img = img;
         this.supplierName = supllierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     public String getId() {

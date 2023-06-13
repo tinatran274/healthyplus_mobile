@@ -47,8 +47,8 @@ public class DishActivity extends AppCompatActivity {
 
         readData(list -> {
             rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-            rec.setAdapter(adapter);
             adapter.setDishList(list);
+            rec.setAdapter(adapter);
         });
 
         // Tim kiem mon an

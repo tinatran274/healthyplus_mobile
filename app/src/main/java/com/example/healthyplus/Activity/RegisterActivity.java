@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.healthyplus.Activity.BasicInfo.GenderActivity;
 import com.example.healthyplus.DAO.AccountDAO;
 import com.example.healthyplus.DAO.UserDAO;
+import com.example.healthyplus.Database.PasswordHasher;
 import com.example.healthyplus.Model.Account;
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String user_name = username.getText().toString().trim();
                     String user_password = password.getText().toString().trim();
 
+
                     auth.createUserWithEmailAndPassword(user_email, user_password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -85,8 +87,10 @@ public class RegisterActivity extends AppCompatActivity {
                                         // Add new Account to collection account in firestore,
                                         // each document is auto-generated accountID
                                         Account account = new Account();
+                                        PasswordHasher passwordHasher = new PasswordHasher();
+                                        String hashPassword = passwordHasher.hashPassword(user_password);
                                         account.setEmail(user_email);
-                                        account.setPassword(user_password);
+                                        account.setPassword(hashPassword);
                                         account.setUserName(user_name);
                                         account.setUserID(currentUser.getUid());
 

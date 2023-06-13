@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,12 @@ import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -31,12 +38,16 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
     private Context context;
     List<Product> productList;
     FirebaseStorage storage;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ProductAdapter(Context context)
     {
         this.context=context;
@@ -55,8 +66,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product=productList.get(position);
-        if(product==null)
+        Product product = productList.get(position);
+        if (product == null)
             return;
         //holder.img.setImageResource(product.getImg());
         storage = FirebaseStorage.getInstance();
@@ -88,7 +99,53 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 goToDetailProduct(product);
             }
         });
+
+
+        holder.imbAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                // Lấy số lượng hiện tại của sản phẩm trong giỏ hàng và tăng lên 1
+                DocumentReference userCartRef = db.collection("cart").document(user.getUid());
+                String productID = product.getId(); // ID của sản phẩm cần tăng số lượng
+
+                userCartRef.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // Document của người dùng đã tồn tại
+                            Map<String, Object> cartData = document.getData();
+                            if (cartData != null && cartData.containsKey(productID)) {
+                                // Sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1
+                                int currentQuantity = ((Long) cartData.get(productID)).intValue();
+                                int newQuantity = currentQuantity + 1;
+
+                                userCartRef.update(productID, newQuantity)
+                                        .addOnSuccessListener(aVoid -> System.out.println("Số lượng đã được tăng thành công"))
+                                        .addOnFailureListener(e -> System.err.println("Lỗi khi tăng số lượng: " + e));
+                            } else {
+                                // Sản phẩm chưa tồn tại trong giỏ hàng, đặt số lượng là 1
+                                userCartRef.update(productID, 1)
+                                        .addOnSuccessListener(aVoid -> System.out.println("Sản phẩm đã được thêm vào giỏ hàng"))
+                                        .addOnFailureListener(e -> System.err.println("Lỗi khi thêm sản phẩm: " + e));
+                            }
+                        }
+                        else{
+                            // Document của người dùng chưa tồn tại
+                            userCartRef.set(Collections.singletonMap(productID, 1))
+                                    .addOnSuccessListener(aVoid -> System.out.println("Sản phẩm đã được thêm vào giỏ hàng"))
+                                    .addOnFailureListener(e -> System.err.println("Lỗi khi thêm sản phẩm: " + e));
+                        }
+                    } else {
+                        System.err.println("Lỗi khi lấy dữ liệu: " + task.getException());
+                    }
+                });
+            }
+        });
     }
+
     private void goToDetailProduct(Product p) {
         Intent intent = new Intent(context, DetailProductActivity.class);
         Bundle bundle =new Bundle();
@@ -107,6 +164,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
+        private ImageButton imbAddToCart;
         private ImageView img;
         private TextView name, cost, supplier;
         private CardView layout;
@@ -117,6 +175,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             cost=itemView.findViewById(R.id.cost);
             supplier=itemView.findViewById(R.id.supplier);
             layout=itemView.findViewById(R.id.cv_layout);
+            imbAddToCart = itemView.findViewById(R.id.imbAddToCart);
         }
 
 
