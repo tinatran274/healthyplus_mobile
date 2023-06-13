@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.CartActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.SuggestionResult"
             android:exported="true" />
         <activity
@@ -28,7 +31,7 @@
             android:name=".Activity.IngredientDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.IgredientActivity"
+            android:name=".Activity.IngredientActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.DetailProductActivity"

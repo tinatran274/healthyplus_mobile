@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.healthyplus.Activity.BasicInfo.GenderActivity;
+import com.example.healthyplus.Database.PasswordHasher;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -125,7 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                     edtPass.setError("Vui Lòng nhập mật khẩu.");
                     return;
                 }
-
+//                PasswordHasher passwordHasher = new PasswordHasher();
+//                pass = passwordHasher.hashPassword(pass);
 
                 auth.signInWithEmailAndPassword(name, pass)
                         .addOnCompleteListener(task -> {
@@ -133,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent toBasicInfo = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(toBasicInfo);
                     } else {
-                        Toast.makeText(LoginActivity.this, "Wrong email or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Sai email hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
                 });
 
