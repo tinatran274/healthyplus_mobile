@@ -1,0 +1,91 @@
+<!-- product_item.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <!-- Product Image -->
+    <ImageView
+        android:id="@+id/imvProductImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp">
+
+        <!-- Supplier Name -->
+        <TextView
+            android:id="@+id/txvSupplierName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Supplier Name"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+        <!-- Product Name -->
+        <TextView
+            android:id="@+id/txvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Supplier Name"
+            android:textSize="14sp" />
+
+        <!-- Price -->
+        <TextView
+            android:id="@+id/txvPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="19.99đ"
+            android:textSize="14sp" />
+
+        <!-- Quantity -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|left"
+            android:layout_marginTop="8dp">
+
+            <!-- Decrease Quantity Button -->
+            <ImageButton
+                android:id="@+id/imb_minus_button"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/minus" />
+
+            <!-- Quantity Display -->
+            <TextView
+                android:id="@+id/txvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="1"
+                android:textSize="14sp" />
+
+            <!-- Increase Quantity Button -->
+            <ImageButton
+                android:id="@+id/imb_plus_button"
+                android:layout_width="10dp"
+                android:layout_height="12dp"
+                android:background="@drawable/plus"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
