@@ -30,7 +30,7 @@ import java.util.List;
 public class SuggestionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SuggestionAdapter adapter = new SuggestionAdapter(this);
-    Button btnSearch;
+    Button btnSearch, btnBack;
     List<Ingredient> list = new ArrayList<>();
     List<Ingredient> filterList = new ArrayList<>();
     ArrayList<String> checkList = new ArrayList<>();
@@ -45,6 +45,7 @@ public class SuggestionActivity extends AppCompatActivity {
         findView();
         showIngre();
         btnSearch();
+        btnBack();
 
         svIngre.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -59,6 +60,16 @@ public class SuggestionActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void btnBack() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     private void filterList(String s) {
         filterList.clear();
         for(Ingredient ingredient: list){
@@ -107,5 +118,6 @@ public class SuggestionActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rec);
         btnSearch = findViewById(R.id.btnSearch);
         svIngre = findViewById(R.id.svIngre);
+        btnBack = findViewById(R.id.btnBackSuggestion);
     }
 }

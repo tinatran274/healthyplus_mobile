@@ -1,10 +1,16 @@
 package com.example.healthyplus.Activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +18,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.healthyplus.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControlCaloriesActivity extends AppCompatActivity {
 
@@ -22,6 +40,9 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     EditText editMorning, editNoon, editDinner, editSnack, editExercise;
     ProgressBar circleBar;
     SharedPreferences prefs;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +67,41 @@ public class ControlCaloriesActivity extends AppCompatActivity {
         circleBar=findViewById(R.id.progress_circular_bar);
         btnBackControlCalories=findViewById(R.id.btn_back_control_calories);
 
+        // get user calories when start the app
+        getDataWhenStart();
+
+
         // Set water and progress to 0 when new day
         prefs = getSharedPreferences("CaloriesPrefs", MODE_PRIVATE);
         int lastDay = prefs.getInt("lastDay", 0);
         int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 
+        // when new day
         if (currentDay != lastDay) {
+
+            //----------- push the calories of the previous date to firebase--------------------------------------------------------
+
+            // TODO push calories everytime user change the calories, not at the end of the day
+            LocalDate yesterdayDate  = LocalDate.now().minusDays(1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String formattedDate = yesterdayDate.format(formatter);
+
+            DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
+            DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("calories", Integer.valueOf(progressCalories.getText().toString()));
+
+            dailyDataRef.set(data)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                    });
+
+
+            // set calo to 0 when new day
             prefs.edit().putInt("caloriesConsumption", 0).apply();
             prefs.edit().putInt("lastDay", currentDay).apply();
             progressCalories.setText("0");
@@ -193,6 +243,35 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 Intent intent= new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void getDataWhenStart() {
+
+        LocalDate today  = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = today.format(formatter);
+
+        DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
+        DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
+        dailyDataRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map <String, Object> data = task.getResult().getData();
+                    System.out.println(formattedDate);
+                    System.out.println(data);
+                    if(data != null) {
+                        infMorning.setText(Long.toString((Long) data.get("breakfast")));
+                        infNoon.setText(Long.toString((Long) data.get("lunch")));
+                        infDinner.setText(Long.toString((Long) data.get("dinner")));
+                        infExercise.setText(Long.toString((Long) data.get("exercise")));
+                        infSnack.setText(Long.toString((Long) data.get("snack")));
+                        progressCalories.setText(Long.toString((Long) data.get("calories")));
+                    }
+                }
             }
         });
     }

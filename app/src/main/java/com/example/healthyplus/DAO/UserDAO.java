@@ -30,36 +30,4 @@ public class UserDAO extends BaseDAO {
         this.db.collection(collectionName).document(this.user.getUid()).set(user);
     }
 
-//    public void onGetUser(OnUserLoadedCallback onUserLoadedCallback){
-//        this.db.collection(collectionName).document(this.user.getUid()).get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            DocumentSnapshot documentSnapshot = task.getResult();
-//                                if(documentSnapshot != null){
-//                                    User
-//                                    userBase = documentSnapshot.toObject(User.class);
-//                                }
-//                        }
-//                    }
-//                });
-//    }
-//
-//    public interface OnUserLoadedCallback {
-//        void onUserLoaded(User user);
-//    }
-//
-//    public User getCurrentUser(){
-//        this.onGetUser(new OnUserLoadedCallback(){
-//            @Override
-//            public void onUserLoaded(User user) {
-//                // Do something with the loaded user object
-//                userBase = user;
-//            }
-//        });
-//        return userBase;
-//    }
-
-
 }

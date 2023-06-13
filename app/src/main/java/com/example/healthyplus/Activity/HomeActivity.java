@@ -3,7 +3,6 @@ package com.example.healthyplus.Activity;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,9 +13,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
-import com.example.healthyplus.Model.Dish;
 import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +32,8 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
-            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView ;
+            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView ;
+    ImageView imvCart;
     List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
     @Override
@@ -41,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        imvCart = findViewById(R.id.img_cart);
+        ingredientCardView = findViewById(R.id.cvIngre);
         recyclerView=findViewById(R.id.rec);
         userCardView=findViewById(R.id.cv_user);
         controlCaloriesCardView=findViewById(R.id.cv_control_calories);
@@ -76,6 +78,22 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
+        imvCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        ingredientCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), IngredientActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         suggestionCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
