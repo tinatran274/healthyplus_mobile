@@ -118,9 +118,12 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.CartViewHolde
         holder.imbMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                quantity[0] -= 1;
-                holder.txvQuantity.setText(String.valueOf(quantity[0]));
-                // -- TODO decrease product quantity in user's cart database
+                if(quantity[0] > 0){
+                    quantity[0] -= 1;
+                    holder.txvQuantity.setText(String.valueOf(quantity[0]));
+                    // -- TODO decrease product quantity in user's cart database
+                }
+
             }
         });
 

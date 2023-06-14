@@ -47,25 +47,8 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_calories);
-        addMorning=findViewById(R.id.btn_add_morning);
-        addNoon=findViewById(R.id.btn_add_noon);
-        addDinner=findViewById(R.id.btn_add_dinner);
-        addSnack=findViewById(R.id.btn_add_snack);
-        addExercise=findViewById(R.id.btn_add_exercise);
-        progressCalories=findViewById(R.id.progress);
-        maxCalories=findViewById(R.id.max);
-        editMorning=findViewById(R.id.edit_morning);
-        editNoon=findViewById(R.id.edit_noon);
-        editDinner=findViewById(R.id.edit_dinner);
-        editSnack=findViewById(R.id.edit_snack);
-        editExercise=findViewById(R.id.edit_exercise);
-        infMorning=findViewById(R.id.inf_morning);
-        infNoon=findViewById(R.id.inf_noon);
-        infDinner=findViewById(R.id.inf_dinner);
-        infSnack=findViewById(R.id.inf_snack);
-        infExercise=findViewById(R.id.inf_exercise);
-        circleBar=findViewById(R.id.progress_circular_bar);
-        btnBackControlCalories=findViewById(R.id.btn_back_control_calories);
+
+        findView();
 
         // get user calories when start the app
         getDataWhenStart();
@@ -123,97 +106,23 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 /Integer.valueOf(maxCalories.getText().toString().trim()));
 
 
-        addMorning.setOnClickListener(new View.OnClickListener() {
+        onClickAddMorning();
+        onClickAddLunch();
+        onClickAddDinner();
+        onClickAddSnack();
+        onClickAddExercise();
+
+        btnBackControlCalories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
-                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
-                int add = Integer.parseInt(String.valueOf(editMorning.getText()));
-                int inf = Integer.parseInt(String.valueOf(infMorning.getText()));
-                int circle=((progress+add)*100)/max;
-
-                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
-                int sumCalories = prefs.getInt("caloriesConsumption", 0);
-
-                progressCalories.setText(String.valueOf(sumCalories));
-                infMorning.setText(String.valueOf(inf+add ));
-                circleBar.setProgress(circle);
-                editMorning.setText("");
-                if((progress+add)>max) {
-                    int color = getResources().getColor(R.color.red);
-                    progressCalories.setTextColor(color);
-                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
-                }
+                Intent intent= new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
-        addNoon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
-                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
-                int add = Integer.parseInt(String.valueOf(editNoon.getText()));
-                int inf = Integer.parseInt(String.valueOf(infNoon.getText()));
-                int circle=((progress+add)*100)/max;
-                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
-                int sumCalories = prefs.getInt("caloriesConsumption", 0);
+    }
 
-                progressCalories.setText(String.valueOf(sumCalories));
-                infNoon.setText(String.valueOf(inf+add));
-                circleBar.setProgress(circle);
-                editNoon.setText("");
-                if((progress+add)>max) {
-                    int color = getResources().getColor(R.color.red);
-                    progressCalories.setTextColor(color);
-                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
-                }
-            }
-        });
-        addDinner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
-                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
-                int add = Integer.parseInt(String.valueOf(editDinner.getText()));
-                int inf = Integer.parseInt(String.valueOf(infDinner.getText()));
-                int circle=((progress+add)*100)/max;
-
-                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
-                int sumCalories = prefs.getInt("caloriesConsumption", 0);
-
-                progressCalories.setText(String.valueOf(sumCalories));
-                infDinner.setText(String.valueOf(inf+add));
-                circleBar.setProgress(circle);
-                editDinner.setText("");
-                if((progress+add)>max) {
-                    int color = getResources().getColor(R.color.red);
-                    progressCalories.setTextColor(color);
-                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
-                }
-            }
-        });
-        addSnack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
-                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
-                int add = Integer.parseInt(String.valueOf(editSnack.getText()));
-                int inf = Integer.parseInt(String.valueOf(infSnack.getText()));
-                int circle=((progress+add)*100)/max;
-
-                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
-                int sumCalories = prefs.getInt("caloriesConsumption", 0);
-
-                progressCalories.setText(String.valueOf(sumCalories));
-                infSnack.setText(String.valueOf(inf+add));
-                circleBar.setProgress(circle);
-                editSnack.setText("");
-                if((progress+add)>max) {
-                    int color = getResources().getColor(R.color.red);
-                    progressCalories.setTextColor(color);
-                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
-                }
-            }
-        });
+    private void onClickAddExercise() {
         addExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,14 +146,131 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 }
             }
         });
-        btnBackControlCalories.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void onClickAddSnack() {
+        addSnack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
-                finish();
+                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
+                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
+                int add = Integer.parseInt(String.valueOf(editSnack.getText()));
+                int inf = Integer.parseInt(String.valueOf(infSnack.getText()));
+                int circle=((progress+add)*100)/max;
+
+                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
+                int sumCalories = prefs.getInt("caloriesConsumption", 0);
+
+                progressCalories.setText(String.valueOf(sumCalories));
+                infSnack.setText(String.valueOf(inf+add));
+                circleBar.setProgress(circle);
+                editSnack.setText("");
+                if((progress+add)>max) {
+                    int color = getResources().getColor(R.color.red);
+                    progressCalories.setTextColor(color);
+                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+                }
             }
         });
+    }
+
+    private void onClickAddDinner() {
+        addDinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
+                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
+                int add = Integer.parseInt(String.valueOf(editDinner.getText()));
+                int inf = Integer.parseInt(String.valueOf(infDinner.getText()));
+                int circle=((progress+add)*100)/max;
+
+                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
+                int sumCalories = prefs.getInt("caloriesConsumption", 0);
+
+                progressCalories.setText(String.valueOf(sumCalories));
+                infDinner.setText(String.valueOf(inf+add));
+                circleBar.setProgress(circle);
+                editDinner.setText("");
+                if((progress+add)>max) {
+                    int color = getResources().getColor(R.color.red);
+                    progressCalories.setTextColor(color);
+                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+                }
+            }
+        });
+    }
+
+    private void onClickAddLunch() {
+        addNoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
+                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
+                int add = Integer.parseInt(String.valueOf(editNoon.getText()));
+                int inf = Integer.parseInt(String.valueOf(infNoon.getText()));
+                int circle=((progress+add)*100)/max;
+                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
+                int sumCalories = prefs.getInt("caloriesConsumption", 0);
+
+                progressCalories.setText(String.valueOf(sumCalories));
+                infNoon.setText(String.valueOf(inf+add));
+                circleBar.setProgress(circle);
+                editNoon.setText("");
+                if((progress+add)>max) {
+                    int color = getResources().getColor(R.color.red);
+                    progressCalories.setTextColor(color);
+                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+                }
+            }
+        });
+    }
+
+    private void onClickAddMorning() {
+        addMorning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
+                int max = Integer.parseInt(String.valueOf(maxCalories.getText()));
+                int add = Integer.parseInt(String.valueOf(editMorning.getText()));
+                int inf = Integer.parseInt(String.valueOf(infMorning.getText()));
+                int circle=((progress+add)*100)/max;
+
+                prefs.edit().putInt("caloriesConsumption", progress + add).apply();
+                int sumCalories = prefs.getInt("caloriesConsumption", 0);
+
+                progressCalories.setText(String.valueOf(sumCalories));
+                infMorning.setText(String.valueOf(inf+add ));
+                circleBar.setProgress(circle);
+                editMorning.setText("");
+                if((progress+add)>max) {
+                    int color = getResources().getColor(R.color.red);
+                    progressCalories.setTextColor(color);
+                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+                }
+            }
+        });
+    }
+
+    private void findView() {
+        addMorning=findViewById(R.id.btn_add_morning);
+        addNoon=findViewById(R.id.btn_add_noon);
+        addDinner=findViewById(R.id.btn_add_dinner);
+        addSnack=findViewById(R.id.btn_add_snack);
+        addExercise=findViewById(R.id.btn_add_exercise);
+        progressCalories=findViewById(R.id.progress);
+        maxCalories=findViewById(R.id.max);
+        editMorning=findViewById(R.id.edit_morning);
+        editNoon=findViewById(R.id.edit_noon);
+        editDinner=findViewById(R.id.edit_dinner);
+        editSnack=findViewById(R.id.edit_snack);
+        editExercise=findViewById(R.id.edit_exercise);
+        infMorning=findViewById(R.id.inf_morning);
+        infNoon=findViewById(R.id.inf_noon);
+        infDinner=findViewById(R.id.inf_dinner);
+        infSnack=findViewById(R.id.inf_snack);
+        infExercise=findViewById(R.id.inf_exercise);
+        circleBar=findViewById(R.id.progress_circular_bar);
+        btnBackControlCalories=findViewById(R.id.btn_back_control_calories);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -275,4 +301,6 @@ public class ControlCaloriesActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
