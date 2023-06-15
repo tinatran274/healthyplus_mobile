@@ -262,7 +262,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv4"
+                        android:id="@+id/txv4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
@@ -278,17 +278,17 @@
                         android:layout_marginTop="15dp"
                         android:text="1950"
                         android:textColor="@color/black_word"
-                        app:layout_constraintLeft_toRightOf="@+id/tv4"
+                        app:layout_constraintLeft_toRightOf="@+id/txv4"
                         app:layout_constraintTop_toBottomOf="@+id/tvi" />
                     <TextView
-                        android:id="@+id/tv5"
+                        android:id="@+id/txv5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:text="Giới tính: "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+                        app:layout_constraintTop_toBottomOf="@+id/txv4" />
                     <TextView
                         android:id="@+id/txv_gender"
                         android:layout_width="wrap_content"
@@ -297,17 +297,17 @@
                         android:layout_marginTop="15dp"
                         android:text="Nam"
                         android:textColor="@color/black_word"
-                        app:layout_constraintLeft_toRightOf="@+id/tv5"
-                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+                        app:layout_constraintLeft_toRightOf="@+id/txv5"
+                        app:layout_constraintTop_toBottomOf="@+id/txv4" />
                     <TextView
-                        android:id="@+id/tv6"
+                        android:id="@+id/txv6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:text="Chiều cao: "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+                        app:layout_constraintTop_toBottomOf="@+id/txv5" />
                     <TextView
                         android:id="@+id/txv_height"
                         android:layout_width="wrap_content"
@@ -316,8 +316,8 @@
                         android:layout_marginTop="15dp"
                         android:text="160"
                         android:textColor="@color/black_word"
-                        app:layout_constraintLeft_toRightOf="@+id/tv6"
-                        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+                        app:layout_constraintLeft_toRightOf="@+id/txv6"
+                        app:layout_constraintTop_toBottomOf="@+id/txv5" />
                     <TextView
                         android:id="@+id/tv7"
                         android:layout_width="wrap_content"
@@ -326,7 +326,7 @@
                         android:text="Cân nặng: "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv6" />
+                        app:layout_constraintTop_toBottomOf="@+id/txv6" />
                     <TextView
                         android:id="@+id/txv_weight"
                         android:layout_width="wrap_content"
@@ -336,7 +336,7 @@
                         android:text="60"
                         android:textColor="@color/black_word"
                         app:layout_constraintLeft_toRightOf="@+id/tv7"
-                        app:layout_constraintTop_toBottomOf="@+id/tv6" />
+                        app:layout_constraintTop_toBottomOf="@+id/txv6" />
                     <TextView
                         android:id="@+id/tv8"
                         android:layout_width="wrap_content"

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <CheckBox
+        android:id="@+id/cb_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Thứ 2" />
+
+    <CheckBox
+        android:id="@+id/cb_tue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Thứ 3" />
+
+    <CheckBox
+        android:id="@+id/cb_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Thứ 4" />
+
+    <CheckBox
+        android:id="@+id/cb_thu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Thứ 5" />
+
+
+    <CheckBox
+        android:id="@+id/cb_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Thứ 6" />
+
+    <CheckBox
+        android:id="@+id/cb_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Thứ 7" />
+    <CheckBox
+        android:id="@+id/cb_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:paddingLeft="20dp"
+        android:text="Chủ nhật"
+ />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/green_main"
+            android:text="Hủy bỏ"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green_main"
+            android:text="Xác nhận"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
 import com.example.healthyplus.Model.Product;
+import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +32,7 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button btnBackProduct;
+    User u;
 
     List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
@@ -39,10 +41,9 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        db = FirebaseFirestore.getInstance();
-
         btnBackProduct=findViewById(R.id.btn_back_product);
         recyclerView=findViewById(R.id.rec);
+
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);

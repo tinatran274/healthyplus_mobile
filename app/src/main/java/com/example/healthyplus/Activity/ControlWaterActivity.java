@@ -2,6 +2,7 @@ package com.example.healthyplus.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,6 +39,7 @@ public class ControlWaterActivity extends AppCompatActivity {
     TextView progressWater, maxWater, infWater;
     EditText editWater;
     ProgressBar circleWaterBar;
+    CardView cardView;
     SharedPreferences prefs;
 
     @Override
@@ -55,6 +57,7 @@ public class ControlWaterActivity extends AppCompatActivity {
         btn50=findViewById(R.id.btn_50);
         btn100=findViewById(R.id.btn_100);
         btn200=findViewById(R.id.btn_200);
+        cardView=findViewById(R.id.cv_notify);
 
         // Set water and progress to 0 when new day
         prefs = getSharedPreferences("WaterPrefs", MODE_PRIVATE);
@@ -66,6 +69,7 @@ public class ControlWaterActivity extends AppCompatActivity {
             prefs.edit().putInt("lastDay", currentDay).apply();
             progressWater.setText("0");
             circleWaterBar.setProgressDrawable(getDrawable(R.drawable.circle_red));
+
         }
 
         // When open activity, Set water to red if it pass the maximum
@@ -177,7 +181,13 @@ public class ControlWaterActivity extends AppCompatActivity {
             }
         });
 
-
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         btnBackControlWater.setOnClickListener(new View.OnClickListener() {
