@@ -105,25 +105,19 @@ public class NotificationActivity extends AppCompatActivity {
         spHour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplication(), "Bạn đã chọn:"+hour[i], Toast.LENGTH_LONG).show();
                 txvHour.setText(hour[i]);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         spMinute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplication(), "Bạn đã chọn :"+minute[i], Toast.LENGTH_LONG).show();
                 txvMinute.setText(minute[i]);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         constraintLayout.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +197,7 @@ public class NotificationActivity extends AppCompatActivity {
                 //calendar.set(Calendar.MILLISECOND,0);
                 //setAlarm();
 
-                /*Query query1 = db.collection("alarm").whereEqualTo("hour", (String) txvHour.getText());
+                Query query1 = db.collection("alarm").whereEqualTo("name", (String) txvHour.getText()+txvMinute.getText());
                 AggregateQuery countQuery1 = query1.count();
                 countQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                     @Override
@@ -212,38 +206,24 @@ public class NotificationActivity extends AppCompatActivity {
                             // Count fetched successfully
                             AggregateQuerySnapshot snapshot = task.getResult();
                             Log.e(TAG, "Count: " + snapshot.getCount());
-                            countDoc+=1;
+                            if(snapshot.getCount()>0){
+                                Toast.makeText(getApplication(), "Bạn đã thiết lập thông báo lúc "+txvHour.getText()+":"+txvMinute.getText(), Toast.LENGTH_LONG).show();
+                            }else {
+                                DocumentReference doc = db.collection("alarm").document();
+                                Alarm alarm = new Alarm("", (String) txvHour.getText()+ txvMinute.getText()
+                                        , currentUser.getUid()
+                                        , (String) txvHour.getText()
+                                        , (String) txvMinute.getText()
+                                        , true, day);
+                                alarm.setId(doc.getId());
+                                doc.set(alarm);
+                            }
+                            finish();
                         } else {
                             Log.e(TAG, "Count failed: ", task.getException());
                         }
                     }
                 });
-                Query query2 = db.collection("alarm").whereEqualTo("minute", (String) txvMinute.getText());
-                AggregateQuery countQuery2 = query2.count();
-                countQuery2.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            // Count fetched successfully
-                            AggregateQuerySnapshot snapshot = task.getResult();
-                            Log.e(TAG, "Count: " + snapshot.getCount());
-                            countDoc+=1;
-                        } else {
-                            Log.e(TAG, "Count failed: ", task.getException());
-                        }
-                    }
-                });
-*/
-                if(countDoc==2){
-                    Toast.makeText(getApplication(), "Bạn đã thiết lập thông báo lúc "+txvHour.getText()+":"+txvMinute.getText(), Toast.LENGTH_LONG).show();
-                }else {
-                    DocumentReference doc = db.collection("alarm").document();
-                    Alarm alarm = new Alarm("", currentUser.getUid(), (String) txvHour.getText(), (String) txvMinute.getText(),
-                            true, day);
-                    alarm.setId(doc.getId());
-                    doc.set(alarm);
-                }
-                finish();
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {

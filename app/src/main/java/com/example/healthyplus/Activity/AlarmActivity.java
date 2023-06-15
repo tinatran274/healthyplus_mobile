@@ -63,6 +63,7 @@ public class AlarmActivity extends AppCompatActivity {
 
 
         db.collection("alarm")
+                .whereEqualTo("userId", currentUser.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

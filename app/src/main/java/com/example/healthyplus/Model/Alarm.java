@@ -5,14 +5,17 @@ import java.util.ArrayList;
 
 public class Alarm implements Serializable {
     private String id;
+
+    private String name;
     private String userId;
     private String hour;
     private String minute;
     private boolean status;
     private ArrayList<Boolean> day;
 
-    public Alarm(String id, String userId, String hour, String minute, boolean status, ArrayList<Boolean> day) {
+    public Alarm(String id, String name ,String userId, String hour, String minute, boolean status, ArrayList<Boolean> day) {
         this.id = id;
+        this.name = name;
         this.userId = userId;
         this.hour = hour;
         this.minute = minute;
@@ -30,6 +33,13 @@ public class Alarm implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getUserId() {
         return userId;
     }
@@ -74,6 +84,7 @@ public class Alarm implements Serializable {
     public String toString() {
         return "Alarm{" +
                 "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", userId='" + userId + '\'' +
                 ", hour='" + hour + '\'' +
                 ", minute='" + minute + '\'' +

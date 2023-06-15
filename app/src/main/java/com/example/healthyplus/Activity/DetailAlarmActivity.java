@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,8 @@ import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -127,10 +130,8 @@ public class DetailAlarmActivity extends AppCompatActivity {
         spHour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplication(), "Bạn đã chọn:"+hour[i], Toast.LENGTH_LONG).show();
                 txvHour.setText(hour[i]);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 txvHour.setText(alarm.getHour());
@@ -139,16 +140,13 @@ public class DetailAlarmActivity extends AppCompatActivity {
         spMinute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplication(), "Bạn đã chọn :"+minute[i], Toast.LENGTH_LONG).show();
                 txvMinute.setText(minute[i]);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 txvMinute.setText(alarm.getMinute());
             }
         });
-
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,16 +225,35 @@ public class DetailAlarmActivity extends AppCompatActivity {
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Alarm alarmChange = new Alarm((String)alarm.getId(), (String)alarm.getUserId(), (String) txvHour.getText(), (String) txvMinute.getText(),
-                        true, day);
-                db.collection("alarm").document(alarm.getId()).set(alarmChange);
-                finish();
+                Query query1 = db.collection("alarm").whereEqualTo("name", (String) txvHour.getText()+txvMinute.getText());
+                AggregateQuery countQuery1 = query1.count();
+                countQuery1.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Count fetched successfully
+                            AggregateQuerySnapshot snapshot = task.getResult();
+                            Log.e(TAG, "Count: " + snapshot.getCount());
+                            if(snapshot.getCount()>0){
+                                Toast.makeText(getApplication(), "Bạn đã thiết lập thông báo lúc "+txvHour.getText()+":"+txvMinute.getText(), Toast.LENGTH_LONG).show();
+                            }else {
+                                Alarm alarmChange = new Alarm(alarm.getId(), alarm.getName(), (String)alarm.getUserId(), (String) txvHour.getText(), (String) txvMinute.getText(),
+                                        true, day);
+                                db.collection("alarm").document(alarm.getId()).set(alarmChange);
+                            }
+                            finish();
+                        } else {
+                            Log.e(TAG, "Count failed: ", task.getException());
+                        }
+                    }
+                });
 
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 db.collection("alarm").document(alarm.getId())
                         .delete()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
