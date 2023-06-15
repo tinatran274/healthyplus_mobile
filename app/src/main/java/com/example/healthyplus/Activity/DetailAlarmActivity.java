@@ -235,7 +235,22 @@ public class DetailAlarmActivity extends AppCompatActivity {
                             AggregateQuerySnapshot snapshot = task.getResult();
                             Log.e(TAG, "Count: " + snapshot.getCount());
                             if(snapshot.getCount()>0){
-                                Toast.makeText(getApplication(), "Bạn đã thiết lập thông báo lúc "+txvHour.getText()+":"+txvMinute.getText(), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplication(), "Bạn đã thiết lập thông báo lúc "+txvHour.getText()+":"+txvMinute.getText(), Toast.LENGTH_LONG).show();
+                                db.collection("alarm").document(alarm.getId())
+                                        .update("day", day)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
                             }else {
                                 Alarm alarmChange = new Alarm(alarm.getId(), alarm.getName(), (String)alarm.getUserId(), (String) txvHour.getText(), (String) txvMinute.getText(),
                                         true, day);
