@@ -107,4 +107,14 @@ public class User implements Serializable {
         }
         return (int) Math.floor(bmr*this.exerciseFrequency* 100)/100;
     }
+    public int WaterCal(){
+        int water = 0;
+        if(this.gender == 1){
+            water += 35*this.weight + (exerciseFrequency + 0.5)*500;
+        }
+        else {
+            water += 31*this.weight + (exerciseFrequency + 0.5)*500;
+        }
+        return water;
+    }
 }

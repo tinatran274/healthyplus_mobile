@@ -9,10 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.CompoundButton;
@@ -21,14 +23,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthyplus.Activity.LoginActivity;
 import com.example.healthyplus.Model.Exercise;
+import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,8 +50,14 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
 import android.os.Handler;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -56,8 +74,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     Thread timerThread;
     int hour, min, sec, milliSec;
     long tMilliSec, tStart, tStop, tBuff, tUpdate = 0L;
+    String uID;
+    FirebaseFirestore db;
     public ExerciseAdapter(Context context) {
         this.context = context;
+        db = FirebaseFirestore.getInstance();
+        uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @NonNull
@@ -110,48 +132,54 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     private void showTimerDialog(int caloriesPerHour) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-        builder1.setMessage("Bạn muốn nhập thời gian hay bấm giờ?");
 
+        builder1.setMessage("Bạn muốn nhập thời gian hay bấm giờ?");
         builder1.setPositiveButton("Nhập thời gian",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
-                        builder2.setCancelable(true);
-                        // Khởi tạo layout cho dialog
-                        LayoutInflater inflater = LayoutInflater.from(context);
-                        View dialogView = inflater.inflate(R.layout.dialog_add_time, null);
+                        LayoutInflater builder2 = LayoutInflater.from(context);
+                        View dialogView = builder2.inflate(R.layout.dialog_add_time, null);
+                        AlertDialog dialog2 = new AlertDialog.Builder(context).create();
 
+                        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog2.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+                        dialog2.setView(dialogView);
 
                         EditText edtCalo = dialogView.findViewById(R.id.edtTime);
+                        TextView txvTotal = dialogView.findViewById(R.id.txvTotal);
+                        Button btnCal  = dialogView.findViewById(R.id.btnCalCalo),
+                                btnSave = dialogView.findViewById(R.id.btnSave);
 
-                        builder2.setPositiveButton("Tính kết quả",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
+                        btnSave.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(edtCalo.getText().toString().isEmpty()){
+                                    edtCalo.setError("Vui lòng nhập thời gian");
+                                }
+                                else {
+                                    int calo = (int)caloriesPerHour * Integer.parseInt(edtCalo.getText().toString()) /60;
+                                    setExercise(calo);
+                                    Toast.makeText(context, "\n" +
+                                            "Đã lưu", Toast.LENGTH_SHORT).show();
+                                }
+                                dialogInterface.cancel();
+                            }
+                        });
 
-                                        if(edtCalo.getText().toString().isEmpty()){
-                                            edtCalo.setError("Vui lòng nhập thời gian");
-                                        }
-                                        else {
-                                            int calo = (int)caloriesPerHour * Integer.valueOf(edtCalo.getText().toString()) /60;
-                                            Toast.makeText(context, calo + "", Toast.LENGTH_SHORT).show();
-                                            dialogInterface.cancel();
-                                        }
-
-                                    }
-                                });
-                        builder2.setNegativeButton("Hủy",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
-
-                        builder2.setView(dialogView);
-                        AlertDialog dialog2 = builder2.create();
+                        btnCal.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(edtCalo.getText().toString().isEmpty()){
+                                    edtCalo.setError("Vui lòng nhập thời gian");
+                                }
+                                else {
+                                    int calo = (int)caloriesPerHour * Integer.parseInt(edtCalo.getText().toString()) /60;
+                                    txvTotal.setText(String.format(Locale.getDefault(), "%d", calo));
+                                }
+                            }
+                        });
                         dialog2.show();
                     }
                 });
@@ -184,12 +212,17 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        Toast.makeText(context, txvCalorie.getText().toString(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "\n" +
+                                                "Đã lưu", Toast.LENGTH_SHORT).show();
+                                        int calo = Integer.valueOf(txvCalorie.getText().toString());
+                                        setExercise(calo);
                                         dialogInterface.cancel();
                                     }
                                 });
                         builder.setView(dialogView);
                         AlertDialog dialog = builder.create();
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                         dialog.show();
                         Runnable runnable = new Runnable() {
                             @Override
@@ -256,6 +289,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                     }
                 });
         AlertDialog dialog1 = builder1.create();
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
         dialog1.show();
 
     }
@@ -282,5 +317,50 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             txvExercise = itemView.findViewById(R.id.txvExercise);
             txvCalories = itemView.findViewById(R.id.txvCalories);
         }
+    }
+
+    private void setExercise(int calo) {
+        LocalDate today  = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = today.format(formatter);
+
+        DocumentReference userStatRef = db.collection("statistic").document(uID);
+        DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
+
+        db.runTransaction(new Transaction.Function<Void>() {
+            @Nullable
+            @Override
+            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                DocumentSnapshot snapshot = transaction.get(dailyDataRef);
+                if(snapshot.exists()){
+                    if(snapshot.getLong("calories") == null){
+                        transaction.set(dailyDataRef, new HashMap<String, Object>() {{
+                            put("calories", -calo);
+                        }}, SetOptions.merge());
+                    }
+                    else{
+                        long total = snapshot.getLong("calories");
+                        long updateTotal = total - calo;
+                        transaction.update(dailyDataRef, "calories", updateTotal);
+                    }
+                    if(snapshot.getLong("exercise") == null){
+                        transaction.set(dailyDataRef, new HashMap<String, Object>() {{
+                            put("exercise", calo);
+                        }}, SetOptions.merge());
+                    }
+                    else{
+                        long totalCalo = snapshot.getLong("exercise");
+                        transaction.update(dailyDataRef, "exercise", totalCalo + calo);
+                    }
+                }
+                return null;
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                });
     }
 }

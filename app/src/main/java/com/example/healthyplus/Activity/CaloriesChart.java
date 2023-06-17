@@ -397,12 +397,11 @@ public class CaloriesChart extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for(DocumentSnapshot doc: task.getResult().getDocuments()){
-                        date_label.add(doc.getId());
-                        System.out.println(doc.getId());
                         Map <String, Object> data = doc.getData();
                         if(data != null){
                             if(data.containsKey("calories"))
                             {
+                                date_label.add(doc.getId());
                                 calories.add((long) data.get("calories"));
                                 System.out.println(doc.getId());
                             }
