@@ -25,6 +25,10 @@
             android:name=".Activity.NotificationActivity"
             android:exported="true" />
         <activity
+            android:name=".Activity.CaloriesChart"
+            android:exported="false" />
+
+        <activity
             android:name=".Activity.CartActivity"
             android:exported="true" />
         <activity

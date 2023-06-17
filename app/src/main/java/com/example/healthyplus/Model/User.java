@@ -9,7 +9,7 @@ public class User implements Serializable {
     private int age;
     private int height;
     private int weight;
-    private int aim; // 0:Tang 1:Giu 2:Giam
+    private int aim; // 2:Tang 1:Giu 0:Giam
     private int exerciseFrequency; // 0:Khong 1:Nhe 2:Vua 3:Nang
 
     public User() {
@@ -98,13 +98,13 @@ public class User implements Serializable {
     public float BMICal() {
         return (float) Math.floor(this.weight/(this.height*0.02)* 100)/100;
     }
-    public float TTDECal() {
+    public int TTDECal() {
         float bmr;
         if(this.gender==0) {
             bmr = (float) (88.362+(13.397*this.weight)+(4.799*this.height)-(5.677*this.age));
         } else {
             bmr = (float) (447.593+(9.247*this.weight)+(3.098 *this.height)-(4.33*this.age));
         }
-        return (float) Math.floor(bmr*this.exerciseFrequency* 100)/100;
+        return (int) Math.floor(bmr*this.exerciseFrequency* 100)/100;
     }
 }
