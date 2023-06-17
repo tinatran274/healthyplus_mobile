@@ -49,8 +49,35 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginBase">
+                <TextView
+                    android:id="@+id/txvDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="14-09-2003"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_main"
+                    app:layout_constraintBottom_toTopOf="@id/progress_circular_bar"
+                    app:layout_constraintEnd_toStartOf="@id/imvNextDay"
+                    />
+                <ImageView
+                    android:id="@+id/imvPreviousDay"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/txvDay"
+                    android:background="@drawable/baseline_arrow_back_ios_24"
+                    />
+                <ImageView
+                    android:id="@+id/imvNextDay"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/baseline_arrow_forward_ios_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/progress_circular_bar"
+                    />
                 <ProgressBar
                     android:id="@+id/progress_circular_bar"
                     android:layout_width="350dp"
