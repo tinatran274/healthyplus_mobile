@@ -92,6 +92,7 @@ public class AlarmActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                 startActivity(intent);
+                alarmAdapter.notifyDataSetChanged();
             }
         });
 

@@ -7,13 +7,6 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <CheckBox
-        android:id="@+id/cb_choose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        />
-
     <!-- Product Image -->
     <ImageView
         android:id="@+id/imvProductImage"
@@ -62,41 +55,23 @@
             android:gravity="center|left"
             android:layout_marginTop="8dp">
 
-            <!-- Decrease Quantity Button -->
-            <ImageButton
-                android:id="@+id/imb_minus_button"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:background="@drawable/minus" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="Số lượng:" />
 
             <!-- Quantity Display -->
             <TextView
                 android:id="@+id/txvQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
                 android:text="1"
                 android:textSize="14sp" />
-
-            <!-- Increase Quantity Button -->
-            <ImageButton
-                android:id="@+id/imb_plus_button"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:background="@drawable/plus"
-                android:gravity="center"
-                android:textSize="18sp" />
 
         </LinearLayout>
 
     </LinearLayout>
-    <ImageView
-        android:id="@+id/img_delete"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="10dp"
-        app:srcCompat="@drawable/img_delete"
-        android:scaleType="fitCenter"/>
+
 
 </LinearLayout>

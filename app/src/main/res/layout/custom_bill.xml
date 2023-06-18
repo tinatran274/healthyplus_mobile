@@ -1,0 +1,76 @@
+<!-- product_item.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:id="@+id/ln"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mã hóa đơn: "
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <TextView
+            android:id="@+id/txv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2IIvDWeNziXWAEgC5lTc"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/txv1"/>
+        <!-- Product Name -->
+        <TextView
+            android:id="@+id/txv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24/06/2023"
+            android:textSize="10sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Price -->
+        <TextView
+            android:id="@+id/txv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thành tiền: "
+            android:paddingTop="8dp"
+            android:textSize="14sp"
+            app:layout_constraintRight_toLeftOf="@id/txv_price"
+            app:layout_constraintTop_toBottomOf="@+id/txv_date"/>
+        <TextView
+            android:id="@+id/txv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green_main"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:text="19.99đ"
+            android:textSize="14sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txv_date"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="#CFCFCF"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="1dp"/>
+    <TextView
+        android:id="@+id/txv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#298EBC"
+        android:text="Đơn hàng đã được giao thành công"/>
+
+</LinearLayout>

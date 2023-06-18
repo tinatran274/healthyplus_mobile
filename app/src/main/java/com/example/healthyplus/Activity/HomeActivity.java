@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
-            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView ;
+            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView, bill;
     ImageView imvCart;
     List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
@@ -52,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         dishCardView=findViewById(R.id.cv_dish);
         exerciseCardView=findViewById(R.id.cv_exercise);
         suggestionCardView = findViewById(R.id.cv_suggestion);
+        bill = findViewById(R.id.cv_bill);
 
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
@@ -157,6 +159,13 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent=new Intent(getApplicationContext(), DishActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        bill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), BillActivity.class);
+                startActivity(intent);
             }
         });
 
