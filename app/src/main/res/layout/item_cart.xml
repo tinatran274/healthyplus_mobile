@@ -1,15 +1,17 @@
 <!-- product_item.xml -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center"
     android:padding="16dp">
 
     <CheckBox
+        android:id="@+id/cb_choose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
         />
 
     <!-- Product Image -->
@@ -47,6 +49,8 @@
             android:id="@+id/txvPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/green_main"
+            android:textStyle="bold"
             android:text="19.99đ"
             android:textSize="14sp" />
 
@@ -61,8 +65,8 @@
             <!-- Decrease Quantity Button -->
             <ImageButton
                 android:id="@+id/imb_minus_button"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:background="@drawable/minus" />
 
             <!-- Quantity Display -->
@@ -70,16 +74,16 @@
                 android:id="@+id/txvQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:text="1"
                 android:textSize="14sp" />
 
             <!-- Increase Quantity Button -->
             <ImageButton
                 android:id="@+id/imb_plus_button"
-                android:layout_width="10dp"
-                android:layout_height="12dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:background="@drawable/plus"
                 android:gravity="center"
                 android:textSize="18sp" />
@@ -87,5 +91,12 @@
         </LinearLayout>
 
     </LinearLayout>
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        app:srcCompat="@drawable/img_delete"
+        android:scaleType="fitCenter"/>
 
 </LinearLayout>

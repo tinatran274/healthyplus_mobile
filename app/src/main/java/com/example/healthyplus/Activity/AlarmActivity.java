@@ -62,25 +62,6 @@ public class AlarmActivity extends AppCompatActivity {
         recyclerView.setAdapter(alarmAdapter);
 
 
-        db.collection("alarm")
-                .whereEqualTo("userId", currentUser.getUid())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Alarm a = document.toObject(Alarm.class);
-                                list.add(a);
-                                alarmAdapter.notifyDataSetChanged();
-                                Log.e(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,9 +73,34 @@ public class AlarmActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                 startActivity(intent);
+                alarmAdapter.notifyDataSetChanged();
             }
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.clear();
+        db.collection("alarm")
+                .whereEqualTo("userId", currentUser.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Alarm a = document.toObject(Alarm.class);
+                                list.add(a);
+                                Log.e(TAG, document.getId() + " => " + document.getData());
+                            }
+                            alarmAdapter.notifyDataSetChanged();
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }

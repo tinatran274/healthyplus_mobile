@@ -295,7 +295,8 @@
                     app:layout_column="3"
                     app:layout_columnWeight="1"
                     app:layout_row="1"
-                    app:layout_rowWeight="1"></androidx.cardview.widget.CardView>
+                    app:layout_rowWeight="1">
+                </androidx.cardview.widget.CardView>
             </androidx.gridlayout.widget.GridLayout>
 
             <View
@@ -306,7 +307,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Danh mục"
+                android:text="Mua sắm"
                 android:textSize="16dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="20dp"
@@ -321,9 +322,9 @@
                 android:layout_height="wrap_content">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_product"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_column="0"
+                    app:layout_column="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
                     app:layout_rowWeight="1">
@@ -350,9 +351,9 @@
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_technology_product"
-                    android:layout_width="30dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_column="1"
+                    app:layout_column="2"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
                     app:layout_rowWeight="1">
@@ -378,12 +379,33 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_column="2"
+                    app:layout_column="0"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
-                    app:layout_rowWeight="1"></androidx.cardview.widget.CardView>
+                    app:layout_rowWeight="1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginBottom="5dp"
+                            app:layout_column="0"
+                            app:layout_row="0"
+                            app:srcCompat="@drawable/img_history" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đơn mua" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

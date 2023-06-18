@@ -222,14 +222,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:backgroundTint="@color/green_main"
                     android:text="Thay đổi"
+                    android:background="@drawable/button_background"
                     android:textColor="@color/white" />
                 <Button
                     android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/button_background"
                     android:backgroundTint="@color/green_main"
                     android:text="Xóa"
                     android:textColor="@color/white" />

@@ -10,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -32,7 +30,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.io.Serializable;
 import java.util.List;
 
-public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
+public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>  {
+
+    public interface OnDatasetChangeListener {
+        void onDatasetChanged();
+    }
     private Context context;
     List<Alarm> alarmList;
     FirebaseStorage storage;
@@ -41,11 +43,16 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     {
         this.context=context;
     }
+    private OnDatasetChangeListener datasetChangeListener;
+    public void setOnDatasetChangeListener(OnDatasetChangeListener listener) {
+        this.datasetChangeListener = listener;
+    }
     public void setData (List<Alarm> list)
     {
         this.alarmList=list;
         notifyDataSetChanged();
     }
+
 
     @NonNull
     @Override

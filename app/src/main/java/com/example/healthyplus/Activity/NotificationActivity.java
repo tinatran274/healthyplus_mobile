@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.healthyplus.Adapter.AlarmAdapter;
 import com.example.healthyplus.Model.Alarm;
 import com.example.healthyplus.R;
 
@@ -51,7 +52,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends AppCompatActivity  {
 
     private Spinner spHour, spMinute;
     Button btnSet, btnBack, btnCancel;
@@ -65,6 +66,8 @@ public class NotificationActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseUser currentUser;
     int countDoc=0;
+
+    private AlarmAdapter adapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -266,5 +269,6 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
     }
+
 
 }

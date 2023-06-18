@@ -48,7 +48,16 @@ public class DetailProductActivity extends AppCompatActivity {
         buttonBack = findViewById(R.id.btn_back);
 
         name.setText(product.getName());
-        cost.setText(product.getCost());
+        String numString = String.valueOf(product.getCost());
+        String str = "";
+        for (int i = 0; i < numString.length() ; i++){
+            if((numString.length() - i - 1) % 3 == 0 && i < numString.length()-1){
+                str += Character.toString(numString.charAt(i)) + ".";
+            }else{
+                str += Character.toString(numString.charAt(i));
+            }
+        }
+        cost.setText(str);
         supplier.setText(product.getSupplierName());
 
         storage = FirebaseStorage.getInstance();

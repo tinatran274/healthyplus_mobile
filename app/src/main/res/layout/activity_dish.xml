@@ -43,15 +43,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="#F2F2F2" />
+
+
         <Button
             android:id="@+id/btnYeuThich"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="Yêu thích"
-            android:textAllCaps="false"
-            />
-
+            android:textAllCaps="false" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec"
