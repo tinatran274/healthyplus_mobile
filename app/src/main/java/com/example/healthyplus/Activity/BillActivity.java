@@ -63,9 +63,6 @@ public class BillActivity extends AppCompatActivity {
         adapter = new BillAdapter(this);
         cancelBillAdapter = new CancelBillAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        getListBill();
-
-        getListCancelBill();
         adapter.setList(list);
         recyclerView.setAdapter(adapter);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +90,16 @@ public class BillActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getListBill();
+        getListCancelBill();
+    }
+
     private void getListBill() {
+        list.clear();
         DocumentReference docRef = db.collection("order").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -141,6 +147,7 @@ public class BillActivity extends AppCompatActivity {
 
 
     private void getListCancelBill() {
+        cancelList.clear();
         DocumentReference docRef = db.collection("order").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

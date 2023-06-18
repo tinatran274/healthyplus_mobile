@@ -12,7 +12,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:paddingBottom="20dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -42,11 +43,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ten mon an"
-                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black_word"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:textStyle="bold"
                     />
 
                 <ToggleButton
@@ -66,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="4"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 >
 
@@ -118,6 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="4"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 >
 

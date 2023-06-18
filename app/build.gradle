@@ -63,5 +63,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
 
     implementation 'com.github.orbitalsonic:Water-Wave-Animation-Android:1.0.0'
-    //implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
+    implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
 }
