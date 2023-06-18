@@ -4,12 +4,18 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,10 +60,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
+import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 public class CaloriesChart extends AppCompatActivity {
-    BarChart caloriesChart;
+    CardView cv1Calo, cv4Calo;
+    LinearLayout cv2Calo, cv3Calo ;
     User u;
     FirebaseFirestore db;
     DocumentReference userStatRef;
@@ -75,6 +83,7 @@ public class CaloriesChart extends AppCompatActivity {
     Button btnBack;
     int aim;
     long tdee;
+    int animationDuration = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +117,13 @@ public class CaloriesChart extends AppCompatActivity {
         userStatRef = db.collection("statistic").document(u.getId());
         collectionRef = userStatRef.collection("dailyData");
 
+//        new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                setAnimation();
+//            }, 50);
+
         getDataStringList(date_label ->{
             populateChart();
+            setAnimation();
             showLongestStreak(date_label);
             showTotalDate_CurrentStreak();
             showStats();
@@ -117,6 +131,46 @@ public class CaloriesChart extends AppCompatActivity {
         });
 
     }
+
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        if(hasFocus) setAnimation();
+//    }
+
+    private void setAnimation() {
+
+
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(cv1Calo, "translationX", -cv1Calo.getWidth(), 0);
+        animator1.setDuration(animationDuration);
+        animator1.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(cv2Calo, "translationX", -cv2Calo.getWidth(), 0);
+        animator2.setDuration(animationDuration);
+        animator2.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        ObjectAnimator animator3 = ObjectAnimator.ofFloat(cv3Calo, "translationX", -cv3Calo.getWidth(), 0);
+        animator3.setDuration(animationDuration);
+        animator3.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        ObjectAnimator animator4 = ObjectAnimator.ofFloat(cv4Calo, "translationX", -cv4Calo.getWidth(), 0);
+        animator4.setDuration(animationDuration);
+        animator4.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        animator1.start();
+
+        new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
+            animator2.start();
+        }, 200);
+
+        new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
+            animator3.start();
+        }, 400);
+
+        new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
+            animator4.start();
+        }, 600);
+    }
+
 
     private void showTotalDate_CurrentStreak() {
         int totalDate = date_label.size();
@@ -136,7 +190,7 @@ public class CaloriesChart extends AppCompatActivity {
             return localDate1.compareTo(localDate2);
         });
 
-        LocalDate previousDate = LocalDate.now().minusDays(1);
+        LocalDate previousDate = LocalDate.now();
         String preDate = formatter.format(previousDate);
         int index = -1;
         if(date_label.contains(preDate)) index = date_label.indexOf(preDate);
@@ -144,7 +198,11 @@ public class CaloriesChart extends AppCompatActivity {
         int length = 0;
 
         if(index == -1){
-            return 0;
+            String tempPreDate = formatter.format(previousDate.minusDays(1));
+            if(date_label.contains(tempPreDate))
+                index = date_label.indexOf(preDate);
+            else
+                return 0;
         }
 
         for (int i = index - 1; i >= 0; i--) {
@@ -405,7 +463,6 @@ public class CaloriesChart extends AppCompatActivity {
                                 calories.add((long) data.get("calories"));
                                 System.out.println(doc.getId());
                             }
-
                         }
                     }
                     callBack.onCallBack(date_label);
@@ -428,6 +485,16 @@ public class CaloriesChart extends AppCompatActivity {
         txvBigTdee = findViewById(R.id.txvBigTdee);
         txvSmallTdee = findViewById(R.id.txvSmallTdee);
         btnBack = findViewById(R.id.btnBackChart);
+        cv1Calo = findViewById(R.id.cv1Calo);
+        cv2Calo = findViewById(R.id.cv2Calo);
+        cv3Calo = findViewById(R.id.cv3Calo);
+        cv4Calo = findViewById(R.id.cv4Calo);
+
+        cv1Calo.setTranslationX(-10000);
+        cv2Calo.setTranslationX(-10000);
+        cv3Calo.setTranslationX(-10000);
+        cv4Calo.setTranslationX(-10000);
+
     }
 
 }

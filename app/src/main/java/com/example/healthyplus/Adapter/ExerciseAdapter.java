@@ -32,8 +32,10 @@ import com.example.healthyplus.Activity.LoginActivity;
 import com.example.healthyplus.Model.Exercise;
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -160,9 +162,9 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                                 }
                                 else {
                                     int calo = (int)caloriesPerHour * Integer.parseInt(edtCalo.getText().toString()) /60;
+                                    Log.d(TAG, calo + "");
                                     setExercise(calo);
-                                    Toast.makeText(context, "\n" +
-                                            "Đã lưu", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context,"Đã lưu", Toast.LENGTH_SHORT).show();
                                 }
                                 dialogInterface.cancel();
                             }
@@ -337,11 +339,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                         transaction.set(dailyDataRef, new HashMap<String, Object>() {{
                             put("calories", -calo);
                         }}, SetOptions.merge());
+                        Log.d(TAG, "Chua co calories cho ngay hom nay, tao moi");
                     }
                     else{
                         long total = snapshot.getLong("calories");
                         long updateTotal = total - calo;
                         transaction.update(dailyDataRef, "calories", updateTotal);
+                        Log.d(TAG, "Cap nhat exercise cho calories hom nay");
                     }
                     if(snapshot.getLong("exercise") == null){
                         transaction.set(dailyDataRef, new HashMap<String, Object>() {{
@@ -356,6 +360,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 return null;
             }
         })
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d(TAG, "Cap nhat exercise cho hom nay thanh cong");
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
