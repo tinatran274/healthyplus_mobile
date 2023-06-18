@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -169,6 +170,8 @@ public class DetailBillActivity extends AppCompatActivity {
                 View viewDay = inflater.inflate(R.layout.confirm_bill, null);
                 builder.setView(viewDay);
                 Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                 dialog.show();
 
                 Button bcancel = viewDay.findViewById(R.id.btn_cancel);
@@ -213,6 +216,8 @@ public class DetailBillActivity extends AppCompatActivity {
                 View viewDay = inflater.inflate(R.layout.confirm_delete_bill, null);
                 builder.setView(viewDay);
                 Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                 dialog.show();
 
                 Button cancel = viewDay.findViewById(R.id.btn_cancel);
@@ -236,6 +241,8 @@ public class DetailBillActivity extends AppCompatActivity {
                             View viewNo = inflater.inflate(R.layout.notify_cannot_delete, null);
                             builder.setView(viewNo);
                             Dialog dialogNo = builder.create();
+                            dialogNo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialogNo.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                             dialogNo.show();
 
                             Button cancel = viewNo.findViewById(R.id.btn_cancel);

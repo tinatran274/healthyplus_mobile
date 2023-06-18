@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -156,6 +157,8 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         View view = inflater.inflate(R.layout.dialog_update_info_user, null);
         builder.setView(view);
         Dialog dialog = builder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
         dialog.show();
 
         EditText editAge = view.findViewById(R.id.edit_age);

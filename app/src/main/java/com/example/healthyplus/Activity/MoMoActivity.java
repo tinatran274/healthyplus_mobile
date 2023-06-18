@@ -28,13 +28,21 @@ import com.example.healthyplus.Model.Bill;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 public class MoMoActivity extends AppCompatActivity {
 
     TextView tvEnvironment, tvMerchantName, tvMerchantCode, edAmount, tvMessage;
     Button btnCancel, btnPayMoMo;
     private String amount = "10000";
+    FirebaseUser user;
+    Map<String, Object> listProduct =new HashMap<>();
+    Map<String, Object> newOrder = new HashMap<>();
     private String fee = "0";
     public static String KEY_ENVIRONMENT = "key_environment";
     int environment = 2;//developer default
@@ -44,6 +52,7 @@ public class MoMoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mo_mo);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
         tvEnvironment=findViewById(R.id.tvEnvironment);
         tvMerchantCode=findViewById(R.id.tvMerchantCode);
         tvMerchantName=findViewById(R.id.tvMerchantName);
@@ -55,6 +64,8 @@ public class MoMoActivity extends AppCompatActivity {
         if (bundle==null)
             return;
         Bill bill= (Bill) bundle.get("object_bill");
+
+        listProduct=bill.getProducts();
 
         Log.e(TAG, bill.toString());
         if(environment == 0){
@@ -74,13 +85,32 @@ public class MoMoActivity extends AppCompatActivity {
         btnPayMoMo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                newOrder.put(bill.getId(), true);
+                db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(bill.getId()))
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "get failed ");
+                            }
+                        });
+                db.collection("bill").document().set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
                 db.collection("bill").document(bill.getId())
                         .update("returnPay", true)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                Log.e(TAG, "DocumentSnapshot return pay!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -89,6 +119,23 @@ public class MoMoActivity extends AppCompatActivity {
                                 Log.w(TAG, "Error updating document", e);
                             }
                         });
+                for (String i : listProduct.keySet()) {
+                    DocumentReference docRef = db.collection("cart").document(user.getUid());
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(i, FieldValue.delete());
+                    docRef.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error updating document", e);
+                                }
+                            });
+                }
                 requestPayment();
             }
         });

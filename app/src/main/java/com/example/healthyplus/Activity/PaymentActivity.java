@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,6 +39,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -202,6 +204,8 @@ public class PaymentActivity extends AppCompatActivity {
                 View viewDay = inflater.inflate(R.layout.order_success, null);
                 builder.setView(viewDay);
                 Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                 dialog.show();
 
                 Button btnCancel = viewDay.findViewById(R.id.btn_cancel);
@@ -238,6 +242,25 @@ public class PaymentActivity extends AppCompatActivity {
                             PaymentActivity.this.startActivity(intent);
                         }
                         else{
+
+                            for (String i : putFirebase.keySet()) {
+                                DocumentReference docRef = db.collection("cart").document(user.getUid());
+                                Map<String,Object> updates = new HashMap<>();
+                                updates.put(i, FieldValue.delete());
+                                docRef.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
+                            }
                             doc.set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {

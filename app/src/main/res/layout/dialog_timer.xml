@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:padding="15dp"
         android:orientation="vertical">
 
         <Chronometer
@@ -26,6 +27,8 @@
             android:layout_height="wrap_content"
             android:background="#F4F4F4"
             android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:weightSum="3">
 
@@ -37,8 +40,8 @@
 
                 <Button
                     android:id="@+id/btnRestart"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:background="@drawable/icon_restart_alt_24" />
             </LinearLayout>
@@ -67,8 +70,8 @@
 
                 <ToggleButton
                     android:id="@+id/btnStart"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/toggle_timer"
                     android:textOff=""
                     android:textOn=""
