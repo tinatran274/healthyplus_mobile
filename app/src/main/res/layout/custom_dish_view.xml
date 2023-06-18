@@ -13,7 +13,6 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:paddingBottom="10dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -53,15 +52,15 @@
 
                 <ToggleButton
                     android:id="@+id/favButton"
-                    android:layout_width="18dp"
+                    android:layout_width="15dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textOn=""
+                    android:padding="5dp"
+                    android:background="@drawable/toggle_image"
                     android:textOff=""
-                    android:src="@drawable/toggle_image"
-                    android:padding="5dp"/>
+                    android:textOn="" />
             </LinearLayout>
 
 
