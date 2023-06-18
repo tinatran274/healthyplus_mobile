@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,9 +39,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -79,7 +82,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
         String delivery[]={"Hỏa tốc","Bình thường"};
         String time[]={"Sáng - Trưa", "Chiều - Tối"};
-        String pay[]={"Khi nhận hàng", "VN pay"};
+        String pay[]={"Khi nhận hàng", "Momo"};
 
         txvInfoName=findViewById(R.id.inf_name);
         etInfoAddress=findViewById(R.id.inf_address);
@@ -201,6 +204,8 @@ public class PaymentActivity extends AppCompatActivity {
                 View viewDay = inflater.inflate(R.layout.order_success, null);
                 builder.setView(viewDay);
                 Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                 dialog.show();
 
                 Button btnCancel = viewDay.findViewById(R.id.btn_cancel);
@@ -224,34 +229,64 @@ public class PaymentActivity extends AppCompatActivity {
                                 ,cPay
                                 ,false
                                 ,false
-                                , String.valueOf(txvTotalAll.getText())
+                                , String.valueOf(txvTotalAll.getText()).replace(".","")
                                 ,castDateToInt());
                         DocumentReference doc = db.collection("bill").document();
                         bill.setId(doc.getId());
-                        doc.set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error writing document", e);
-                                    }
-                                });
-                        newOrder.put(doc.getId(), true);
-                        db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(doc.getId()))
+
+                        if (cPay=="Momo"){
+                            Intent intent = new Intent(PaymentActivity.this, MoMoActivity.class);
+                            Bundle bundle =new Bundle();
+                            bundle.putSerializable("object_bill", (Serializable) bill);
+                            intent.putExtras(bundle);
+                            PaymentActivity.this.startActivity(intent);
+                        }
+                        else{
+
+                            for (String i : putFirebase.keySet()) {
+                                DocumentReference docRef = db.collection("cart").document(user.getUid());
+                                Map<String,Object> updates = new HashMap<>();
+                                updates.put(i, FieldValue.delete());
+                                docRef.update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "get failed ");
+                                                Log.w(TAG, "Error updating document", e);
                                             }
                                         });
-                        dialog.dismiss();
-                        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                            }
+                            doc.set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+                            newOrder.put(doc.getId(), true);
+                            db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(doc.getId()))
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "get failed ");
+                                        }
+                                    });
+                            dialog.dismiss();
+                            Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
                 });
 

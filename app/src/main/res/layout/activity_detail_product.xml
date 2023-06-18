@@ -49,13 +49,13 @@
 
             <ImageView
                 android:id="@+id/iv_img"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/no_img"
-                ></ImageView>
+                app:srcCompat="@drawable/no_img"></ImageView>
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
@@ -124,20 +124,20 @@
                 >
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thêm vào giỏ hàng"
+                    android:layout_height="55dp"
+                    android:text="Thêm vào giỏ"
                     android:layout_marginRight="5dp"
-                    android:background="@color/green_main"
                     android:padding="20dp"
+                    android:background="@drawable/button_background"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/white" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:text="Thanh toán"
-                    android:background="@color/green_main"
+                    android:background="@drawable/button_background"
                     android:padding="20dp"
                     android:gravity="center"
                     android:layout_weight="1"

@@ -210,6 +210,8 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         View view = inflater.inflate(R.layout.dialog_update_info_user, null);
         builder.setView(view);
         Dialog dialog = builder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
         dialog.show();
 
         EditText editAge = view.findViewById(R.id.edit_age);

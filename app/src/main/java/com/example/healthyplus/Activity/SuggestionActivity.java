@@ -65,7 +65,7 @@ public class SuggestionActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
         });
     }

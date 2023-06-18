@@ -7,7 +7,6 @@
     <color name="red">#FF0000</color>
     <color name="white_word">#FFFFFF</color>
     <color name="blue_water">#6DBCDB</color>
-
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -15,5 +14,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorAccent">#FF4081</color>
+    <color name="bgBottomNavigation">#fe485a</color>
+    <color name="momo_color">#E0078C</color>
+    <color name="btn_selected">#7d004c</color>
+
     <color name="orange">#FF7245</color>
+
 </resources>

@@ -22,7 +22,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:cardCornerRadius="10dp"
-                android:layout_margin="20dp">
+                android:layout_margin="15dp">
                 <ImageView
                     android:id="@+id/imvIngre"
                     android:layout_width="match_parent"

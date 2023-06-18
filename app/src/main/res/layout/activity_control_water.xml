@@ -58,6 +58,7 @@
                     android:text="14-09-2003"
                     android:textColor="@color/blue_water"
                     android:textSize="16sp"
+                    android:layout_marginBottom="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/waterWaveView"
                     app:layout_constraintEnd_toStartOf="@id/imvNextDay" />
@@ -66,6 +67,7 @@
                     android:id="@+id/imvPreviousDay"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="25dp"
                     android:background="@drawable/arrow_elft"
                     app:layout_constraintEnd_toStartOf="@id/txvDay"
                     app:layout_constraintBottom_toTopOf="@id/waterWaveView"/>
@@ -73,12 +75,14 @@
                     android:id="@+id/imvNextDay"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginBottom="25dp"
                     android:background="@drawable/arrow_blue_right"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginRight="20dp"
                     app:layout_constraintBottom_toTopOf="@id/waterWaveView"
                     />
                 <com.orbitalsonic.waterwave.WaterWaveView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/waterWaveView"
                     android:layout_width="250dp"
                     android:layout_height="250dp"
@@ -251,11 +255,12 @@
                     <Button
                         android:id="@+id/btn_add_water"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:backgroundTint="@color/green_main"
                         android:text="Thêm"
+                        android:background="@drawable/button_background"
                         android:layout_marginRight="15dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
                         app:layout_constraintTop_toTopOf="parent"

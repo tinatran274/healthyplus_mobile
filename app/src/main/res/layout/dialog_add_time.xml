@@ -51,19 +51,17 @@
         <Button
             android:id="@+id/btnCalCalo"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:text="Tính calo"
             android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:textSize="10dp"/>
+            android:layout_weight="1"/>
         <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
             android:text="Lưu kết quả"
-            android:textSize="10dp"
             android:layout_marginLeft="10dp"
             android:textColor="@color/white"
             android:layout_weight="1"

@@ -69,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:gravity="center"
+                    android:textSize="16dp"
                     android:text="Giá trị dinh dưỡng"
                     android:textColor="@color/black"
                     android:textStyle="bold" />

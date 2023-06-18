@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthyplus.Activity.CartActivity;
+import com.example.healthyplus.Activity.DetailBillActivity;
 import com.example.healthyplus.Activity.NotificationActivity;
 import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
@@ -181,8 +183,13 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.CartViewHolde
 
                 }
                 else{
-                    Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.confirm_delete_product);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    LayoutInflater inflater = LayoutInflater.from(context);
+                    View viewDay = inflater.inflate(R.layout.confirm_delete_product, null);
+                    builder.setView(viewDay);
+                    Dialog dialog = builder.create();
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                     dialog.show();
 
                     Button btnCancel = dialog.findViewById(R.id.btn_cancel);
@@ -223,9 +230,15 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.CartViewHolde
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.confirm_delete_product);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = LayoutInflater.from(context);
+                View viewDay = inflater.inflate(R.layout.confirm_delete_product, null);
+                builder.setView(viewDay);
+                Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                 dialog.show();
+
 
                 Button btnCancel = dialog.findViewById(R.id.btn_cancel);
                 Button btnConfirm = dialog.findViewById(R.id.btn_confirm);

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -155,6 +156,8 @@ public class DetailAlarmActivity extends AppCompatActivity {
                 View viewDay = inflater.inflate(R.layout.dialog_choose_day, null);
                 builder.setView(viewDay);
                 Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
                 dialog.show();
 
                 CheckBox cbMon= viewDay.findViewById(R.id.cb_mon);
