@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,10 +23,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,17 +37,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency;
+    TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency, txvChangPass;
     Button btnUpdate, btnBackUser;
     FirebaseFirestore db;
     ImageView imv_log_out;
     User u;
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        id = findViewById(R.id.txv_id);
         name = findViewById(R.id.txv_name);
         aim = findViewById(R.id.txv_aim);
         maxCalories = findViewById(R.id.txv_max_calories);
@@ -59,9 +62,61 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btnUpdate = findViewById(R.id.btn_update);
         btnBackUser = findViewById(R.id.btn_back_user);
         imv_log_out = findViewById(R.id.imv_log_out);
+        txvChangPass = findViewById(R.id.txv_change_pass);
 
         setInfoUser();
 
+        txvChangPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater builder = LayoutInflater.from(UserActivity.this);
+                View dialogView = builder.inflate(R.layout.dialog_change_password, null);
+                AlertDialog dialog = new AlertDialog.Builder(UserActivity.this).create();
+
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+                dialog.setView(dialogView);
+                dialog.show();
+
+                EditText edtPass = dialogView.findViewById(R.id.edtNewPass),
+                        edtConfirm = dialogView.findViewById(R.id.edtConfirmPass);
+                Button btnChangePass = dialogView.findViewById(R.id.btnChangePass);
+
+                btnChangePass.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(edtPass.getText().toString().isEmpty()) edtPass.setError("Vui lòng nhập mật khẩu mới!");
+                        else if(edtConfirm.getText().toString().isEmpty()) edtConfirm.setError("Vui lòng nhập lại mật khẩu mới!");
+                        else {
+                            if(! edtPass.getText().toString().equals(edtConfirm.getText().toString()))
+                                Toast.makeText(UserActivity.this, "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                            else {
+                                String newPassword = edtPass.getText().toString().trim();
+                                currentUser.updatePassword(newPassword)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(UserActivity.this, "Đổi thành công! Vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
+                                                FirebaseAuth.getInstance().signOut();
+                                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(UserActivity.this, "Không thể đổi mật khẩu!", Toast.LENGTH_SHORT).show();
+                                                Log.e(TAG, e.toString());
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+
+            }
+        });
         imv_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,8 +145,8 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void setInfoUser() {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        Log.e(TAG, currentUser.getUid());
         db.collection("user").document(currentUser.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -101,25 +156,24 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                             if(documentSnapshot != null){
                                 User p = documentSnapshot.toObject(User.class);
                                 name.setText(p.getName());
-                                id.setText(String.valueOf(p.getId()));
                                 age.setText(String.valueOf(p.getAge()));
                                 height.setText(String.valueOf(p.getHeight()));
                                 weight.setText(String.valueOf(p.getWeight()));
                                 bmi.setText(String.valueOf(p.BMICal()));
                                 ttde.setText(String.valueOf(p.TTDECal()));
-                                maxWater.setText(String.valueOf(Math.round(p.TTDECal() * 1.2)));
+                                maxWater.setText(String.valueOf(p.WaterCal()));
                                 switch (p.getAim()) {
-                                    case 0:
+                                    case 2:
                                         aim.setText("Tăng cân");
-                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() * 1.1)));
+                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() )));
                                         break;
                                     case 1:
                                         aim.setText("Giữ cân");
                                         maxCalories.setText(String.valueOf(Math.round(p.TTDECal() * 1)));
                                         break;
-                                    case 2:
+                                    case 0:
                                         aim.setText("Giảm cân");
-                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() * 0.9)));
+                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() )));
                                         break;
                                 }
                                 switch (p.getGender()) {
@@ -183,16 +237,15 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        User a;
         switch (item.getItemId()) {
             case R.id.i1:
-
+                db.collection("user").document(currentUser.getUid()).update("aim",2);
                 return true;
             case R.id.i2:
-
+                db.collection("user").document(currentUser.getUid()).update("aim",1);
                 return true;
             case R.id.i3:
-
+                db.collection("user").document(currentUser.getUid()).update("aim",0);
                 return true;
             default:
                 return false;

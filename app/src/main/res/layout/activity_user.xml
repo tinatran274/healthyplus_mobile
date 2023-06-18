@@ -24,12 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            >
+
             <Button
                 android:id="@+id/btn_back_user"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -39,7 +34,15 @@
                 android:text="Cá nhân"
                 android:textColor="#3C3C3E"
                 android:textStyle="bold" />
-            <View
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+                <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
@@ -69,31 +72,26 @@
                     android:id="@+id/txv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="18dp"
                     android:text="Trần Nhung"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
                     android:textColor="@color/black_word"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/img_morning"
                     app:layout_constraintTop_toTopOf="parent" />
-
                 <TextView
-                    android:id="@+id/txv2"
+                    android:id="@+id/txv_change_pass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:text="UserID: "
-                    android:textColor="@color/black_word"
-                    app:layout_constraintLeft_toRightOf="@+id/img_morning"
-                    app:layout_constraintTop_toBottomOf="@+id/txv_name" />
+                    android:text="Đổi mật khẩu"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:paddingTop="25dp"
+                    android:textColor="@color/green_main"
+                    android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/txv_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="308398"
-                    android:textColor="@color/black_word"
-                    app:layout_constraintLeft_toRightOf="@+id/txv2"
-                    app:layout_constraintTop_toBottomOf="@+id/txv_name" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
