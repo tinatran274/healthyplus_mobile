@@ -50,7 +50,6 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     ImageView nextDay, previousDay, imvChart;
     EditText editMorning, editNoon, editDinner, editSnack, editExercise;
     ProgressBar circleBar;
-    SharedPreferences prefs;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     User u;
@@ -129,13 +128,6 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.isSuccessful()){
                             u = task.getResult().toObject(User.class);
-                            System.out.println(u.TTDECal());
-                            System.out.println(u.BMICal());
-                            System.out.println(u.getAge());
-                            System.out.println(u.getGender());
-                            System.out.println(u.getHeight());
-                            System.out.println(u.getWeight());
-
                             maxCalories = u.TTDECal();
                             txvMax.setText(String.valueOf(maxCalories));
                         }
@@ -448,7 +440,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
         maxCalories = 9999;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private void getDataAtDay(String formattedDate) {
 
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
@@ -487,17 +479,9 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                                 progressCalories.setTextColor(color);
                                 circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
                             }
-                            if(maxCalories > 0)
-                            {
                                 circleBar.setProgress( x / maxCalories);
                                 String s = maxCalories + "";
                                 Log.d(TAG, "success get the max calories from firebase " + s);
-                            }
-                            else
-                            {
-                                circleBar.setProgress(x / 9999);
-                                Log.e(TAG, "not yet get the max calories from firebase");
-                            }
 
                         }
                         else {

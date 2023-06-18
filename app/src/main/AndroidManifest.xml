@@ -26,6 +26,9 @@
             android:name=".Activity.PaymentActivity"
             android:exported="true" />
         <activity
+            android:name=".WaterChartActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.DetailAlarmActivity"
             android:exported="true" />
         <activity
@@ -37,7 +40,6 @@
         <activity
             android:name=".Activity.CaloriesChart"
             android:exported="false" />
-
         <activity
             android:name=".Activity.CartActivity"
             android:exported="true" />
@@ -113,6 +115,8 @@
         <activity
             android:name=".Activity.BasicInfo.TargetActivity"
             android:exported="true" />
+        <activity android:name=".Activity.WaterChartActivity"
+            android:exported="false"/>
 
         <receiver android:name=".Activity.NotificationReceiver" />
 

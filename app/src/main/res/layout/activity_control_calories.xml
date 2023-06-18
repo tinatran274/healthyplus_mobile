@@ -51,17 +51,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginBase">
+
                 <TextView
                     android:id="@+id/txvDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:text="14-09-2003"
-                    android:textStyle="bold"
                     android:textColor="@color/green_main"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/progress_circular_bar"
-                    app:layout_constraintEnd_toStartOf="@id/imvNextDay"
-                    />
+                    app:layout_constraintEnd_toStartOf="@id/imvNextDay" />
+
                 <ImageView
                     android:id="@+id/imvPreviousDay"
                     android:layout_width="20dp"

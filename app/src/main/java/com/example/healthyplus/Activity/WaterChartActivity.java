@@ -7,10 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -18,19 +15,14 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -38,104 +30,55 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.Distribution;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Stack;
-import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
-public class CaloriesChart extends AppCompatActivity {
-    CardView cv1Calo, cv4Calo;
-    LinearLayout cv2Calo, cv3Calo ;
-    User u;
+public class WaterChartActivity extends AppCompatActivity {
+    CardView cv1Calo, cv3Calo;
+    LinearLayout cv2Calo;
+    LineChart lineChart;
+    Button btnBack;
     FirebaseFirestore db;
     DocumentReference userStatRef;
     CollectionReference collectionRef;
-    QuerySnapshot dailySnapshot;
     List <String> date_label = new ArrayList<>();
-    List <Long> calories = new ArrayList<>();
-    RelativeLayout relativeLayout;
-    BarChart barChart;
-    LineChart lineChart;
-    TextView txvStreak;
-    TextView txv7calo, txv30calo, txv7thamHut, txv30thamHut, txvTarget,
-            txvTotalDate, txvCurrentStreak,
-            txvBigTdee, txvSmallTdee;
-    Button btnBack;
-    int aim;
-    long tdee;
+    List <Long> water = new ArrayList<>();
+    User u;
+    int waterCal;
     int animationDuration = 1000;
+    TextView txvTotalDate, txvCurrentStreak, txvLongestStreak
+            , txvBigWater, txvSmallWater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calories_chart);
+        setContentView(R.layout.activity_water_chart);
 
         findView();
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        backWater();
 
-        u = (User) getIntent().getSerializableExtra("user");
-        tdee = u.TTDECal();
-        aim = u.getAim();
-
-        Log.e(TAG, aim + "");
-        if(aim == 2){
-            txvTarget.setText("Tăng Cân");
-        }
-        else if(aim == 0) {
-            txvTarget.setText("Giảm Cân");
-        }
-        else if(aim == 1){
-            txvTarget.setText("Giữ Cân");
-        }
-
-        db = FirebaseFirestore.getInstance();
-        userStatRef = db.collection("statistic").document(u.getId());
-        collectionRef = userStatRef.collection("dailyData");
-
-//        new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                setAnimation();
-//            }, 50);
-
-        getDataStringList(date_label ->{
+        getDataStringList(list -> {
             populateChart();
             setAnimation();
-            showLongestStreak(date_label);
+            showLongestStreak();
             showTotalDate_CurrentStreak();
-            showStats();
             showTotal();
         });
-
     }
-
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        if(hasFocus) setAnimation();
-//    }
 
     private void setAnimation() {
 
@@ -152,10 +95,6 @@ public class CaloriesChart extends AppCompatActivity {
         animator3.setDuration(animationDuration);
         animator3.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        ObjectAnimator animator4 = ObjectAnimator.ofFloat(cv4Calo, "translationX", -cv4Calo.getWidth(), 0);
-        animator4.setDuration(animationDuration);
-        animator4.setInterpolator(new AccelerateDecelerateInterpolator());
-
         animator1.start();
 
         new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
@@ -166,11 +105,19 @@ public class CaloriesChart extends AppCompatActivity {
             animator3.start();
         }, 400);
 
-        new android.os.Handler(Looper.getMainLooper()).postDelayed(() -> {
-            animator4.start();
-        }, 600);
     }
 
+    private void showTotal() {
+        int cntBig = 0, cntSmall = 0;
+        for(long i: water){
+            if(i > waterCal - 500 && i < waterCal + 500)
+                cntSmall ++;
+            else
+                cntBig ++;
+        }
+        txvBigWater.setText(Long.toString(cntBig));
+        txvSmallWater.setText(Long.toString(cntSmall));
+    }
 
     private void showTotalDate_CurrentStreak() {
         int totalDate = date_label.size();
@@ -181,7 +128,6 @@ public class CaloriesChart extends AppCompatActivity {
     }
 
     private int getCurrentStreak() {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         Collections.sort(date_label, (date1, date2) -> {
@@ -198,11 +144,7 @@ public class CaloriesChart extends AppCompatActivity {
         int length = 0;
 
         if(index == -1){
-            String tempPreDate = formatter.format(previousDate.minusDays(1));
-            if(date_label.contains(tempPreDate))
-                index = date_label.indexOf(preDate);
-            else
-                return 0;
+            return 0;
         }
 
         for (int i = index - 1; i >= 0; i--) {
@@ -216,116 +158,12 @@ public class CaloriesChart extends AppCompatActivity {
         return length + 1;
     }
 
-    private void showTotal() {
-        int cntBig = 0, cntSmall = 0;
-        for(long i: calories){
-            if(i < tdee)
-                cntSmall ++;
-            else
-                cntBig ++;
-        }
-        txvBigTdee.setText(Long.toString(cntBig));
-        txvSmallTdee.setText(Long.toString(cntSmall));
-    }
-
-    private void showStats() {
-        List<String> date = new ArrayList<>(date_label);
-        long totalCalories7 = getTotalCaloriesLastSevenDays(date, calories);
-        if(totalCalories7 < 0){
-            //totalCalories7 = totalCalories7 * (-1);
-            txv7thamHut.setText("Lượng calories bạn đã thâm hụt: ");
-            txv7calo.setText(Long.toString(totalCalories7 * (-1)));
-            if(aim == 2)
-                txv7calo.setTextColor(ContextCompat.getColor(this, R.color.orange));
-            else {
-                txv7calo.setTextColor(ContextCompat.getColor(this, R.color.green_main));
-            }
-        }
-        else {
-            txv7thamHut.setText("Lượng calories bạn nạp thêm: ");
-            txv7calo.setText(Long.toString(totalCalories7));
-            if(aim == 2)
-                txv7calo.setTextColor(ContextCompat.getColor(this, R.color.green_main));
-            else {
-                txv7calo.setTextColor(ContextCompat.getColor(this, R.color.orange));
-            }
-        }
-
-        long totalCalories30 = getTotalCaloriesLastThirtyDays(date, calories);
-        if(totalCalories30 < 0){
-            //totalCalories30 = totalCalories30 * (-1);
-            txv30thamHut.setText("Lượng calories bạn đã thâm hụt: ");
-            txv30calo.setText(Long.toString(totalCalories30 * (-1)));
-            if(aim == 2)
-                txv30calo.setTextColor(ContextCompat.getColor(this, R.color.orange));
-            else {
-                txv30calo.setTextColor(ContextCompat.getColor(this, R.color.green_main));
-            }
-        }
-        else {
-            txv30thamHut.setText("Lượng calories bạn nạp thêm: ");
-            txv30calo.setText(Long.toString(totalCalories30));
-            if(aim == 2)
-                txv30calo.setTextColor(ContextCompat.getColor(this, R.color.green_main));
-            else {
-                txv30calo.setTextColor(ContextCompat.getColor(this, R.color.orange));
-            }
-        }
-
-    }
-
-    private long getTotalCaloriesLastThirtyDays(List<String> date, List<Long> calories) {
-        long totalCalories = 0;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate currentDate = LocalDate.now();
-
-        for (int i = date.size() - 1; i >= 0 && i >= date.size() - 30; i--) {
-            try {
-                LocalDate entryDate = LocalDate.parse(date.get(i), formatter);
-                long entryCalories = calories.get(i);
-
-                if (currentDate.minusDays(30).isBefore(entryDate)) {
-                    totalCalories += entryCalories - tdee;
-                }
-            } catch (Exception e) {
-                System.err.println("Error parsing date: " + date.get(i));
-                Log.e(TAG, e.toString());
-            }
-        }
-
-        return totalCalories;
-    }
-
-    private long getTotalCaloriesLastSevenDays(List<String> date, List<Long> calories) {
-        long totalCalories = 0;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate currentDate = LocalDate.now();
-
-        for (int i = date.size() - 1; i >= 0 && i >= date.size() - 7; i--) {
-            try {
-                LocalDate entryDate = LocalDate.parse(date.get(i), formatter);
-                long entryCalories = calories.get(i);
-
-                if (currentDate.minusDays(7).isBefore(entryDate)) {
-                    totalCalories += entryCalories - tdee;
-                }
-            } catch (DateTimeParseException e) {
-                // Handle parsing exception if the date format is invalid
-                System.err.println("Error parsing date: " + date.get(i));
-                Log.e(TAG, e.toString());
-            }
-        }
-
-        return totalCalories;
-    }
-
-
-    private void showLongestStreak(List<String> date) {
+    private void showLongestStreak() {
         List<Date> dates = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         // Convert strings to date objects
-        for (String i : date) {
+        for (String i : date_label) {
             try {
                 Date dateObject = dateFormat.parse(i);
                 dates.add(dateObject);
@@ -337,8 +175,7 @@ public class CaloriesChart extends AppCompatActivity {
 
         dates = findLongestStreak(dates);
 
-        txvStreak.setText(Integer.toString(dates.size()));
-        System.out.println(dates);
+        txvLongestStreak.setText(Integer.toString(dates.size()));
 
     }
 
@@ -380,37 +217,33 @@ public class CaloriesChart extends AppCompatActivity {
         return longestSequence;
     }
 
-    private interface chartDataCallBack{
-        void onCallBack(List <String> list);
-    }
-
     private void populateChart() {
 
         // Get the user's TDEE (replace with your actual TDEE calculation)
-        int tdee = u.TTDECal();
+
 
 
         List<Entry> dateEntries = new ArrayList<>();
         // set date line chart data
-        for (int i = 0; i < calories.size(); i++) {
-            dateEntries.add(new Entry(i, calories.get(i)));
+        for (int i = 0; i < water.size(); i++) {
+            dateEntries.add(new Entry(i, water.get(i)));
         }
 
-        LineDataSet dateData = new LineDataSet(dateEntries, "Calories");
+        LineDataSet dateData = new LineDataSet(dateEntries, "Water");
         dateData.setAxisDependency(YAxis.AxisDependency.LEFT);
-        dateData.setColor(ContextCompat.getColor(this, R.color.green_main));
+        dateData.setColor(ContextCompat.getColor(this, R.color.blue_water));
         dateData.setLineWidth(2f);
-        dateData.setCircleColor(ContextCompat.getColor(this, R.color.green_main));
+        dateData.setCircleColor(ContextCompat.getColor(this, R.color.blue_water));
         dateData.setCircleRadius(4f);
         dateData.setDrawCircleHole(false);
 
         // set tdee line chart data
         List <Entry> lineEntry =  new ArrayList<>();
         for(int i = 0; i < date_label.size(); i ++){
-            lineEntry.add(new Entry(i, tdee));
+            lineEntry.add(new Entry(i, waterCal));
         }
 
-        LineDataSet lineDataSet = new LineDataSet(lineEntry, "TDEE");
+        LineDataSet lineDataSet = new LineDataSet(lineEntry, "Water intake");
         lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineDataSet.setColor(ContextCompat.getColor(this, R.color.orange));
         lineDataSet.setLineWidth(2f);
@@ -434,7 +267,7 @@ public class CaloriesChart extends AppCompatActivity {
         xAxis.setDrawGridLines(false);
 
         YAxis yAxis = lineChart.getAxisLeft();
-        yAxis.setAxisMaximum(tdee*2f);
+        yAxis.setAxisMaximum(waterCal*2f);
 
 
         lineChart.setDrawGridBackground(false);
@@ -447,22 +280,21 @@ public class CaloriesChart extends AppCompatActivity {
 
     }
 
-    private void getDataStringList(chartDataCallBack callBack) {
-      //  dailySnapshot = ; // list of queryDocumentSnapshot
-
+    private void getDataStringList(WaterChartActivity.chartDataCallBack callBack) {
         collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for(DocumentSnapshot doc: task.getResult().getDocuments()){
-                        Map <String, Object> data = doc.getData();
+                        Map<String, Object> data = doc.getData();
                         if(data != null){
-                            if(data.containsKey("calories"))
+                            if(data.containsKey("water"))
                             {
                                 date_label.add(doc.getId());
-                                calories.add((long) data.get("calories"));
+                                water.add((long) data.get("water"));
                                 System.out.println(doc.getId());
                             }
+
                         }
                     }
                     callBack.onCallBack(date_label);
@@ -471,30 +303,42 @@ public class CaloriesChart extends AppCompatActivity {
         });
     }
 
+    private interface chartDataCallBack{
+        void onCallBack(List<String> list);
+    }
+
+    private void backWater() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     private void findView() {
-        relativeLayout = findViewById(R.id.chartContainer);
+
+        u = (User) getIntent().getSerializableExtra("user");
+        waterCal = u.WaterCal();
+        db = FirebaseFirestore.getInstance();
+        userStatRef = db.collection("statistic").document(u.getId());
+        collectionRef = userStatRef.collection("dailyData");
+
         lineChart = findViewById(R.id.lineChart);
-        txvStreak = findViewById(R.id.txvStreak);
-        txv7calo = findViewById(R.id.txv7calo);
-        txv7thamHut = findViewById(R.id.txv7ThamHut);
-        txv30calo = findViewById(R.id.txv30calo);
-        txv30thamHut = findViewById(R.id.txv30ThamHut);
-        txvTarget = findViewById(R.id.txvTarget);
-        txvTotalDate = findViewById(R.id.txvTotalDate);
-        txvCurrentStreak = findViewById(R.id.txvCurrentStreak);
-        txvBigTdee = findViewById(R.id.txvBigTdee);
-        txvSmallTdee = findViewById(R.id.txvSmallTdee);
         btnBack = findViewById(R.id.btnBackChart);
+        txvCurrentStreak = findViewById(R.id.txvCurrentStreak);
+        txvTotalDate = findViewById(R.id.txvTotalDate);
+        txvLongestStreak = findViewById(R.id.txvStreak);
+
+        txvBigWater = findViewById(R.id.txvBigTdee);
+        txvSmallWater = findViewById(R.id.txvSmallTdee);
+
         cv1Calo = findViewById(R.id.cv1Calo);
         cv2Calo = findViewById(R.id.cv2Calo);
         cv3Calo = findViewById(R.id.cv3Calo);
-        cv4Calo = findViewById(R.id.cv4Calo);
 
         cv1Calo.setTranslationX(-10000);
         cv2Calo.setTranslationX(-10000);
         cv3Calo.setTranslationX(-10000);
-        cv4Calo.setTranslationX(-10000);
-
     }
-
 }

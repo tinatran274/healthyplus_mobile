@@ -29,6 +29,7 @@ public class DishDetailActivity extends AppCompatActivity {
     ImageView img;
     Button btnBack;
     FirebaseStorage storage;
+    TextView txvBicycle, txvJump, txvRun, txvWalk, txvBurnKcal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,27 @@ public class DishDetailActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
+        showTimeToBurn();
+    }
+
+    private void showTimeToBurn() {
+        int calo = (int) dish.getCalo();
+
+        txvBurnKcal.setText(String.format("%d", calo));
+
+        int bicycle = calo*60/500;
+        txvBicycle.setText(String.format("%d", bicycle));
+
+        int walk = calo*60/300;
+        txvWalk.setText(String.format("%d", walk));
+
+        int jump = calo*60/800;
+        txvJump.setText(String.format("%d", jump));
+
+        int run = calo*60/450;
+        txvRun.setText(String.format("%d", run));
     }
 
     private void findView() {
@@ -96,5 +118,11 @@ public class DishDetailActivity extends AppCompatActivity {
         txvRecipe = findViewById(R.id.txvHuongDan);
         img = findViewById(R.id.imvDish);
         btnBack = findViewById(R.id.btn_back_dish_detail);
+
+        txvBicycle = findViewById(R.id.txvBicycle);
+        txvJump = findViewById(R.id.txvJumpRope);
+        txvRun = findViewById(R.id.txvRun);
+        txvWalk  = findViewById(R.id.txvWalk);
+        txvBurnKcal = findViewById(R.id.txvBurnKcal);
     }
 }
