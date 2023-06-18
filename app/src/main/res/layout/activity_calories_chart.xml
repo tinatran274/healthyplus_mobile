@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linearLayout"
+    android:orientation="vertical"
+
+
+    tools:context=".Activity.CaloriesChart">
+    <Button
+        android:id="@+id/btnBackChart"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:fontFamily="sans-serif"
+        android:text="Chart"
+        android:textColor="#3C3C3E"
+        android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F3FDF0"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv1Calo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/chartContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="20dp">
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:padding="10dp"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="bottom"
+                        >
+                        <TextView
+                            android:id="@+id/txvTotalDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày cập nhật"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/green_main"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:layout_alignTop="@id/imvCircle"
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_weight="1"
+
+                        >
+                        <ImageView
+                            android:layout_margin="3dp"
+                            android:layout_width="10dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/line"
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            >
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                >
+                                <ImageView
+                                    android:id="@+id/imvCircle"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:background="@drawable/img_circle"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true" />
+                                <TextView
+                                    android:id="@+id/txvCurrentStreak"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="100"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/black"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/imvCircle"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:text="Streak hiện tại"
+                                android:textColor="#FF5722"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_margin="3dp"
+                            android:layout_width="10dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/line"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="bottom">
+                        <TextView
+                            android:id="@+id/txvStreak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/imvCircle"
+                            android:layout_marginTop="10dp"
+                            android:text="Streak dài nhất"
+                            android:textColor="@color/green_main"
+                            android:textSize="12dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:id="@+id/cv2Calo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:weightSum="2"
+                android:gravity="center"
+                >
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="4dp"
+                    app:cardCornerRadius="10dp"
+                    android:paddingBottom="5dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        >
+                        <TextView
+                            android:id="@+id/txvBigTdee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/imvCircle"
+                            android:layout_marginTop="5dp"
+                            android:text="Số ngày vượt TDEE"
+                            android:textColor="@color/green_main"
+                            android:textSize="12dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        >
+                        <TextView
+                            android:id="@+id/txvSmallTdee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số ngày chưa vượt TDEE"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/green_main"
+                            android:textStyle="bold"
+                            android:textSize="12dp"
+                            android:layout_alignTop="@id/imvCircle"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cv3Calo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mục Tiêu Của Bạn:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="14dp"/>
+                <TextView
+                    android:id="@+id/txvTarget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tăng Cân"
+                    android:textColor="@color/green_main"
+                    android:textStyle="bold"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv4Calo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="Trong 7 ngày gần nhất:"
+                        android:textColor="#FE5722"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2.5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.75"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txv7ThamHut"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="left"
+                                android:text="Luong calories ban da tham hut/nap: "
+                                android:textColor="@color/black_word"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txv7calo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="500"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:drawableLeft="@drawable/ic_exclamation"
+                        android:layout_gravity="left"
+                        android:text=" cube dep trai"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="20dp"
+                        android:text="Trong 30 ngày gần nhất:"
+                        android:textColor="#FE5722"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2.5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.75"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txv30ThamHut"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:text="Luong calories ban da tham hut/nap: "
+                                android:textColor="@color/black_word"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txv30calo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="500"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

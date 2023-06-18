@@ -51,7 +51,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp">
+                <TextView
+                    android:id="@+id/txvDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14-09-2003"
+                    android:textColor="@color/blue_water"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/waterWaveView"
+                    app:layout_constraintEnd_toStartOf="@id/imvNextDay" />
 
+                <ImageView
+                    android:id="@+id/imvPreviousDay"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/arrow_elft"
+                    app:layout_constraintEnd_toStartOf="@id/txvDay"
+                    app:layout_constraintBottom_toTopOf="@id/waterWaveView"/>
+                <ImageView
+                    android:id="@+id/imvNextDay"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/arrow_blue_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/waterWaveView"
+                    />
                 <com.orbitalsonic.waterwave.WaterWaveView
                     android:id="@+id/waterWaveView"
                     android:layout_width="250dp"
@@ -124,10 +150,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
+                    android:id="@+id/btn_minus50"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/white"
+                    android:backgroundTint="#EC1919"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="-100" />
+                <Button
                     android:id="@+id/btn_50"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/white_word"
                     android:backgroundTint="@color/blue_water"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+50" />
@@ -136,16 +172,18 @@
                     android:layout_marginRight="10dp"
                     android:textColor="@color/white_word"
                     android:backgroundTint="@color/blue_water"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+100" />
+                    android:text="+200" />
                 <Button
                     android:id="@+id/btn_200"
                     android:textColor="@color/white_word"
                     android:backgroundTint="@color/blue_water"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+200" />
+                    android:text="+500" />
             </LinearLayout>
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_water"
