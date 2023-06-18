@@ -83,7 +83,7 @@ public class BillAdapter extends  RecyclerView.Adapter<BillAdapter.BillViewHolde
 
         holder.txvId.setText(bill.getId());
         holder.txvDate.setText(convertDatetoString(bill.getDate()));
-        holder.txvPrice.setText(bill.getTotal());
+        holder.txvPrice.setText(castToMoney(Long.valueOf(bill.getTotal())));
         if(bill.isStatus()){
             holder.txvStatus.setText("Đơn hàng đã được giao thành công");
         }else{
@@ -134,6 +134,19 @@ public class BillAdapter extends  RecyclerView.Adapter<BillAdapter.BillViewHolde
 
         String str = hour+"h "+day+"/"+month+"/20"+year;
 
+        return str;
+    }
+    private String castToMoney(long a){
+
+        String numString = String.valueOf(a);
+        String str = "";
+        for (int i = 0; i < numString.length() ; i++){
+            if((numString.length() - i - 1) % 3 == 0 && i < numString.length()-1){
+                str += Character.toString(numString.charAt(i)) + ".";
+            }else{
+                str += Character.toString(numString.charAt(i));
+            }
+        }
         return str;
     }
 }

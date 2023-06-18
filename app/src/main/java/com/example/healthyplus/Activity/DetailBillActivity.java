@@ -103,7 +103,7 @@ public class DetailBillActivity extends AppCompatActivity {
         txvTime.setText(bill.getTime());
         txvPay.setText(bill.getPay());
         txvId.setText(bill.getId());
-        txvTotal.setText(bill.getTotal());
+        txvTotal.setText(castToMoney(Long.valueOf(bill.getTotal())));
         receiveProduct= (HashMap<String, Object>) bill.getProducts();
         for (String i : receiveProduct.keySet()) {
             System.out.println("key: " + i + " value: " + receiveProduct.get(i));
@@ -269,6 +269,19 @@ public class DetailBillActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    private String castToMoney(long a){
+
+        String numString = String.valueOf(a);
+        String str = "";
+        for (int i = 0; i < numString.length() ; i++){
+            if((numString.length() - i - 1) % 3 == 0 && i < numString.length()-1){
+                str += Character.toString(numString.charAt(i)) + ".";
+            }else{
+                str += Character.toString(numString.charAt(i));
+            }
+        }
+        return str;
     }
     public String convertDatetoString(int date){
 

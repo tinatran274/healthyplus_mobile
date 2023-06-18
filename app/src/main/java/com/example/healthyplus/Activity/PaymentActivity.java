@@ -41,6 +41,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -79,7 +80,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
         String delivery[]={"Hỏa tốc","Bình thường"};
         String time[]={"Sáng - Trưa", "Chiều - Tối"};
-        String pay[]={"Khi nhận hàng", "VN pay"};
+        String pay[]={"Khi nhận hàng", "Momo"};
 
         txvInfoName=findViewById(R.id.inf_name);
         etInfoAddress=findViewById(R.id.inf_address);
@@ -224,34 +225,45 @@ public class PaymentActivity extends AppCompatActivity {
                                 ,cPay
                                 ,false
                                 ,false
-                                , String.valueOf(txvTotalAll.getText())
+                                , String.valueOf(txvTotalAll.getText()).replace(".","")
                                 ,castDateToInt());
                         DocumentReference doc = db.collection("bill").document();
                         bill.setId(doc.getId());
-                        doc.set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error writing document", e);
-                                    }
-                                });
-                        newOrder.put(doc.getId(), true);
-                        db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(doc.getId()))
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "get failed ");
-                                            }
-                                        });
-                        dialog.dismiss();
-                        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                        if (cPay=="Momo"){
+                            Intent intent = new Intent(PaymentActivity.this, MoMoActivity.class);
+                            Bundle bundle =new Bundle();
+                            bundle.putSerializable("object_bill", (Serializable) bill);
+                            intent.putExtras(bundle);
+                            PaymentActivity.this.startActivity(intent);
+                        }
+                        else{
+                            doc.set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+                            newOrder.put(doc.getId(), true);
+                            db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(doc.getId()))
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "get failed ");
+                                        }
+                                    });
+                            dialog.dismiss();
+                            Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
                 });
 
