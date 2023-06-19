@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
 import com.example.healthyplus.Model.Product;
@@ -32,8 +34,9 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button btnBackProduct;
+    SearchView svProduct;
     User u;
-
+    List<Product> filterList = new ArrayList<>();
     List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
     @Override
@@ -43,6 +46,7 @@ public class ProductActivity extends AppCompatActivity {
 
         btnBackProduct=findViewById(R.id.btn_back_product);
         recyclerView=findViewById(R.id.rec);
+        svProduct = findViewById(R.id.svProduct);
 
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
@@ -76,11 +80,34 @@ public class ProductActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        svProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                return false;
+            }
+        });
     }
+
+    private void filterList(String s) {
+        filterList.clear();
+        for(Product product: list){
+            if(product.getName().toLowerCase().contains(s))
+                filterList.add(product);
+        }
+        productAdapter.setData(filterList);
+    }
+
     private List<Product> getListProduct()
     {
         List<Product> list = new ArrayList<>();
-
 
         return list;
     }

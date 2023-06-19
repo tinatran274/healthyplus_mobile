@@ -56,7 +56,9 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnIte
 
         readCart(list1 -> {
             System.out.println(listKey);
-                readProduct(list2 -> {
+            if(listKey == null)
+                return;
+            readProduct(list2 -> {
                     ArrayList <Product> realList = new ArrayList<>();
                     for(String key: listKey){
                         for(Product product: list){
@@ -150,7 +152,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnIte
                    if(task.isSuccessful()){
                        Map<String, Object> map = new HashMap<>();
                        map = task.getResult().getData();
-                       listKey = new ArrayList<>(map.keySet());
+                       if(map != null) listKey = new ArrayList<>(map.keySet());
                        callBack.onCallBack(listKey);
                    }
                    else{

@@ -93,8 +93,6 @@ public class DishActivity extends AppCompatActivity {
                 filterList.add(dish);
         }
         adapter.setDishList(filterList);
-        if(filterList.isEmpty())
-            Toast.makeText(this, "Không tìm thấy món ăn phù hợp", Toast.LENGTH_SHORT).show();
     }
 
     private void showDishes() {

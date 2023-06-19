@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SearchEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
 import com.example.healthyplus.Model.Product;
@@ -31,7 +33,9 @@ public class TechnologyProductActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button btnTechnologyProduct;
+    SearchView svTechProduct;
     List<Product> list = new ArrayList<>();
+    List<Product> filterList = new ArrayList<>();
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class TechnologyProductActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.rec);
         btnTechnologyProduct=findViewById(R.id.btn_back_technology_product);
+        svTechProduct = findViewById(R.id.svTechPro);
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -74,7 +79,30 @@ public class TechnologyProductActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        svTechProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                return false;
+            }
+        });
     }
+
+    private void filterList(String s) {
+        filterList.clear();
+        for(Product product: list){
+            if(product.getName().toLowerCase().contains(s))
+                filterList.add(product);
+        }
+        productAdapter.setData(filterList);
+    }
+
     private List<Product> getListProduct()
     {
         List<Product> list = new ArrayList<>();

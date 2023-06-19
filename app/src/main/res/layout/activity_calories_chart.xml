@@ -197,9 +197,10 @@
             <LinearLayout
                 android:id="@+id/cv2Calo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
+                android:padding="5dp"
                 android:weightSum="2"
                 android:gravity="center"
                 >
@@ -210,11 +211,10 @@
                     android:layout_weight="1"
                     android:layout_marginRight="4dp"
                     app:cardCornerRadius="10dp"
-                    android:paddingBottom="5dp"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -380,12 +380,14 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/txvWarning"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:drawableLeft="@drawable/ic_exclamation"
                         android:layout_gravity="left"
-                        android:text=" cube dep trai"
+                        android:text=""
                         android:gravity="center"
+                        android:visibility="gone"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -440,7 +442,42 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/cv5Calo"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TDEE là gì?"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="18dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
+                        android:text="TDEE (Total Daily Energy Expenditure) là chỉ số calo (năng lượng) cơ thể đốt cháy trong 1 ngày, bao gồm tất cả các hoạt động thể chất, ăn chơi, hít thở ngủ nghỉ, tập luyện trong 1 ngày.
 
+\n\nLàm gì tiếp theo sau khi đã có chỉ số TDEE?
+\nSau khi xác định được lượng calo cơ thể tiêu hao trong 1 ngày, bạn cần xác định lượng calo cần ăn.
+
+\n\n\t1. Nếu cần tăng cân, ăn nhiều hơn.
+\n\t2. Nếu cần giảm cân, ăn ít đi.
+\n\t3. Nếu cần duy trì cân nặng, ăn bằng số TDEE."/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <View
                 android:layout_width="40dp"

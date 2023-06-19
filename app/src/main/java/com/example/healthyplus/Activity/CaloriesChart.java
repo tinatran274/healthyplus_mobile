@@ -79,7 +79,8 @@ public class CaloriesChart extends AppCompatActivity {
     TextView txvStreak;
     TextView txv7calo, txv30calo, txv7thamHut, txv30thamHut, txvTarget,
             txvTotalDate, txvCurrentStreak,
-            txvBigTdee, txvSmallTdee;
+            txvBigTdee, txvSmallTdee,
+            txvWarning;
     Button btnBack;
     int aim;
     long tdee;
@@ -235,8 +236,11 @@ public class CaloriesChart extends AppCompatActivity {
             //totalCalories7 = totalCalories7 * (-1);
             txv7thamHut.setText("Lượng calories bạn đã thâm hụt: ");
             txv7calo.setText(Long.toString(totalCalories7 * (-1)));
-            if(aim == 2)
+            if(aim == 2) {
                 txv7calo.setTextColor(ContextCompat.getColor(this, R.color.orange));
+                txvWarning.setText(" Lượng calories của bạn đang quá thấp");
+                txvWarning.setVisibility(View.VISIBLE);
+            }
             else {
                 txv7calo.setTextColor(ContextCompat.getColor(this, R.color.green_main));
             }
@@ -248,6 +252,8 @@ public class CaloriesChart extends AppCompatActivity {
                 txv7calo.setTextColor(ContextCompat.getColor(this, R.color.green_main));
             else {
                 txv7calo.setTextColor(ContextCompat.getColor(this, R.color.orange));
+                txvWarning.setText(" Lượng calories của bạn đang quá cao");
+                txvWarning.setVisibility(View.VISIBLE);
             }
         }
 
@@ -489,6 +495,7 @@ public class CaloriesChart extends AppCompatActivity {
         cv2Calo = findViewById(R.id.cv2Calo);
         cv3Calo = findViewById(R.id.cv3Calo);
         cv4Calo = findViewById(R.id.cv4Calo);
+        txvWarning = findViewById(R.id.txvWarning);
 
         cv1Calo.setTranslationX(-10000);
         cv2Calo.setTranslationX(-10000);

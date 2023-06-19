@@ -73,8 +73,6 @@ public class IngredientActivity extends AppCompatActivity {
                 filterList.add(ingredient);
         }
         adapter.setIngreList(filterList);
-        if(filterList.isEmpty())
-            Toast.makeText(this, "Không tìm thấy nguyên liệu phù hợp", Toast.LENGTH_SHORT).show();
     }
 
     private void showIngre() {

@@ -49,7 +49,6 @@
                 android:gravity="left|center"
                 android:layoutDirection="rtl"
                 android:textSize="@dimen/textNormal"
-                android:textStyle="bold"
                 android:layout_marginTop="@dimen/marginBase"
                 android:checked="true"/>
 
