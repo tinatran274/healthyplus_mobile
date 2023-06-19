@@ -49,10 +49,10 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_height="60dp"
+                    android:paddingLeft="10dp"
                     android:layout_marginBottom="10dp"
+                    android:paddingRight="10dp"
                     android:background="@drawable/edit_text_green_background"
                     app:errorEnabled="true">
 
@@ -60,19 +60,21 @@
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:background="@android:color/transparent"
                         android:hint="Nhập tên tài khoản"
-                        android:layout_marginLeft="5dp"
                         android:inputType="text"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:textColorHint="@color/gray_word" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_height="60dp"
                     android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:background="@drawable/edit_text_green_background"
                     app:errorEnabled="true"
                     app:passwordToggleDrawable="@drawable/show_password"
@@ -84,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="Password"
+                        android:paddingBottom="5dp"
                         android:inputType="textPassword"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="5dp"
@@ -105,9 +108,7 @@
                     android:id="@+id/btnDangNhap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
                     android:background="@drawable/button_background"
                     android:backgroundTint="@color/green_main"
                     android:text="Đăng nhập"

@@ -123,22 +123,22 @@
                 android:layout_height="wrap_content"
                 >
                 <TextView
+                    android:id="@+id/btn_add_cart"
                     android:layout_width="wrap_content"
-                    android:layout_height="55dp"
+                    android:layout_height="50dp"
                     android:text="Thêm vào giỏ"
                     android:layout_marginRight="5dp"
-                    android:padding="20dp"
                     android:background="@drawable/button_background"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/white" />
                 <TextView
+                    android:id="@+id/btn_pay"
                     android:layout_width="wrap_content"
-                    android:layout_height="55dp"
+                    android:layout_height="50dp"
                     android:text="Thanh toán"
                     android:background="@drawable/button_background"
-                    android:padding="20dp"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:textStyle="bold"

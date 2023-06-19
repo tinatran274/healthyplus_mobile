@@ -43,6 +43,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_history"
                 android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -85,6 +86,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_cancel"
+                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

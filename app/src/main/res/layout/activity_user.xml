@@ -158,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="15dp"
-                        android:text="Calories hàng ngày (kcal): "
+                        android:text="Để đạt được mục tiêu cần nạp: "
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/card1" />
@@ -305,7 +305,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="Chiều cao: "
+                        android:text="Chiều cao (cm): "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txv5" />
@@ -324,7 +324,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="Cân nặng: "
+                        android:text="Cân nặng (kg): "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txv6" />
@@ -365,9 +365,7 @@
                         android:text="Cập nhật"
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="25dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         app:layout_constraintTop_toBottomOf="@+id/tv8"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

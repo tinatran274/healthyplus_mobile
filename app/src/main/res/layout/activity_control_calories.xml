@@ -128,6 +128,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_height="100dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -157,23 +158,25 @@
 
                     <TextView
                         android:id="@+id/plus1"
-                        android:text="+"
-                        android:textColor="@color/gray_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="20dp"
+                        android:text="+"
+                        android:textColor="@color/gray_word"
                         app:layout_constraintLeft_toRightOf="@+id/textView1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/inf_morning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:text="0"
                         android:textColor="@color/gray_word"
-                        android:layout_marginTop="20dp"
                         app:layout_constraintLeft_toRightOf="@+id/plus1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <EditText
                         android:id="@+id/edit_morning"
                         android:layout_width="match_parent"
@@ -181,9 +184,9 @@
                         android:layout_margin="15dp"
                         android:background="#F2F2F2"
                         android:hint="Thêm số Calories"
+                        android:inputType="number"
                         android:paddingLeft="10dp"
                         android:textSize="11dp"
-                        android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
                         tools:layout_editor_absoluteX="0dp" />
 
@@ -191,20 +194,21 @@
                         android:id="@+id/btn_add_morning"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/button_background"
                         android:backgroundTint="@color/green_main"
                         android:text="Thêm"
-                        android:background="@drawable/button_background"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp"
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_height="100dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -281,6 +285,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_height="100dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -356,6 +361,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                app:cardCornerRadius="10dp"
                 android:layout_margin="10dp"
                 android:layout_height="100dp">
 
@@ -432,6 +438,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                app:cardCornerRadius="10dp"
                 android:layout_margin="10dp"
                 android:layout_height="100dp">
 

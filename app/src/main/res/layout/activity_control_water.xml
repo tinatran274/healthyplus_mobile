@@ -192,6 +192,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_water"
                 android:layout_width="match_parent"
+                app:cardCornerRadius="10dp"
                 android:layout_margin="10dp"
                 android:layout_height="100dp">
 
@@ -269,6 +270,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_notify"
+                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
                 android:layout_height="55dp">

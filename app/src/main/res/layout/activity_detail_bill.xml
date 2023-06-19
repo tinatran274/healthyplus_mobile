@@ -34,48 +34,54 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="15dp"
-                android:padding="15dp"
-                android:background="@color/green_main"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/txv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="25dp"
-                    android:text="Đơn hàng đã hoàn thành"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:cardCornerRadius="10dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:padding="15dp"
+                    android:background="@color/green_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="25dp"
+                        android:text="Đơn hàng đã hoàn thành"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent" />
 
-                <TextView
-                    android:id="@+id/txv_c6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Cám ơn bạn đã mua sắm tại HealthyPlus"
-                    android:textColor="@color/white"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txv_status" />
+                    <TextView
+                        android:id="@+id/txv_c6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Cám ơn bạn đã mua sắm tại HealthyPlus"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txv_status" />
 
-                <ImageView
-                    android:id="@+id/img_icon1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img_fast_delivery" />
+                    <ImageView
+                        android:id="@+id/img_icon1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/img_fast_delivery" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,6 +148,7 @@
                 ></androidx.recyclerview.widget.RecyclerView>
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -189,6 +196,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -239,6 +247,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -248,6 +257,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="20dp">
 
@@ -333,7 +343,7 @@
                     android:id="@+id/btn_delete"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="8dp"
                     android:background="@drawable/button_background"
@@ -344,7 +354,7 @@
                     android:id="@+id/btn_confirm"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="8dp"
                     android:background="@drawable/button_background"
