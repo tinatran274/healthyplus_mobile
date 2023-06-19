@@ -103,8 +103,8 @@ public class DetailProductActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), ProductActivity.class);
-                startActivity(intent);
+//                Intent intent=new Intent(getApplicationContext(), ProductActivity.class);
+//                startActivity(intent);
                 finish();
             }
         });

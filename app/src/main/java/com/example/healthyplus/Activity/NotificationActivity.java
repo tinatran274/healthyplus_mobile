@@ -196,12 +196,13 @@ public class NotificationActivity extends AppCompatActivity  {
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar=Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt((String) txvHour.getText()));
-                calendar.set(Calendar.MINUTE, Integer.parseInt((String) txvMinute.getText()));
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND,0);
-                setAlarm();
+//                calendar=Calendar.getInstance();
+//
+//                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt((String) txvHour.getText()));
+//                calendar.set(Calendar.MINUTE, Integer.parseInt((String) txvMinute.getText()));
+//                calendar.set(Calendar.SECOND, 0);
+//                calendar.set(Calendar.MILLISECOND,0);
+//                setAlarm();
 
                 Query query1 = db.collection("alarm").whereEqualTo("name", (String) txvHour.getText()+txvMinute.getText());
                 AggregateQuery countQuery1 = query1.count();

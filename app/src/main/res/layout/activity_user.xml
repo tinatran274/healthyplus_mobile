@@ -24,12 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            >
+
             <Button
                 android:id="@+id/btn_back_user"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -39,18 +34,7 @@
                 android:text="Cá nhân"
                 android:textColor="#3C3C3E"
                 android:textStyle="bold" />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/imv_log_out"
-                android:layout_marginRight="10dp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/img_log_out" />
-        </LinearLayout>
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,31 +54,27 @@
                     android:id="@+id/txv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="18dp"
                     android:text="Trần Nhung"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="25dp"
                     android:textColor="@color/black_word"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/img_morning"
                     app:layout_constraintTop_toTopOf="parent" />
-
                 <TextView
-                    android:id="@+id/txv2"
+                    android:id="@+id/txv_change_pass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:text="UserID: "
-                    android:textColor="@color/black_word"
-                    app:layout_constraintLeft_toRightOf="@+id/img_morning"
-                    app:layout_constraintTop_toBottomOf="@+id/txv_name" />
+                    android:text="Đổi mật khẩu"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:paddingTop="25dp"
+                    android:textColor="@color/green_main"
+                    android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/txv_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="308398"
-                    android:textColor="@color/black_word"
-                    app:layout_constraintLeft_toRightOf="@+id/txv2"
-                    app:layout_constraintTop_toBottomOf="@+id/txv_name" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
@@ -369,6 +349,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv8"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/imv_log_out"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#ED430D"
+                android:background="@drawable/button_background"
+                android:text="Đăng xuất"
+
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
         </LinearLayout>
     </ScrollView>
 

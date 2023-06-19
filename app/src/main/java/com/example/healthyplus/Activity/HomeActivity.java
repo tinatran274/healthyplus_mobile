@@ -85,7 +85,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), CartActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         ingredientCardView.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +92,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), IngredientActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         suggestionCardView.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +99,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), SuggestionActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         exerciseCardView.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), ExerciseTimerActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         userCardView.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +113,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), UserActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         controlCaloriesCardView.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +120,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ControlCaloriesActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         productCardView.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +127,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         technologyCardView.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +134,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), TechnologyProductActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         controlWaterCardView.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +141,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), ControlWaterActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -158,7 +149,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), DishActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
         bill.setOnClickListener(new View.OnClickListener() {

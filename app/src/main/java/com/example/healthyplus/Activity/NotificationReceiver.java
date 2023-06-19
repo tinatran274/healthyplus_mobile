@@ -17,14 +17,14 @@ public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent i=new Intent(context, NotificationActivity.class);
+        Intent i=new Intent(context, AlarmActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent=PendingIntent.getActivity(context,0, i,0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "healthyplus")
                 .setSmallIcon(R.drawable.baseline_access_alarm_24)
-                .setContentTitle("Nhac nho uong nuoc")
-                .setContentText("Uong nuoc")
+                .setContentTitle("Nhắc nhở uống nước")
+                .setContentText("HealthyPlus nhắc bạn đã đến giờ uống nước rồi !!")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
