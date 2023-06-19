@@ -35,25 +35,6 @@
                 android:textColor="#3C3C3E"
                 android:textStyle="bold" />
 
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            >
-
-                <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/imv_log_out"
-                android:layout_marginRight="10dp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/img_log_out" />
-        </LinearLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="Trần Nhung"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="25dp"
                     android:textColor="@color/black_word"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/img_morning"
@@ -86,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:text="Đổi mật khẩu"
                     android:layout_marginRight="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:layout_marginLeft="20dp"
                     android:paddingTop="25dp"
@@ -156,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_marginLeft="15dp"
-                        android:text="Calories hàng ngày (kcal): "
+                        android:text="Để đạt được mục tiêu cần nạp: "
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/card1" />
@@ -303,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="Chiều cao: "
+                        android:text="Chiều cao (cm): "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txv5" />
@@ -322,7 +304,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="Cân nặng: "
+                        android:text="Cân nặng (kg): "
                         android:textColor="@color/black_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txv6" />
@@ -363,12 +345,23 @@
                         android:text="Cập nhật"
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="25dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         app:layout_constraintTop_toBottomOf="@+id/tv8"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/imv_log_out"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#ED430D"
+                android:background="@drawable/button_background"
+                android:text="Đăng xuất"
+
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
         </LinearLayout>
     </ScrollView>
 

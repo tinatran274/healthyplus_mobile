@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chiều cao: "
+            android:text="Chiều cao (cm): "
             android:textColor="@color/black_word"/>
         <EditText
             android:id="@+id/edit_height"
@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cân nặng: "
+            android:text="Cân nặng (kg): "
             android:textColor="@color/black_word"/>
         <EditText
             android:id="@+id/edit_weight"

@@ -125,4 +125,18 @@ public class User implements Serializable {
         }
         return water;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", aim=" + aim +
+                ", exerciseFrequency=" + exerciseFrequency +
+                '}';
+    }
 }

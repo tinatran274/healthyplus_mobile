@@ -29,6 +29,7 @@ import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,8 +41,9 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency, txvChangPass;
     Button btnUpdate, btnBackUser;
     FirebaseFirestore db;
-    ImageView imv_log_out;
-    User u;
+    FirebaseUser user;
+    Button imv_log_out;
+    User p;
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
@@ -64,8 +66,10 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         imv_log_out = findViewById(R.id.imv_log_out);
         txvChangPass = findViewById(R.id.txv_change_pass);
 
-        setInfoUser();
+        db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
+        setInfoUser();
         txvChangPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +121,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             }
         });
+
         imv_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,8 +148,8 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         });
     }
 
-    private void setInfoUser() {
 
+    private void setInfoUser() {
         db = FirebaseFirestore.getInstance();
         Log.e(TAG, currentUser.getUid());
         db.collection("user").document(currentUser.getUid()).get()
@@ -154,7 +159,8 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         if(task.isSuccessful()){
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if(documentSnapshot != null){
-                                User p = documentSnapshot.toObject(User.class);
+                                p = documentSnapshot.toObject(User.class);
+
                                 name.setText(p.getName());
                                 age.setText(String.valueOf(p.getAge()));
                                 height.setText(String.valueOf(p.getHeight()));
@@ -204,7 +210,10 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 });
     }
 
+
     private void showDialogUpdate() {
+
+        User updateUser = p;
         AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_update_info_user, null);
@@ -220,12 +229,89 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         RadioButton rdMale = view.findViewById(R.id.rd_male);
         EditText editHeight = view.findViewById(R.id.edit_height);
         EditText editWeight = view.findViewById(R.id.edit_weight);
-        RadioGroup rdActivityFrequency = view.findViewById(R.id.rdg_exercise);
+        RadioGroup rdgActivityFrequency = view.findViewById(R.id.rdg_exercise);
         RadioButton rdKhong = view.findViewById(R.id.rd_khong);
         RadioButton rdNhe = view.findViewById(R.id.rd_nhe);
         RadioButton rdVua = view.findViewById(R.id.rd_vua);
         RadioButton rdNang = view.findViewById(R.id.rd_nang);
         Button btnReup = view.findViewById(R.id.btn_reup);
+
+        editAge.setText(String.valueOf(p.getAge()));
+        editHeight.setText(String.valueOf(p.getHeight()));
+        editWeight.setText(String.valueOf(p.getWeight()));
+
+        if(p.getGender()==0) {
+            rdFemale.setChecked(true);
+        }else{
+            rdMale.setChecked(true);
+        }
+        if(p.getExerciseFrequency()==0) {
+            rdKhong.setChecked(true);
+        }else if (p.getExerciseFrequency()==1) {
+            rdNhe.setChecked(true);
+        }else if(p.getExerciseFrequency()==2) {
+            rdVua.setChecked(true);
+        }else{
+            rdNang.setChecked(true);
+        }
+
+        rdgActivityFrequency.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rd_khong:
+                        updateUser.setExerciseFrequency(0);
+                        break;
+                    case R.id.rd_nhe:
+                        updateUser.setExerciseFrequency(1);
+                        break;
+                    case R.id.rd_vua:
+                        updateUser.setExerciseFrequency(2);
+                        break;
+                    case R.id.rd_nang:
+                        updateUser.setExerciseFrequency(3);
+                        break;
+                }
+            }
+        });
+        rdgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rd_female:
+                        updateUser.setGender(0);
+                        break;
+                    case R.id.rd_male:
+                        updateUser.setGender(1);
+                        break;
+                }
+            }
+        });
+        btnReup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUser.setAge(Integer.parseInt(String.valueOf(editAge.getText())));
+                updateUser.setHeight(Integer.parseInt(String.valueOf(editHeight.getText())));
+                updateUser.setWeight(Integer.parseInt(String.valueOf(editWeight.getText())));
+
+                db.collection("user").document(user.getUid()).set(updateUser)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Success Update!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Fail Update", e);
+                            }
+                        });
+                dialog.dismiss();
+                recreate();
+
+            }
+        });
 
 
     }
@@ -241,13 +327,56 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.i1:
-                db.collection("user").document(currentUser.getUid()).update("aim",2);
+                db.collection("user").document(user.getUid())
+                        .update("aim", 0)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Mục tiêu của bạn là tăng cân");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating document", e);
+                            }
+                        });
+                recreate();
                 return true;
             case R.id.i2:
-                db.collection("user").document(currentUser.getUid()).update("aim",1);
+                db.collection("user").document(user.getUid())
+                        .update("aim", 1)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Mục tiêu của bạn là giữ cân");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Mục tiêu của bạn là tăng cân");
+                            }
+                        });
+                recreate();
                 return true;
             case R.id.i3:
-                db.collection("user").document(currentUser.getUid()).update("aim",0);
+
+                db.collection("user").document(user.getUid())
+                        .update("aim", 2)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error updating document", e);
+                            }
+                        });
+                recreate();
                 return true;
             default:
                 return false;

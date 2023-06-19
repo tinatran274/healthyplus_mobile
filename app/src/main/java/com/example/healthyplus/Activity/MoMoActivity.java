@@ -85,15 +85,8 @@ public class MoMoActivity extends AppCompatActivity {
         btnPayMoMo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newOrder.put(bill.getId(), true);
-                db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(bill.getId()))
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "get failed ");
-                            }
-                        });
-                db.collection("bill").document().set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                db.collection("bill").document(bill.getId()).set(bill).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
@@ -103,6 +96,15 @@ public class MoMoActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+
+                newOrder.put(bill.getId(), true);
+                db.collection("order").document(user.getUid()).set(newOrder, SetOptions.mergeFields(bill.getId()))
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "get failed ");
                             }
                         });
                 db.collection("bill").document(bill.getId())

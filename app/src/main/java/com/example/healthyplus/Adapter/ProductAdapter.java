@@ -132,12 +132,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                                 int newQuantity = currentQuantity + 1;
 
                                 userCartRef.update(productID, newQuantity)
-                                        .addOnSuccessListener(aVoid -> System.out.println("Số lượng đã được tăng thành công"))
+                                        .addOnSuccessListener(aVoid -> Toast.makeText(context, "+1 "+product.getName(), Toast.LENGTH_SHORT).show())
                                         .addOnFailureListener(e -> System.err.println("Lỗi khi tăng số lượng: " + e));
                             } else {
                                 // Sản phẩm chưa tồn tại trong giỏ hàng, đặt số lượng là 1
                                 userCartRef.update(productID, 1)
-                                        .addOnSuccessListener(aVoid -> System.out.println("Sản phẩm đã được thêm vào giỏ hàng"))
+                                        .addOnSuccessListener(aVoid -> Toast.makeText(context, product.getName()+" đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show())
                                         .addOnFailureListener(e -> System.err.println("Lỗi khi thêm sản phẩm: " + e));
                             }
                         }
@@ -147,6 +147,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                                     .addOnSuccessListener(aVoid -> System.out.println("Sản phẩm đã được thêm vào giỏ hàng"))
                                     .addOnFailureListener(e -> System.err.println("Lỗi khi thêm sản phẩm: " + e));
                         }
+
                     } else {
                         System.err.println("Lỗi khi lấy dữ liệu: " + task.getException());
                     }
