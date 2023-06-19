@@ -14,12 +14,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
 import com.example.healthyplus.Model.Product;
+import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,11 +42,13 @@ public class HomeActivity extends AppCompatActivity {
     ImageView imvCart;
     List<Product> list = new ArrayList<>();
     FirebaseFirestore db;
+    TextView hello;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        hello = findViewById(R.id.txvHello);
         imvCart = findViewById(R.id.img_cart);
         ingredientCardView = findViewById(R.id.cvIngre);
         recyclerView=findViewById(R.id.rec);
@@ -80,6 +87,18 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("user").document(u.getUid()).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    User user = task.getResult().toObject(User.class);
+                                    hello.setText(user.getName());
+                                }
+                            }
+                        });
         imvCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

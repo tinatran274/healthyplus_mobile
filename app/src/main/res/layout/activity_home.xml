@@ -9,10 +9,8 @@
     tools:context=".Activity.HomeActivity">
 
     <ScrollView
-        app:layout_constraintBottom_toTopOf="@+id/na"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -44,11 +42,11 @@
                     app:srcCompat="@drawable/img_gio_hang" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="#F2F2F2" />
+<!--            <SearchView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:background="#F2F2F2" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,9 +57,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Xin chào," />
+                    android:text="Xin chào, " />
 
                 <TextView
+                    android:id="@+id/txvHello"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""

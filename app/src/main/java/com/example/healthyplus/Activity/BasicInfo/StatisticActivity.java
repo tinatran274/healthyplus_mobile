@@ -21,17 +21,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StatisticActivity extends AppCompatActivity {
-    TextView txv1, txv2, txv3, txv4, txv5;
-
+    TextView txv1, txv2, txv3, txv4, txv5, txvWater;
+    TextView txvHeight, txvWeight;
     Button btnBatDau;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
 
+        txvHeight = findViewById(R.id.txv_height);
+        txvWeight = findViewById(R.id.txv_weight);
+        txvWater = findViewById(R.id.txv_n);
         txv4 = findViewById(R.id.txv_bmi);
         txv5 = findViewById(R.id.txv_ttde);
         btnBatDau = findViewById(R.id.btnBatDau);
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -43,11 +47,13 @@ public class StatisticActivity extends AppCompatActivity {
                             DocumentSnapshot documentSnapshot = task.getResult();
                                 if(documentSnapshot != null){
                                     User userBase = documentSnapshot.toObject(User.class);
-                                  //  txv1.setText(userBase.getId() + "");
-                                 //   txv2.setText(userBase.getAge() + "");
+                                    txv2.setText(String.format("%d", userBase.getAge()));
                                     txv3.setText(userBase.getName());
                                     txv4.setText(String.valueOf(userBase.BMICal()));
                                     txv5.setText(String.valueOf(userBase.TTDECal()));
+                                    txvWater.setText(String.valueOf(userBase.WaterCal()));
+                                    txvWeight.setText(String.valueOf( userBase.getWeight()));
+                                    txvHeight.setText(String.valueOf(userBase.getHeight()));
                                 }
                         }
                     }

@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:background="@android:color/transparent"
-                        android:hint="Nhập tên tài khoản"
+                        android:hint="Nhập email"
                         android:inputType="text"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"

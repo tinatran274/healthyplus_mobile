@@ -54,6 +54,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     User u;
     int maxCalories;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +66,13 @@ public class ControlCaloriesActivity extends AppCompatActivity {
         getUserMaxCalories();
 
         // get user calories when start the app
-        LocalDate today  = LocalDate.now();
+        LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = today.format(formatter);
-        getDataAtDay(formattedDate);
+
+        getInitData(formattedDate, data -> {
+            setInitData(data);
+        });
 
         // Calendar
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -105,7 +109,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
         btnBackControlCalories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getApplicationContext(), HomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -122,17 +126,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     }
 
     private void getUserMaxCalories() {
-        db.collection("user").document(user.getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            u = task.getResult().toObject(User.class);
-                            maxCalories = u.TTDECal();
-                            txvMax.setText(String.valueOf(maxCalories));
-                        }
-                    }
-                });
+
     }
 
     private void switchToNextDay() {
@@ -186,7 +180,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
             txvDay.setText(previousDate);
             getDataAtDay(previousDate);
         } catch (ParseException e) {
-            Log.e(TAG,e.toString());
+            Log.e(TAG, e.toString());
         }
     }
 
@@ -229,13 +223,13 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
                 int sub = Integer.parseInt(String.valueOf(editExercise.getText()));
                 int inf = Integer.parseInt(String.valueOf(infExercise.getText()));
-                int circle=((progress-sub)*100)/maxCalories;
+                int circle = ((progress - sub) * 100) / maxCalories;
 
                 progressCalories.setText(String.valueOf(progress - sub));
-                infExercise.setText(String.valueOf(inf+sub));
+                infExercise.setText(String.valueOf(inf + sub));
                 circleBar.setProgress(circle);
                 editExercise.setText("");
-                if(progress > maxCalories && (progress-sub)<maxCalories) {
+                if (progress > maxCalories && (progress - sub) < maxCalories) {
                     int color = getColor(R.color.green_main);
                     progressCalories.setTextColor(color);
                     circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
@@ -253,13 +247,13 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
                 int add = Integer.parseInt(String.valueOf(editSnack.getText()));
                 int inf = Integer.parseInt(String.valueOf(infSnack.getText()));
-                int circle=((progress+add)*100)/maxCalories;
+                int circle = ((progress + add) * 100) / maxCalories;
 
                 progressCalories.setText(String.valueOf(progress + add));
-                infSnack.setText(String.valueOf(inf+add));
+                infSnack.setText(String.valueOf(inf + add));
                 circleBar.setProgress(circle);
                 editSnack.setText("");
-                if((progress+add)>maxCalories) {
+                if ((progress + add) > maxCalories) {
                     int color = getResources().getColor(R.color.red);
                     progressCalories.setTextColor(color);
                     circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
@@ -276,13 +270,13 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
                 int add = Integer.parseInt(String.valueOf(editDinner.getText()));
                 int inf = Integer.parseInt(String.valueOf(infDinner.getText()));
-                int circle=((progress+add)*100)/maxCalories;
+                int circle = ((progress + add) * 100) / maxCalories;
 
                 progressCalories.setText(String.valueOf(progress + add));
-                infDinner.setText(String.valueOf(inf+add));
+                infDinner.setText(String.valueOf(inf + add));
                 circleBar.setProgress(circle);
                 editDinner.setText("");
-                if((progress+add)>maxCalories) {
+                if ((progress + add) > maxCalories) {
                     int color = getResources().getColor(R.color.red);
                     progressCalories.setTextColor(color);
                     circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
@@ -299,18 +293,18 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
                 int add = Integer.parseInt(String.valueOf(editNoon.getText()));
                 int inf = Integer.parseInt(String.valueOf(infNoon.getText()));
-                int circle=((progress+add)*100)/maxCalories;
+                int circle = ((progress + add) * 100) / maxCalories;
 
                 progressCalories.setText(String.valueOf(progress + add));
-                infNoon.setText(String.valueOf(inf+add));
+                infNoon.setText(String.valueOf(inf + add));
                 circleBar.setProgress(circle);
                 editNoon.setText("");
-                if((progress+add)>maxCalories) {
+                if ((progress + add) > maxCalories) {
                     int color = getResources().getColor(R.color.red);
                     progressCalories.setTextColor(color);
                     circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
                 }
-                setLunch(inf + add,progress + add);
+                setLunch(inf + add, progress + add);
             }
         });
     }
@@ -322,13 +316,13 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 int progress = Integer.parseInt(String.valueOf(progressCalories.getText()));
                 int add = Integer.parseInt(String.valueOf(editMorning.getText()));
                 int inf = Integer.parseInt(String.valueOf(infMorning.getText()));
-                int circle=((progress+add)*100)/maxCalories;
+                int circle = ((progress + add) * 100) / maxCalories;
 
                 progressCalories.setText(String.valueOf(progress + add));
-                infMorning.setText(String.valueOf(inf+add ));
+                infMorning.setText(String.valueOf(inf + add));
                 circleBar.setProgress(circle);
                 editMorning.setText("");
-                if((progress+add)>maxCalories) {
+                if ((progress + add) > maxCalories) {
                     int color = getResources().getColor(R.color.red);
                     progressCalories.setTextColor(color);
                     circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
@@ -354,7 +348,8 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 });
 
     }
-    private void setLunch(int calo,  int sum) {
+
+    private void setLunch(int calo, int sum) {
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(txvDay.getText().toString());
         Map<String, Object> data = new HashMap<>();
@@ -368,6 +363,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private void setDinner(int calo, int sum) {
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(txvDay.getText().toString());
@@ -382,7 +378,8 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void setSnack(int calo,  int sum) {
+
+    private void setSnack(int calo, int sum) {
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(txvDay.getText().toString());
         Map<String, Object> data = new HashMap<>();
@@ -396,7 +393,8 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void setExercise(int calo,  int sum) {
+
+    private void setExercise(int calo, int sum) {
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(txvDay.getText().toString());
         Map<String, Object> data = new HashMap<>();
@@ -412,24 +410,24 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     }
 
     private void findView() {
-        addMorning=findViewById(R.id.btn_add_morning);
-        addNoon=findViewById(R.id.btn_add_noon);
-        addDinner=findViewById(R.id.btn_add_dinner);
-        addSnack=findViewById(R.id.btn_add_snack);
-        addExercise=findViewById(R.id.btn_add_exercise);
-        progressCalories=findViewById(R.id.progress);
-        editMorning=findViewById(R.id.edit_morning);
-        editNoon=findViewById(R.id.edit_noon);
-        editDinner=findViewById(R.id.edit_dinner);
-        editSnack=findViewById(R.id.edit_snack);
-        editExercise=findViewById(R.id.edit_exercise);
-        infMorning=findViewById(R.id.inf_morning);
-        infNoon=findViewById(R.id.inf_noon);
-        infDinner=findViewById(R.id.inf_dinner);
-        infSnack=findViewById(R.id.inf_snack);
-        infExercise=findViewById(R.id.inf_exercise);
-        circleBar=findViewById(R.id.progress_circular_bar);
-        btnBackControlCalories=findViewById(R.id.btn_back_control_calories);
+        addMorning = findViewById(R.id.btn_add_morning);
+        addNoon = findViewById(R.id.btn_add_noon);
+        addDinner = findViewById(R.id.btn_add_dinner);
+        addSnack = findViewById(R.id.btn_add_snack);
+        addExercise = findViewById(R.id.btn_add_exercise);
+        progressCalories = findViewById(R.id.progress);
+        editMorning = findViewById(R.id.edit_morning);
+        editNoon = findViewById(R.id.edit_noon);
+        editDinner = findViewById(R.id.edit_dinner);
+        editSnack = findViewById(R.id.edit_snack);
+        editExercise = findViewById(R.id.edit_exercise);
+        infMorning = findViewById(R.id.inf_morning);
+        infNoon = findViewById(R.id.inf_noon);
+        infDinner = findViewById(R.id.inf_dinner);
+        infSnack = findViewById(R.id.inf_snack);
+        infExercise = findViewById(R.id.inf_exercise);
+        circleBar = findViewById(R.id.progress_circular_bar);
+        btnBackControlCalories = findViewById(R.id.btn_back_control_calories);
         txvDay = findViewById(R.id.txvDay);
         nextDay = findViewById(R.id.imvNextDay);
         previousDay = findViewById(R.id.imvPreviousDay);
@@ -437,79 +435,172 @@ public class ControlCaloriesActivity extends AppCompatActivity {
         imvChart = findViewById(R.id.img_cart);
 
         u = new User();
-        maxCalories = 9999;
     }
 
+    private interface callBack {
+        void onCallBack(Map<String, Object> data);
+    }
 
-    private void getDataAtDay(String formattedDate) {
+    private void getInitData(String formattedDate, callBack call) {
+
+        db.collection("user").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            u = task.getResult().toObject(User.class);
+                            maxCalories = u.TTDECal();
+                            txvMax.setText(String.valueOf(maxCalories));
+                        }
+                    }
+                });
 
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
         dailyDataRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    Map <String, Object> data = task.getResult().getData();
-                    System.out.println(formattedDate);
-                    System.out.println(data);
-                    if(data != null) {
-                        if(data.containsKey("breakfast")) infMorning.setText(Long.toString((Long) data.get("breakfast")));
-                        else infMorning.setText("0");
-                        if(data.containsKey("lunch")) infNoon.setText(Long.toString((Long) data.get("lunch")));
-                        else infNoon.setText("0");
-                        if(data.containsKey("dinner")) infDinner.setText(Long.toString((Long) data.get("dinner")));
-                        else infDinner.setText("0");
-                        if(data.containsKey("exercise")) infExercise.setText(Long.toString((Long) data.get("exercise")));
-                        else infExercise.setText("0");
-                        if(data.containsKey("snack")) infSnack.setText(Long.toString((Long) data.get("snack")));
-                        else infSnack.setText("0");
-                        if(data.containsKey("calories"))
-                        {
-                            progressCalories.setText(Long.toString((Long) data.get("calories")));
-                            long l = (Long) data.get("calories");
-                            int x = (int) l * 100;
+                if (task.isSuccessful()) {
+                    Map<String, Object> data = task.getResult().getData();
+                    call.onCallBack(data);
+                }
 
-                            if(l > maxCalories){
-                                int color = getColor(R.color.red);
-                                progressCalories.setTextColor(color);
-                                circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
-                            }
-                            else {
+            }
+        });
+    }
+
+    private void setInitData(Map<String, Object> data) {
+        if (data != null) {
+            if (data.containsKey("breakfast"))
+                infMorning.setText(Long.toString((Long) data.get("breakfast")));
+            else infMorning.setText("0");
+            if (data.containsKey("lunch"))
+                infNoon.setText(Long.toString((Long) data.get("lunch")));
+            else infNoon.setText("0");
+            if (data.containsKey("dinner"))
+                infDinner.setText(Long.toString((Long) data.get("dinner")));
+            else infDinner.setText("0");
+            if (data.containsKey("exercise"))
+                infExercise.setText(Long.toString((Long) data.get("exercise")));
+            else infExercise.setText("0");
+            if (data.containsKey("snack"))
+                infSnack.setText(Long.toString((Long) data.get("snack")));
+            else infSnack.setText("0");
+            if (data.containsKey("calories")) {
+                progressCalories.setText(Long.toString((Long) data.get("calories")));
+                long l = (Long) data.get("calories");
+                int x = (int) l * 100;
+
+                int color;
+                if (l > maxCalories) {
+                    color = getColor(R.color.red);
+                    progressCalories.setTextColor(color);
+                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+                    circleBar.setProgress(x / maxCalories);
+                } else {
+                    color = getColor(R.color.green_main);
+                    progressCalories.setTextColor(color);
+                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
+                    circleBar.setProgress(x / maxCalories);
+                }
+
+
+                String s = maxCalories + "";
+                Log.d(TAG, "success get the max calories from firebase " + s);
+
+            } else {
+                int color = getColor(R.color.green_main);
+                progressCalories.setTextColor(color);
+                circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
+                progressCalories.setText("0");
+                circleBar.setProgress(0);
+            }
+
+        } else {
+            int color = getColor(R.color.green_main);
+            progressCalories.setTextColor(color);
+            circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
+            infMorning.setText("0");
+            infNoon.setText("0");
+            infDinner.setText("0");
+            infExercise.setText("0");
+            infSnack.setText("0");
+            progressCalories.setText("0");
+            circleBar.setProgress(0);
+
+        }
+    }
+
+    private void getDataAtDay(String formattedDate) {
+
+        DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
+        DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
+        dailyDataRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Map<String, Object> data = task.getResult().getData();
+                            System.out.println(formattedDate);
+                            System.out.println(data);
+                            if (data != null) {
+                                if (data.containsKey("breakfast"))
+                                    infMorning.setText(Long.toString((Long) data.get("breakfast")));
+                                else infMorning.setText("0");
+                                if (data.containsKey("lunch"))
+                                    infNoon.setText(Long.toString((Long) data.get("lunch")));
+                                else infNoon.setText("0");
+                                if (data.containsKey("dinner"))
+                                    infDinner.setText(Long.toString((Long) data.get("dinner")));
+                                else infDinner.setText("0");
+                                if (data.containsKey("exercise"))
+                                    infExercise.setText(Long.toString((Long) data.get("exercise")));
+                                else infExercise.setText("0");
+                                if (data.containsKey("snack"))
+                                    infSnack.setText(Long.toString((Long) data.get("snack")));
+                                else infSnack.setText("0");
+                                if (data.containsKey("calories")) {
+                                    progressCalories.setText(Long.toString((Long) data.get("calories")));
+                                    long l = (Long) data.get("calories");
+                                    int x = (int) l * 100;
+
+                                    if (l > maxCalories) {
+                                        int color = getColor(R.color.red);
+                                        progressCalories.setTextColor(color);
+                                        circleBar.setProgressDrawable(getDrawable(R.drawable.circle_max));
+                                    } else {
+                                        int color = getColor(R.color.green_main);
+                                        progressCalories.setTextColor(color);
+                                        circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
+                                    }
+                                    circleBar.setProgress(x / maxCalories);
+                                    String s = maxCalories + "";
+                                    Log.d(TAG, "success get the max calories from firebase " + s);
+
+                                } else {
+                                    int color = getColor(R.color.green_main);
+                                    progressCalories.setTextColor(color);
+                                    circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
+                                    progressCalories.setText("0");
+                                    circleBar.setProgress(0);
+                                }
+
+                            } else {
                                 int color = getColor(R.color.green_main);
                                 progressCalories.setTextColor(color);
                                 circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
+
+                                infMorning.setText("0");
+                                infNoon.setText("0");
+                                infDinner.setText("0");
+                                infExercise.setText("0");
+                                infSnack.setText("0");
+                                progressCalories.setText("0");
+                                circleBar.setProgress(0);
+
                             }
-                                circleBar.setProgress( x / maxCalories);
-                                String s = maxCalories + "";
-                                Log.d(TAG, "success get the max calories from firebase " + s);
-
                         }
-                        else {
-                            int color = getColor(R.color.green_main);
-                            progressCalories.setTextColor(color);
-                            circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
-                            progressCalories.setText("0");
-                            circleBar.setProgress(0);
-                        }
-
                     }
-                    else{
-                        int color = getColor(R.color.green_main);
-                        progressCalories.setTextColor(color);
-                        circleBar.setProgressDrawable(getDrawable(R.drawable.circle));
-
-                        infMorning.setText("0");
-                        infNoon.setText("0");
-                        infDinner.setText("0");
-                        infExercise.setText("0");
-                        infSnack.setText("0");
-                        progressCalories.setText("0");
-                        circleBar.setProgress(0);
-
-                    }
-                }
-            }
-        })
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -517,6 +608,4 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 }

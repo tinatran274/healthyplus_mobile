@@ -328,7 +328,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (item.getItemId()) {
             case R.id.i1:
                 db.collection("user").document(user.getUid())
-                        .update("aim", 0)
+                        .update("aim", 2)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -363,7 +363,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.i3:
 
                 db.collection("user").document(user.getUid())
-                        .update("aim", 2)
+                        .update("aim", 0)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

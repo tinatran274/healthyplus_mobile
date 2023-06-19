@@ -69,9 +69,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 Button btnGetEmail = dialogView.findViewById(R.id.btnGetResetMail);
                 TextView txvBackLogin = dialogView.findViewById(R.id.txvBackLogin);
+                TextView txvOK = dialogView.findViewById(R.id.txvOK);
                 EditText edtMail = dialogView.findViewById(R.id.edtGetResetMail);
 
-                edtMail.setError("Vui lòng không để trống Email");
+                txvOK.setVisibility(View.GONE);
 
                 txvBackLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,11 +84,19 @@ public class LoginActivity extends AppCompatActivity {
                 btnGetEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(edtMail.getText().toString().isEmpty()) {
+                            edtMail.setError("Vui lòng nhập email");
+                            return;
+                        }
                         String email = edtMail.getText().toString().trim();
                         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()) Toast.makeText(LoginActivity.this, "Gửi thành công", Toast.LENGTH_SHORT).show();
+                                if(task.isSuccessful())
+                                {
+                                    Toast.makeText(LoginActivity.this, "Gửi thành công", Toast.LENGTH_SHORT).show();
+                                    txvOK.setVisibility(View.VISIBLE);
+                                }
                                 else {
                                     Log.e(TAG, "Cannot send reset password email");
                                     Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();

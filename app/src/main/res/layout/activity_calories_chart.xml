@@ -387,6 +387,7 @@
                         android:layout_gravity="left"
                         android:text=""
                         android:gravity="center"
+                        android:textColor="@color/red"
                         android:visibility="gone"
                         />
                     <TextView
