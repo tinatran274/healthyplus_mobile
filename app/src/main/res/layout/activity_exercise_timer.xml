@@ -31,12 +31,13 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/na"
-        android:background="#FFFFFF"
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/navigation_bottom_menu"
-        ></com.google.android.material.bottomnavigation.BottomNavigationView>
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/na"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:menu="@menu/navigation_bottom_menu"-->
+<!--        ></com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
 </LinearLayout>

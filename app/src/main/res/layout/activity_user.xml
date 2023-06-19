@@ -132,12 +132,13 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <TextView
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
                         android:layout_marginLeft="15dp"
+                        android:layout_marginTop="30dp"
                         android:text="Để đạt được mục tiêu cần nạp: "
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
@@ -159,67 +160,73 @@
                         android:id="@+id/tv4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
                         android:text="Lượng nước hàng ngày (ml): "
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
                     <TextView
                         android:id="@+id/txv_max_water"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
                         android:layout_marginTop="12dp"
                         android:text="1950"
                         android:textColor="@color/white_word"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@+id/tv4"
                         app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
                     <TextView
                         android:id="@+id/tv5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginTop="15dp"
                         android:text="BMI: "
-                        android:layout_marginLeft="15dp"
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv4" />
+
                     <TextView
                         android:id="@+id/txv_bmi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
                         android:layout_marginTop="12dp"
                         android:text="26.67"
                         android:textColor="@color/white_word"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@+id/tv5"
                         app:layout_constraintTop_toBottomOf="@+id/tv4" />
+
                     <TextView
                         android:id="@+id/tv6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginTop="15dp"
                         android:text="TTDE: "
-                        android:layout_marginLeft="15dp"
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv5" />
+
                     <TextView
                         android:id="@+id/txv_ttde"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
                         android:layout_marginTop="12dp"
                         android:text="1649"
                         android:textColor="@color/white_word"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
                         app:layout_constraintLeft_toRightOf="@+id/tv6"
                         app:layout_constraintTop_toBottomOf="@+id/tv5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
@@ -358,7 +365,7 @@
 
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+                android:layout_height="40dp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>

@@ -64,13 +64,13 @@
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/na"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/navigation_bottom_menu"
-        ></com.google.android.material.bottomnavigation.BottomNavigationView>
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/na"-->
+<!--        android:background="#FFFFFF"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:menu="@menu/navigation_bottom_menu"-->
+<!--        ></com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
