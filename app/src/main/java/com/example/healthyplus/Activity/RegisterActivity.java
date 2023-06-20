@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText email, username, password, password2;
+    TextView txvDangNhap;
     Button btnDangKy;
     FirebaseAuth auth;
     @Override
@@ -43,6 +45,15 @@ public class RegisterActivity extends AppCompatActivity {
         username = findViewById(R.id.edtName);
         password = findViewById(R.id.edtPassword);
         password2 = findViewById(R.id.edtPassword2);
+        txvDangNhap = findViewById(R.id.txvDangNhap);
+
+        txvDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
+
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

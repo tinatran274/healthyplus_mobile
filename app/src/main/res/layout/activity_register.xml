@@ -105,6 +105,26 @@
             />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                >
+                <TextView
+                    android:textColor="@color/gray_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã có tài khoản?" />
+                <TextView
+                    android:id="@+id/txvDangNhap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green_main"
+                    android:text="  Đăng nhập" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
