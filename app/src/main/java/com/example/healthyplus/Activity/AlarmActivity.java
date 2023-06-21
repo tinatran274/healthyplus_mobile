@@ -168,7 +168,7 @@ public class AlarmActivity extends AppCompatActivity {
         pendingIntent= PendingIntent.getBroadcast(this, 0, intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY,pendingIntent);
-        Toast.makeText(getApplication(), "Set remind sucess", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplication(), "Thêm thành công", Toast.LENGTH_SHORT).show();
     }
     private void createNotificationChanel() {
 

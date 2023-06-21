@@ -119,9 +119,9 @@ public class User implements Serializable {
         int water = 0;
         if(this.gender == 1){
             if(exerciseFrequency == 0)
-                water += 35*this.weight + (exerciseFrequency + 0.5)*500;
+                water += 35*this.weight + (exerciseFrequency + 1.2)*500;
             else if(exerciseFrequency == 1)
-                water += 35*this.weight + (exerciseFrequency + 0.25)*500;
+                water += 35*this.weight + (exerciseFrequency + 0.35)*500;
             else if(exerciseFrequency == 2)
                 water += 35*this.weight + (exerciseFrequency - 0.5)*500;
             else if(exerciseFrequency == 3)
@@ -129,7 +129,14 @@ public class User implements Serializable {
 
         }
         else {
-            water += 31*this.weight + (exerciseFrequency + 0.5)*500;
+            if(exerciseFrequency ==0)
+             water += 31*this.weight + (exerciseFrequency + 1.2)*500;
+            else if(exerciseFrequency == 1)
+                water += 31*this.weight + (exerciseFrequency + 0.35)*500;
+            else if(exerciseFrequency == 2)
+                water += 31*this.weight + (exerciseFrequency - 0.5)*500;
+            else if(exerciseFrequency == 3)
+                water += 31*this.weight + (exerciseFrequency - 1)*500;
         }
         return water;
     }

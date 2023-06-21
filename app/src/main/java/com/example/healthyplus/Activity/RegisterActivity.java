@@ -23,9 +23,11 @@ import com.example.healthyplus.Model.Account;
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -58,15 +60,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(isEmpty(email))
+                if (isEmpty(email))
                     Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
-                else if(isEmpty(username))
+                else if (isEmpty(username))
                     Toast.makeText(RegisterActivity.this, "Enter username", Toast.LENGTH_SHORT).show();
-                else if(isEmpty(password))
+                else if (isEmpty(password))
                     Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                else if(isEmpty(password2))
+                else if (isEmpty(password2))
                     Toast.makeText(RegisterActivity.this, "Nhập mật khẩu xác nhận", Toast.LENGTH_SHORT).show();
-                else if(!password.getText().toString().trim().equals(password2.getText().toString().trim()))
+                else if (!password.getText().toString().trim().equals(password2.getText().toString().trim()))
                     Toast.makeText(RegisterActivity.this, "Mật khẩu trùng khớp", Toast.LENGTH_SHORT).show();
                 else {
                     String user_email = email.getText().toString().trim();
@@ -113,8 +115,31 @@ public class RegisterActivity extends AppCompatActivity {
                                         intent.putExtra("user", user);
                                         startActivity(intent);
                                     } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                        // User registration failed
+                                        Exception exception = task.getException();
+                                        if (exception instanceof FirebaseAuthException) {
+                                            String errorCode = ((FirebaseAuthException) exception).getErrorCode();
+
+                                            if (errorCode.equals("ERROR_INVALID_EMAIL")) {
+                                                // If sign in fails, display a message to the user.
+                                                Toast.makeText(RegisterActivity.this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+                                            } else if (errorCode.equals("ERROR_WEAK_PASSWORD")) {
+                                                // Weak password (less than 6 characters)
+                                                Toast.makeText(RegisterActivity.this, "Mật khẩu phải tối thiểu 6 ký tự", Toast.LENGTH_SHORT).show();
+                                            } else if (errorCode.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
+                                                // Email address is already associated with another account
+                                                Toast.makeText(RegisterActivity.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                                            } else if (errorCode.equals("ERROR_INVALID_USER_TOKEN")) {
+                                                // Invalid user token
+                                                Toast.makeText(RegisterActivity.this, "Hard bug!", Toast.LENGTH_SHORT).show();
+                                            } else if (errorCode.equals("ERROR_OPERATION_NOT_ALLOWED")) {
+                                                // Account creation is disabled in the Firebase project
+                                                Toast.makeText(RegisterActivity.this, "Hard bug!", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                // Handle other exceptions
+                                                exception.printStackTrace();
+                                            }
+                                        }
                                     }
                                 }
                             });
@@ -122,7 +147,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
     private boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
             return false;
