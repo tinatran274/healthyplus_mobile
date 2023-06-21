@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -24,6 +25,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.healthyplus.Model.User;
 import com.example.healthyplus.R;
@@ -38,13 +40,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency, txvChangPass;
+    TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency, txvChangPass,
+    txv_bmi;
+    ImageView imv_bmi;
     Button btnUpdate, btnBackUser;
     FirebaseFirestore db;
     FirebaseUser user;
     Button imv_log_out;
     User p;
+
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    ToggleButton carret;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,23 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btnBackUser = findViewById(R.id.btn_back_user);
         imv_log_out = findViewById(R.id.imv_log_out);
         txvChangPass = findViewById(R.id.txv_change_pass);
+        txv_bmi = findViewById(R.id.txv_bmi123);
+        imv_bmi = findViewById(R.id.imv_bmi123);
+        carret = findViewById(R.id.carret);
+
+        carret.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    imv_bmi.setVisibility(View.VISIBLE);
+                    txv_bmi.setVisibility(View.VISIBLE);
+                }
+                else {
+                    imv_bmi.setVisibility(View.GONE);
+                    txv_bmi.setVisibility(View.GONE);
+                }
+            }
+        });
 
         db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -171,7 +194,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                                 switch (p.getAim()) {
                                     case 2:
                                         aim.setText("Tăng cân");
-                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() )));
+                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() * 1.1 )));
                                         break;
                                     case 1:
                                         aim.setText("Giữ cân");
@@ -179,7 +202,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                                         break;
                                     case 0:
                                         aim.setText("Giảm cân");
-                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() )));
+                                        maxCalories.setText(String.valueOf(Math.round(p.TTDECal() * 0.9 )));
                                         break;
                                 }
                                 switch (p.getGender()) {

@@ -229,7 +229,7 @@ public class WaterChartActivity extends AppCompatActivity {
             dateEntries.add(new Entry(i, water.get(i)));
         }
 
-        LineDataSet dateData = new LineDataSet(dateEntries, "Water");
+        LineDataSet dateData = new LineDataSet(dateEntries, "Thực tế");
         dateData.setAxisDependency(YAxis.AxisDependency.LEFT);
         dateData.setColor(ContextCompat.getColor(this, R.color.blue_water));
         dateData.setLineWidth(2f);
@@ -243,7 +243,7 @@ public class WaterChartActivity extends AppCompatActivity {
             lineEntry.add(new Entry(i, waterCal));
         }
 
-        LineDataSet lineDataSet = new LineDataSet(lineEntry, "Water intake");
+        LineDataSet lineDataSet = new LineDataSet(lineEntry, "Cần thiết");
         lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineDataSet.setColor(ContextCompat.getColor(this, R.color.orange));
         lineDataSet.setLineWidth(2f);

@@ -29,7 +29,7 @@
             android:name=".Activity.PaymentActivity"
             android:exported="true" />
         <activity
-            android:name=".WaterChartActivity"
+            android:name=".Activity.WaterChartActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.DetailAlarmActivity"
@@ -102,7 +102,13 @@
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.RegisterActivity"
             android:exported="true" /> <!-- BasicInfo activity -->

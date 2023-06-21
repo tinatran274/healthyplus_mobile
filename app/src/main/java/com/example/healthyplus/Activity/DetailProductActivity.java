@@ -38,7 +38,7 @@ import java.util.Map;
 public class DetailProductActivity extends AppCompatActivity {
 
     TextView name, cost, supplier, btnAdd, btnPay;
-    ImageView img;
+    ImageView img, imgCart;
     Button buttonBack;
     FirebaseStorage storage;
     FirebaseFirestore db;
@@ -58,6 +58,7 @@ public class DetailProductActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+        imgCart = findViewById(R.id.img_cart);
         name=findViewById(R.id.tv_name);
         cost=findViewById(R.id.tv_cost);
         supplier=findViewById(R.id.tv_supplier_name);
@@ -65,6 +66,13 @@ public class DetailProductActivity extends AppCompatActivity {
         buttonBack = findViewById(R.id.btn_back);
         btnAdd=findViewById(R.id.btn_add_cart);
         btnPay=findViewById(R.id.btn_pay);
+
+        imgCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+            }
+        });
 
         choseProduct.put(product, 1L);
         name.setText(product.getName());

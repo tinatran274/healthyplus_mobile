@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.SearchEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
@@ -37,6 +38,7 @@ public class TechnologyProductActivity extends AppCompatActivity {
     List<Product> list = new ArrayList<>();
     List<Product> filterList = new ArrayList<>();
     FirebaseFirestore db;
+    ImageView imgCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,13 @@ public class TechnologyProductActivity extends AppCompatActivity {
         productAdapter.setData(list);
         recyclerView.setAdapter(productAdapter);
 
+        imgCart = findViewById(R.id.img_cart);
+        imgCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+            }
+        });
         db = FirebaseFirestore.getInstance();
         db.collection("technology_product").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

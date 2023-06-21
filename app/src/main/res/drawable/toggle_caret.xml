@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When selected -->
+    <item android:drawable="@drawable/caret_down"
+        android:state_checked="false" />
+    <!-- When not selected-->
+    <item android:drawable="@drawable/caret_up"
+        android:state_checked="true"/>
+</selector>

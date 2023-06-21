@@ -206,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="15dp"
-                        android:text="TTDE: "
+                        android:text="TDEE: "
                         android:textColor="@color/white_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv5" />
@@ -224,12 +224,66 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:gravity="center"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="BMI là gì?"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
+                        <ToggleButton
+                            android:id="@+id/carret"
+                            android:layout_width="10dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/toggle_caret"
+                            android:padding="5dp"
+                            android:textOff=""
+                            android:textOn="" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txv_bmi123"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chỉ số BMI còn được gọi là chỉ số khối lượng cơ thể (Body Mass Index). Dựa vào chỉ số BMI của một người có thể biết được người đó béo, gầy hay có cân nặng lý tưởng."
+                        android:textColor="@color/black_word"
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone"
+                        />
+                    <ImageView
+                        android:id="@+id/imv_bmi123"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/bmi_info"
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone"
+                       />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
                 android:layout_marginTop="30dp"
-                android:elevation="10dp"
                 app:cardCornerRadius="15dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -350,10 +404,11 @@
                         android:text="Cập nhật"
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="25dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         app:layout_constraintTop_toBottomOf="@+id/tv8"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/imv_log_out"
                 android:layout_marginTop="20dp"

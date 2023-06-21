@@ -96,7 +96,7 @@ public class User implements Serializable {
         this.age = age;
     }
     public float BMICal() {
-        return (float) Math.floor(this.weight/(this.height*0.02)* 100)/100;
+        return (float) Math.floor(this.weight/(this.height*0.01*this.height*0.01)* 100)/100;
     }
     public int TTDECal() {
         float bmr;
@@ -118,7 +118,15 @@ public class User implements Serializable {
     public int WaterCal(){
         int water = 0;
         if(this.gender == 1){
-            water += 35*this.weight + (exerciseFrequency + 0.5)*500;
+            if(exerciseFrequency == 0)
+                water += 35*this.weight + (exerciseFrequency + 0.5)*500;
+            else if(exerciseFrequency == 1)
+                water += 35*this.weight + (exerciseFrequency + 0.25)*500;
+            else if(exerciseFrequency == 2)
+                water += 35*this.weight + (exerciseFrequency - 0.5)*500;
+            else if(exerciseFrequency == 3)
+                water += 35*this.weight + (exerciseFrequency - 1)*500;
+
         }
         else {
             water += 31*this.weight + (exerciseFrequency + 0.5)*500;

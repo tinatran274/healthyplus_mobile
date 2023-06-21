@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class ProductActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private Button btnBackProduct;
     SearchView svProduct;
+    ImageView imgCart;
     User u;
     List<Product> filterList = new ArrayList<>();
     List<Product> list = new ArrayList<>();
@@ -48,11 +50,20 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.rec);
         svProduct = findViewById(R.id.svProduct);
 
+
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         productAdapter.setData(list);
         recyclerView.setAdapter(productAdapter);
+
+        imgCart = findViewById(R.id.img_cart);
+        imgCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+            }
+        });
 
         db = FirebaseFirestore.getInstance();
         db.collection("product").get()
