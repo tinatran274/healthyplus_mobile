@@ -64,9 +64,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+
                     android:textSize="16dp"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cs_layout"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imv_idea"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="15dp"
+                        app:srcCompat="@drawable/img_idea"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/txv_suggest_menu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green_main"
+                        android:text="Xem thực đơn ngày hôm nay"
+                        android:textStyle="bold"
+                        android:paddingLeft="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/imv_idea"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/dr_1"
@@ -421,7 +464,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ĐỀ XUẤT HÔM NAY"
+                android:text="ĐỀ XUẤT SẢN PHẨM HÔM NAY"
                 android:textColor="@color/green_main"
                 android:textSize="16dp"
                 android:paddingTop="15dp"

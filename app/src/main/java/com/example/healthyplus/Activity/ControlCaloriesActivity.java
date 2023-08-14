@@ -46,7 +46,8 @@ public class ControlCaloriesActivity extends AppCompatActivity {
 
     Button addMorning, addNoon, addDinner, addSnack, addExercise, btnBackControlCalories;
     TextView progressCalories, infMorning, infNoon, infDinner, infSnack, infExercise,
-            txvDay, txvMax;
+            txvDay, txvMax, txvChooseIngr, txvChooseDish, txvChooseIngr1, txvChooseDish1,
+            txvChooseIngr2, txvChooseDish2,txvChooseIngr3, txvChooseDish3;
     ImageView nextDay, previousDay, imvChart;
     EditText editMorning, editNoon, editDinner, editSnack, editExercise;
     ProgressBar circleBar;
@@ -100,6 +101,8 @@ public class ControlCaloriesActivity extends AppCompatActivity {
             }
         });
 
+
+
         onClickAddMorning();
         onClickAddLunch();
         onClickAddDinner();
@@ -112,6 +115,63 @@ public class ControlCaloriesActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        txvChooseIngr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IngredientActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseIngr1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IngredientActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseIngr2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IngredientActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseIngr3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IngredientActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DishActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseDish1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DishActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseDish2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DishActivity.class);
+                startActivity(intent);
+            }
+        });
+        txvChooseDish3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DishActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -433,6 +493,14 @@ public class ControlCaloriesActivity extends AppCompatActivity {
         previousDay = findViewById(R.id.imvPreviousDay);
         txvMax = findViewById(R.id.max);
         imvChart = findViewById(R.id.img_cart);
+        txvChooseIngr = findViewById(R.id.tv_choose_ingr);
+        txvChooseDish = findViewById(R.id.tv_choose_dish);
+        txvChooseIngr1 = findViewById(R.id.tv_choose_ingr1);
+        txvChooseDish1 = findViewById(R.id.tv_choose_dish1);
+        txvChooseIngr2 = findViewById(R.id.tv_choose_ingr2);
+        txvChooseDish2 = findViewById(R.id.tv_choose_dish2);
+        txvChooseIngr3 = findViewById(R.id.tv_choose_ingr3);
+        txvChooseDish3 = findViewById(R.id.tv_choose_dish3);
 
         u = new User();
     }

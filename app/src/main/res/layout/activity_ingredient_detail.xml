@@ -49,7 +49,6 @@
                 android:padding="15dp"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/linearMargin"
                 >
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -106,6 +105,69 @@
                         android:gravity="center"/>
                 </LinearLayout>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp">
+                    <TextView
+                        android:id="@+id/txv1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bạn muốn thêm: "
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="center"/>
+                    <EditText
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/txv1"
+                        android:id="@+id/edtWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
+                    <TextView
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/edtWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="g"
+                        android:textColor="@color/black"
+                        android:gravity="center"/>
+                    <Spinner
+                        android:id="@+id/sp_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                         />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/btn_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@color/green_main"
+                    android:text="Thêm"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
         </LinearLayout>
