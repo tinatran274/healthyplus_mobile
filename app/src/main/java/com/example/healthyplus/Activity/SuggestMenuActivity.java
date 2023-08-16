@@ -31,6 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -38,7 +39,7 @@ import java.util.Random;
 public class SuggestMenuActivity extends AppCompatActivity {
 
     Button btnBack;
-    TextView txvAim, txvBe, txvTDEE, txvTotal;
+    TextView txvAim, txvBe, txvTDEE, txvTotal, txvTitle, txvMean;
     RecyclerView rec;
     DishAdapter adapter = new DishAdapter(this);
     List<Dish> recommendMenu = new ArrayList<>();
@@ -47,6 +48,8 @@ public class SuggestMenuActivity extends AppCompatActivity {
     List<Dish> favList = new ArrayList<>();
     List<Dish> allList = new ArrayList<>();
     List<String> favID = new ArrayList<>();
+
+    List<Map> knowledge = new ArrayList<>();
     User p;
 
     @Override
@@ -59,12 +62,37 @@ public class SuggestMenuActivity extends AppCompatActivity {
         txvTDEE = findViewById(R.id.txv_tdee);
         txvTotal = findViewById(R.id.txv_total);
         btnBack = findViewById(R.id.btn_back_dish);
+        txvTitle =  findViewById(R.id.txv_title);
+        txvMean = findViewById(R.id.txv_mean);
+
         rec = findViewById(R.id.rec);
         rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
 
         showFavDish();
 
-
+        db.collection("knowledge")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = new HashMap<>();
+                                data = document.getData();
+                                knowledge.add(data);
+                            }
+                            Random random = new Random();
+                            int randomIndex = random.nextInt(knowledge.size()); // Generates a random index within the list size
+                            Map<String, Object> randomItem = knowledge.get(randomIndex);
+                            String title = (String) randomItem.get("title");
+                            txvTitle.setText(title);
+                            String mean = (String) randomItem.get("mean");
+                            txvMean.setText(mean);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +102,7 @@ public class SuggestMenuActivity extends AppCompatActivity {
             }
         });
 
-        Log.e(TAG, favList.toString());
+
     }
 
     private void showFavDish() {
@@ -136,7 +164,7 @@ public class SuggestMenuActivity extends AppCompatActivity {
         int totalKcal = 0;
         int tdee = u.TTDECal();
         txvTDEE.setText(String.valueOf(tdee));
-        int mainKcal = (tdee*25)/100;
+        int mainKcal = (tdee*35)/100;
 
         for (Dish item : favoList) {
             if (item.getCalo()>mainKcal)
@@ -158,8 +186,8 @@ public class SuggestMenuActivity extends AppCompatActivity {
                     Dish randomItem = increaseWeightMain.get(randomIndex); // Get the random element from the list
                     recommendMenu.add(randomItem);
                     totalKcal +=randomItem.getCalo();
-                    boolean removed = increaseWeightMain.remove(randomItem); // Removes the object from the list
-
+//                    boolean removed = increaseWeightMain.remove(randomItem); // Removes the object from the list
+                    increaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
                 }
                 break;
             case 1:
@@ -171,7 +199,8 @@ public class SuggestMenuActivity extends AppCompatActivity {
                     Dish randomItem = decreaseWeightMain.get(randomIndex); // Get the random element from the list
                     recommendMenu.add(randomItem);
                     totalKcal +=randomItem.getCalo();
-                    boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
+//                    boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
+                    decreaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
                 }
                 break;
             case 0:
@@ -183,15 +212,14 @@ public class SuggestMenuActivity extends AppCompatActivity {
                     Dish randomItem = decreaseWeightMain.get(randomIndex); // Get the random element from the list
                     recommendMenu.add(randomItem);
                     totalKcal +=randomItem.getCalo();
-                    boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
+//                    boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
+                    decreaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
                 }
                 break;
-        }
 
+        }
         adapter.setDishList(recommendMenu);
         rec.setAdapter(adapter);
         txvTotal.setText(String.valueOf(totalKcal));
-
-
     }
 }
