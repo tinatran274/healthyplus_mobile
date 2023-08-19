@@ -8,6 +8,8 @@ public class Dish implements Serializable {
     private String name;
     private double calo;
     private String img;
+
+    private String creator;
     private double carb;
     private  double protein;
     private double fat;
@@ -15,6 +17,14 @@ public class Dish implements Serializable {
     private ArrayList<String> ingredients;
 
     public Dish() {
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public void setImg(String img) {
@@ -33,11 +43,14 @@ public class Dish implements Serializable {
         return fat;
     }
 
-    public Dish(String id, String name, double calo, double carb, double protein, ArrayList<String> recipe, ArrayList<String> ingredients) {
+    public Dish(String id, String name, String creator, String img, double calo, double carb, double fat, double protein, ArrayList<String> ingredients, ArrayList<String> recipe) {
         this.id = id;
         this.name = name;
         this.calo = calo;
+        this.creator = creator;
+        this.img = img;
         this.carb = carb;
+        this.fat = fat;
         this.protein = protein;
         this.recipe = recipe;
         this.ingredients = ingredients;

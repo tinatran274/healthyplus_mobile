@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -36,6 +37,8 @@ public class DishActivity extends AppCompatActivity {
     SearchView svDish;
     List<Dish> list = new ArrayList<>();
     List<Dish> filterList = new ArrayList<>();
+
+    ImageButton ibmAddDish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +114,14 @@ public class DishActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                finish();
+            }
+        });
+
+        ibmAddDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddDishActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,5 +132,6 @@ public class DishActivity extends AppCompatActivity {
         btnYeuThich = findViewById(R.id.btnYeuThich);
         rec = findViewById(R.id.rec);
         svDish = findViewById(R.id.svDish);
+        ibmAddDish = findViewById(R.id.ibm_add_dish);
     }
 }

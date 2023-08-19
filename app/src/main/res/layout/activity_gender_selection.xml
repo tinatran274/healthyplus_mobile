@@ -90,14 +90,14 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
     <Button
         android:id="@+id/btnTiepTuc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tiếp tục"
-        android:background="@drawable/button_background"
-        android:textColor="@color/white_word"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/marginBase"
-        />
+        android:background="@drawable/button_background"
+        android:text="Tiếp tục"
+        android:textColor="@color/white_word" />
 </LinearLayout>

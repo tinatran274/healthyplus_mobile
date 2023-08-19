@@ -44,7 +44,7 @@ import java.util.Map;
 
 public class DishDetailActivity extends AppCompatActivity {
     Dish dish;
-    TextView txvKCal, txvCarb, txvProtein, txvFat, txvIngre, txvRecipe;
+    TextView txvKCal, txvCarb, txvProtein, txvFat, txvIngre, txvRecipe, txvCreator;
     ImageView img;
     FirebaseStorage storage;
     TextView txvBicycle, txvJump, txvRun, txvWalk, txvBurnKcal;
@@ -65,6 +65,7 @@ public class DishDetailActivity extends AppCompatActivity {
         findView();
         btnAdd = findViewById(R.id.btn_add);
         spHour = findViewById(R.id.sp_hour);
+        txvCreator = findViewById(R.id.txv_creator);
         String hour[]={"Bữa sáng", "Bữa trưa", "Bữa tối", "Ăn vặt"};
 
         ArrayAdapter adapterHour = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hour);
@@ -199,6 +200,7 @@ public class DishDetailActivity extends AppCompatActivity {
         txvFat.setText(Double.toString(dish.getFat()));
         txvProtein.setText(Double.toString(dish.getProtein()));
         btnBack.setText(dish.getName());
+        txvCreator.setText(dish.getCreator());
 
         String ingredients = "", recipe = "";
 
