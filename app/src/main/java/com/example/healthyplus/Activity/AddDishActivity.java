@@ -174,12 +174,14 @@ public class AddDishActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         dishData.put("id", documentReference.getId());
                         db.collection("dish").document(documentReference.getId()).set(dishData);
+                        Toast.makeText(AddDishActivity.this,  "Đăng món ăn thành công", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        Toast.makeText(AddDishActivity.this,  "Đăng món ăn thất bại", Toast.LENGTH_SHORT).show();
                     }
                 });
 

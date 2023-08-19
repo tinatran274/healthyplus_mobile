@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.healthyplus.Adapter.ProductAdapter;
@@ -49,9 +50,12 @@ public class HomeActivity extends AppCompatActivity {
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
             controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView, bill;
     ImageView imvCart;
+
+    LinearLayout linearLayoutAddDish;
     ConstraintLayout constraintLayout;
     List<Product> list = new ArrayList<>();
     TextView hello;
+    boolean isPremium;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     User u;
@@ -78,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
         exerciseCardView=findViewById(R.id.cv_exercise);
         suggestionCardView = findViewById(R.id.cv_suggestion);
         bill = findViewById(R.id.cv_bill);
+        linearLayoutAddDish = findViewById(R.id.ln_add_dish);
 
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
@@ -162,6 +167,7 @@ public class HomeActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     User user = task.getResult().toObject(User.class);
                                     hello.setText(user.getName());
+                                    isPremium = user.isPremium();
                                 }
                             }
                         });
@@ -169,6 +175,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), SuggestMenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        linearLayoutAddDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), AddDishActivity.class);
                 startActivity(intent);
             }
         });
