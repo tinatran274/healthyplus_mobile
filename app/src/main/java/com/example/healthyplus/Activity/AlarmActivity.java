@@ -81,7 +81,6 @@ public class AlarmActivity extends AppCompatActivity {
         alarmAdapter.setData(list);
         recyclerView.setAdapter(alarmAdapter);
 
-        Log.e(TAG,  " List: => " + list.toString());
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

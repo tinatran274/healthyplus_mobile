@@ -3,15 +3,19 @@ package com.example.healthyplus.Activity;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,7 +51,7 @@ import java.util.Map;
 public class DishDetailActivity extends AppCompatActivity {
     Dish dish;
     TextView txvKCal, txvCarb, txvProtein, txvFat, txvIngre, txvRecipe, txvCreator;
-    ImageView img;
+    ImageView img, imvDelete;
     FirebaseStorage storage;
     TextView txvBicycle, txvJump, txvRun, txvWalk, txvBurnKcal;
     Button btnBack, btnAdd;
@@ -72,6 +76,8 @@ public class DishDetailActivity extends AppCompatActivity {
         txvCreator = findViewById(R.id.txv_creator);
         lnLockIngr = findViewById(R.id.ln_lock_ingre);
         lnLockDish = findViewById(R.id.ln_lock_dish);
+        imvDelete = findViewById(R.id.imv_delete);
+
         String hour[]={"Bữa sáng", "Bữa trưa", "Bữa tối", "Ăn vặt"};
 
         ArrayAdapter adapterHour = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hour);
@@ -85,6 +91,9 @@ public class DishDetailActivity extends AppCompatActivity {
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
 
+        if (dish.getCreator().compareTo(user.getUid()) == 0){
+            imvDelete.setImageResource(R.drawable.img_delete);
+        }
         db.collection("user").document(user.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -110,7 +119,6 @@ public class DishDetailActivity extends AppCompatActivity {
                                     txvIngre.setText(ingredients);
                                     txvRecipe.setText(recipe);
                                 }
-
                             } else {
                                 Log.d(ContentValues.TAG, "No such document");
                             }
@@ -231,6 +239,54 @@ public class DishDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        imvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DishDetailActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View viewDay = inflater.inflate(R.layout.confirm_delete_dish, null);
+                builder.setView(viewDay);
+                Dialog dialog = builder.create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog);
+                dialog.show();
+
+                Button cancel = viewDay.findViewById(R.id.btn_cancel);
+                Button confirm = viewDay.findViewById(R.id.btn_confirm);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        db.collection("dish").document(dish.getId())
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
+                        dialog.dismiss();
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Bạn vừa xóa món "+dish.getName(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
     }

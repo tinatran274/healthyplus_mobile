@@ -55,11 +55,15 @@ public class DishActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         findView();
 
-        readData(list -> {
-            rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-            adapter.setDishList(list);
-            rec.setAdapter(adapter);
-        });
+        rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        adapter.setDishList(list);
+        rec.setAdapter(adapter);
+
+//        readData(list -> {
+//            rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+//            adapter.setDishList(list);
+//            rec.setAdapter(adapter);
+//        });
 
         db.collection("user").document(user.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -97,23 +101,23 @@ public class DishActivity extends AppCompatActivity {
         onClickButton();
     }
 
-    private void readData(FireStoreCallBack callBack){
-        db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Dish dish = document.toObject(Dish.class);
-                        list.add(dish);
-                    }
-                callBack.onCallBack(list);
-                }
-                else {
-                    Log.e(TAG, "Cannot get dish data", task.getException());
-                }
-            }
-        });
-    }
+//    private void readData(FireStoreCallBack callBack){
+//        db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        Dish dish = document.toObject(Dish.class);
+//                        list.add(dish);
+//                    }
+//                callBack.onCallBack(list);
+//                }
+//                else {
+//                    Log.e(TAG, "Cannot get dish data", task.getException());
+//                }
+//            }
+//        });
+//    }
     private interface FireStoreCallBack{
         void onCallBack(List<Dish> list);
     }
@@ -128,6 +132,28 @@ public class DishActivity extends AppCompatActivity {
 
     private void showDishes() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.clear();
+        db.collection("dish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Dish dish = document.toObject(Dish.class);
+                        list.add(dish);
+                    }
+//                    callBack.onCallBack(list);
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Log.e(TAG, "Cannot get dish data", task.getException());
+                }
+            }
+        });
     }
 
     private void onClickButton() {

@@ -174,7 +174,7 @@ public class AddDishActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         dishData.put("id", documentReference.getId());
                         db.collection("dish").document(documentReference.getId()).set(dishData);
-                        Toast.makeText(AddDishActivity.this,  "Đăng món ăn thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Bạn vừa thêm món "+String.valueOf(txvName.getText()), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })
