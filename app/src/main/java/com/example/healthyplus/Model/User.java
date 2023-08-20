@@ -11,7 +11,7 @@ public class User implements Serializable {
     private int weight;
     private int aim; // 2:Tang 1:Giu 0:Giam
     private int exerciseFrequency; // 0:Khong 1:Nhe 2:Vua 3:Nang
-    private boolean isPremium;
+    private int isPremium; //0:Free 1:Premium
 
     public User() {
         this.id = "";
@@ -22,9 +22,9 @@ public class User implements Serializable {
         this.weight = 0;
         this.aim = 0;
         this.exerciseFrequency = 0;
-        this.isPremium = false;
+        this.isPremium = 0;
     }
-    public User(String id, String name, int gender, int age, int height, int weight, int aim, int exerciseFrequency, boolean isPremium) {
+    public User(String id, String name, int gender, int age, int height, int weight, int aim, int exerciseFrequency, int isPremium) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -36,12 +36,12 @@ public class User implements Serializable {
         this.isPremium = isPremium;
     }
 
-    public boolean isPremium() {
+    public int getIsPremium() {
         return isPremium;
     }
 
-    public void setPremium(boolean premium) {
-        isPremium = premium;
+    public void setIsPremium(int isPremium) {
+        this.isPremium = isPremium;
     }
 
     public String getId() {
@@ -163,7 +163,7 @@ public class User implements Serializable {
                 ", weight=" + weight +
                 ", aim=" + aim +
                 ", exerciseFrequency=" + exerciseFrequency +
-                ", isPremium=" + isPremium +
+                ", premium=" + isPremium +
                 '}';
     }
 }

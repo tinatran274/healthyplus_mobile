@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +58,8 @@ public class DishDetailActivity extends AppCompatActivity {
 
     Long breakfast = Long.valueOf(0), lunch = Long.valueOf(0), dinner = Long.valueOf(0),
             snack = Long.valueOf(0), calories = Long.valueOf(0);
+
+    LinearLayout lnLockIngr, lnLockDish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,8 @@ public class DishDetailActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_add);
         spHour = findViewById(R.id.sp_hour);
         txvCreator = findViewById(R.id.txv_creator);
+        lnLockIngr = findViewById(R.id.ln_lock_ingre);
+        lnLockDish = findViewById(R.id.ln_lock_dish);
         String hour[]={"Bữa sáng", "Bữa trưa", "Bữa tối", "Ăn vặt"};
 
         ArrayAdapter adapterHour = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, hour);
@@ -78,6 +84,41 @@ public class DishDetailActivity extends AppCompatActivity {
 
         DocumentReference userStatRef = db.collection("statistic").document(user.getUid());
         DocumentReference dailyDataRef = userStatRef.collection("dailyData").document(formattedDate);
+
+        db.collection("user").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Map<String, Object> data = new HashMap<>();
+                                data = document.getData();
+                                Long premium = (Long) data.get("isPremium");
+                                if (premium == 0 && dish.getCreator().compareTo("Healthy+") != 0){
+                                    txvIngre.setVisibility(View.INVISIBLE);
+                                    txvRecipe.setVisibility(View.INVISIBLE);
+                                    lnLockIngr.setVisibility(View.VISIBLE);
+                                    lnLockDish.setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    String ingredients = "", recipe = "";
+
+                                    for(String i: dish.getIngredients()) ingredients += "\n- " + i + "\n";
+                                    for(String i: dish.getRecipe()) recipe += "\n" + i + "\n";
+
+                                    txvIngre.setText(ingredients);
+                                    txvRecipe.setText(recipe);
+                                }
+
+                            } else {
+                                Log.d(ContentValues.TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(ContentValues.TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
 
         dailyDataRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -202,13 +243,13 @@ public class DishDetailActivity extends AppCompatActivity {
         btnBack.setText(dish.getName());
         txvCreator.setText(dish.getCreator());
 
-        String ingredients = "", recipe = "";
-
-        for(String i: dish.getIngredients()) ingredients += "\n- " + i + "\n";
-        for(String i: dish.getRecipe()) recipe += "\n" + i + "\n";
-
-        txvIngre.setText(ingredients);
-        txvRecipe.setText(recipe);
+//        String ingredients = "", recipe = "";
+//
+//        for(String i: dish.getIngredients()) ingredients += "\n- " + i + "\n";
+//        for(String i: dish.getRecipe()) recipe += "\n" + i + "\n";
+//
+//        txvIngre.setText(ingredients);
+//        txvRecipe.setText(recipe);
 
         storage = FirebaseStorage.getInstance();
         StorageReference imgRef = storage.getReferenceFromUrl(dish.getImg());

@@ -123,7 +123,7 @@ public class AddDishActivity extends AppCompatActivity {
                     });
                 }
                 else
-                    Toast.makeText(AddDishActivity.this, status + "Bạn chưa điền đủ thông tin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddDishActivity.this, "Bạn chưa điền đủ thông tin", Toast.LENGTH_SHORT).show();
             }
         });
 

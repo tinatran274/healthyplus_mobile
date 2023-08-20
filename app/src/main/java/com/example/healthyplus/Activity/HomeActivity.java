@@ -49,16 +49,15 @@ public class HomeActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
             controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView, bill;
-    ImageView imvCart;
+    ImageView imvCart, imvUser;
 
     LinearLayout linearLayoutAddDish;
     ConstraintLayout constraintLayout;
     List<Product> list = new ArrayList<>();
     TextView hello;
-    boolean isPremium;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    User u;
+    Long isPre;
+    FirebaseFirestore db;
+    FirebaseUser user;
     List<Set<String>> test = new ArrayList<>();
     List<Set<String>> frequentItemsets = new ArrayList<>();
 
@@ -67,7 +66,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        imvUser = findViewById(R.id.imv_user);
         constraintLayout = findViewById(R.id.cs_layout);
         hello = findViewById(R.id.txvHello);
         imvCart = findViewById(R.id.img_cart);
@@ -104,7 +105,6 @@ public class HomeActivity extends AppCompatActivity {
                                 List<String> keyList = new ArrayList<>(listProduct.keySet());
                                 test.add(new HashSet<>(keyList));
                             }
-                            Log.e(TAG,  test.toString());
                             AprioriAlgorithm aprioriAlgorithm = new AprioriAlgorithm();
                             double minSupport = 0.3; // Adjust this value as needed
                             frequentItemsets = aprioriAlgorithm.findFrequentItemsets(test, minSupport);
@@ -159,31 +159,54 @@ public class HomeActivity extends AppCompatActivity {
 //                    }
 //                });
 
-        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-        db.collection("user").document(u.getUid()).get()
+        db.collection("user").document(user.getUid()).get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if(task.isSuccessful()){
-                                    User user = task.getResult().toObject(User.class);
-                                    hello.setText(user.getName());
-                                    isPremium = user.isPremium();
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        Map<String, Object> data = new HashMap<>();
+                                        data = document.getData();
+                                        hello.setText(String.valueOf(data.get("name")));
+                                        isPre = (Long) data.get("isPremium");
+                                        if (isPre == 1)
+                                            imvUser.setImageResource(R.drawable.img_user_stars);
+                                    } else {
+                                        Log.d(TAG, "No such document");
+                                    }
+                                } else {
+                                    Log.d(TAG, "get failed with ", task.getException());
                                 }
                             }
                         });
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), SuggestMenuActivity.class);
-                startActivity(intent);
+                if (isPre == 1){
+                    Intent intent=new Intent(getApplicationContext(), SuggestMenuActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(getApplicationContext(), UnlockPremiumActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
         linearLayoutAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), AddDishActivity.class);
-                startActivity(intent);
+                if (isPre == 1){
+                    Intent intent=new Intent(getApplicationContext(), AddDishActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(getApplicationContext(), UnlockPremiumActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
         imvCart.setOnClickListener(new View.OnClickListener() {

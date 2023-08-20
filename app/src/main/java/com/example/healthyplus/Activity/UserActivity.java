@@ -42,7 +42,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     TextView id, name, aim, maxCalories, maxWater, bmi, ttde, age, gender, height, weight, exerciseFrequency, txvChangPass,
     txv_bmi;
-    ImageView imv_bmi;
+    ImageView imv_bmi, imv_premium;
     Button btnUpdate, btnBackUser;
     FirebaseFirestore db;
     FirebaseUser user;
@@ -56,6 +56,8 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        imv_premium = findViewById(R.id.imv_premium);
         name = findViewById(R.id.txv_name);
         aim = findViewById(R.id.txv_aim);
         maxCalories = findViewById(R.id.txv_max_calories);
@@ -191,6 +193,11 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                                 bmi.setText(String.valueOf(p.BMICal()));
                                 ttde.setText(String.valueOf(p.TTDECal()));
                                 maxWater.setText(String.valueOf(p.WaterCal()));
+                                switch (p.getIsPremium()){
+                                    case 1:
+                                        imv_premium.setImageResource(R.drawable.img_stars);
+                                        break;
+                                }
                                 switch (p.getAim()) {
                                     case 2:
                                         aim.setText("Tăng cân");

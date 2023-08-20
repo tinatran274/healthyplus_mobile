@@ -113,10 +113,8 @@ public class SuggestMenuActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             DocumentSnapshot doc = task.getResult();
                             Map<String, Object> data = doc.getData();
-                            if(data != null && data.containsKey("listID")) {
-                                favID = (List<String>) data.get("listID");
-                                getFavoriteDish(favID);
-                            }
+                            favID = (List<String>) data.get("listID");
+                            getFavoriteDish(favID);
                         }
                     }
                 });

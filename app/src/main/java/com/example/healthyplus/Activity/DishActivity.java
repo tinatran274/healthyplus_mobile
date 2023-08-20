@@ -22,37 +22,63 @@ import com.example.healthyplus.Model.Product;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DishActivity extends AppCompatActivity {
     Button btnYeuThich, btnBack;
     RecyclerView rec;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     DishAdapter adapter = new DishAdapter(this);
     SearchView svDish;
     List<Dish> list = new ArrayList<>();
     List<Dish> filterList = new ArrayList<>();
 
+    FirebaseFirestore db;
+    FirebaseUser user;
+    Long isPre;
     ImageButton ibmAddDish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish);
 
+        db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         findView();
-
-        onClickButton();
 
         readData(list -> {
             rec.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
             adapter.setDishList(list);
             rec.setAdapter(adapter);
         });
+
+        db.collection("user").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Map<String, Object> data = new HashMap<>();
+                                data = document.getData();
+                                isPre = (Long) data.get("isPremium");
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
 
         // Tim kiem mon an
         svDish.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -67,6 +93,8 @@ public class DishActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        onClickButton();
     }
 
     private void readData(FireStoreCallBack callBack){
@@ -121,8 +149,14 @@ public class DishActivity extends AppCompatActivity {
         ibmAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddDishActivity.class);
-                startActivity(intent);
+                if (isPre == 1){
+                    Intent intent=new Intent(getApplicationContext(), AddDishActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(getApplicationContext(), UnlockPremiumActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
