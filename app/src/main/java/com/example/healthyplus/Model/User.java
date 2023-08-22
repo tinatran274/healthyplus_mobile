@@ -13,6 +13,7 @@ public class User implements Serializable {
     private int exerciseFrequency; // 0:Khong 1:Nhe 2:Vua 3:Nang
     private int isPremium; //0:Free 1:Premium
 
+
     public User() {
         this.id = "";
         this.name = "";

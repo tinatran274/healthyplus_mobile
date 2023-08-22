@@ -538,6 +538,7 @@ public class ControlCaloriesActivity extends AppCompatActivity {
     }
 
     private void setInitData(Map<String, Object> data) {
+        System.out.println(data);
         if (data != null) {
             if (data.containsKey("breakfast"))
                 infMorning.setText(Long.toString((Long) data.get("breakfast")));

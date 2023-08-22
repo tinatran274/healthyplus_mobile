@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private CardView userCardView, controlCaloriesCardView, productCardView, technologyCardView,
-            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView, bill;
+            controlWaterCardView, dishCardView, exerciseCardView, suggestionCardView, ingredientCardView, bill, chatCardView;
     ImageView imvCart, imvUser;
 
     LinearLayout linearLayoutAddDish;
@@ -84,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         suggestionCardView = findViewById(R.id.cv_suggestion);
         bill = findViewById(R.id.cv_bill);
         linearLayoutAddDish = findViewById(R.id.ln_add_dish);
+        chatCardView = findViewById(R.id.cv_chat);
 
         productAdapter=new ProductAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
@@ -159,6 +160,8 @@ public class HomeActivity extends AppCompatActivity {
 //                    }
 //                });
 
+
+
         db.collection("user").document(user.getUid()).get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -200,6 +203,21 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isPre == 1){
                     Intent intent=new Intent(getApplicationContext(), AddDishActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(getApplicationContext(), UnlockPremiumActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        chatCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPre == 1){
+                    Intent intent=new Intent(getApplicationContext(), ExpertActivity.class);
                     startActivity(intent);
                 }
                 else{

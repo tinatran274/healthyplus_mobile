@@ -145,9 +145,7 @@ public class DishDetailActivity extends AppCompatActivity {
                         if (data.containsKey("calories"))
                             calories = (Long) data.get("calories");
                     }
-
                 }
-
             }
         });
 
@@ -267,24 +265,30 @@ public class DishDetailActivity extends AppCompatActivity {
                 confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        db.collection("dish").document(dish.getId())
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error deleting document", e);
-                                    }
-                                });
-                        dialog.dismiss();
-                        finish();
-                        Toast.makeText(getApplicationContext(), "Bạn vừa xóa món "+dish.getName(), Toast.LENGTH_SHORT).show();
+                        if (dish.getCreator().compareTo(user.getUid()) == 0){
+                            db.collection("dish").document(dish.getId())
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error deleting document", e);
+                                        }
+                                    });
+                            dialog.dismiss();
+                            finish();
+                            Toast.makeText(getApplicationContext(), "Bạn vừa xóa món "+dish.getName(), Toast.LENGTH_SHORT).show();
 
+                        }
+                        else {
+                            dialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Bạn không thể xóa món " + dish.getName(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Activity.ProductActivity"
+    tools:context=".Activity.DishDetailActivity"
     android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

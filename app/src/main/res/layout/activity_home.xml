@@ -8,6 +8,34 @@
     android:background="#FFFFFF"
     tools:context=".Activity.HomeActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imv_chat"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:layout_column="0"
+                app:layout_row="0"
+                app:srcCompat="@drawable/img_chat" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
     <ScrollView
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -175,8 +175,7 @@ public class UserActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     private void setInfoUser() {
-        db = FirebaseFirestore.getInstance();
-        Log.e(TAG, currentUser.getUid());
+
         db.collection("user").document(currentUser.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

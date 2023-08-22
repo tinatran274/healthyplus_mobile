@@ -37,7 +37,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
     private Context context;
     List<Alarm> alarmList;
-    FirebaseStorage storage;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public AlarmAdapter(Context context)
     {

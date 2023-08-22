@@ -53,8 +53,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder>{
-
-
     private Context context;
     List<Dish> DishList;
     FirebaseStorage storage;

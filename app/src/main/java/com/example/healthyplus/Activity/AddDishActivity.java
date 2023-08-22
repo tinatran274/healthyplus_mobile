@@ -48,7 +48,6 @@ public class AddDishActivity extends AppCompatActivity {
     ImageView imgDish;
     TextView txvName, txvKcal, txvFat, txvCarb, txvProtein, txvIngre, txvRecipe;
     Button btnComplete, btnBack;
-    int imageSize = 320;
     Bitmap image;
     private ArrayList<String> recipe;
     private ArrayList<String> ingredients;
