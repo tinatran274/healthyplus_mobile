@@ -6,7 +6,7 @@ public class Expert implements Serializable {
 
     private String id;
     private String name;
-    private int age; // 0:Nu 1:Nam
+    private int age;
 
     public Expert(){
 
@@ -43,10 +43,7 @@ public class Expert implements Serializable {
 
     @Override
     public String toString() {
-        return "Expert{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+        return "Tên chuyên gia: " + name + "\n" +
+                "Tuổi: " + age;
     }
 }

@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="Hôm nay 13:24"
         android:textSize="10dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginRight="8dp"
         android:textColor="@color/gray_word"
         app:layout_constraintTop_toTopOf="parent"

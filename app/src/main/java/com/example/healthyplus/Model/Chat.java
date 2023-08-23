@@ -6,7 +6,6 @@ public class Chat {
     private String time;
     private int sender;
 
-    public Chat(){}
     public Chat(String content, String time, int sender) {
         this.content = content;
         this.time = time;

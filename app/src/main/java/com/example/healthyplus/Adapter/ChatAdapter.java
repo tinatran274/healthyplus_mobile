@@ -2,6 +2,7 @@ package com.example.healthyplus.Adapter;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -33,7 +34,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder>  {
 
@@ -63,10 +70,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = this.chatList.get(position);
         holder.content.setText(chat.getContent());
-        holder.time.setText(chat.getTime());
 
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String str1 = dateFormat.format(currentDate).substring(0,10);
+        String str2 = chat.getTime().substring(0,10);
+        if (str1.equals(str2))
+            holder.time.setText("Hôm nay"+chat.getTime().substring(10,16));
+        else holder.time.setText(chat.getTime().substring(0,16));
 
-
+        Log.e(ContentValues.TAG, String.valueOf(chat.getSender()));
         if(chat.getSender()==0){
             holder.content.setBackgroundResource(R.drawable.border_white_chat);
             holder.content.setTextColor(Color.parseColor("#404040"));

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.healthyplus.Adapter.AlarmAdapter;
 import com.example.healthyplus.Adapter.ChatAdapter;
@@ -21,6 +22,7 @@ import com.example.healthyplus.Model.Alarm;
 import com.example.healthyplus.Model.Chat;
 import com.example.healthyplus.Model.Conservation;
 import com.example.healthyplus.Model.Dish;
+import com.example.healthyplus.Model.Expert;
 import com.example.healthyplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,9 +51,9 @@ public class DetailConservationActivity extends AppCompatActivity {
     ImageButton imbSend;
     RecyclerView rec;
 
-    List<Chat> list = new ArrayList<>();
+    TextView txvQ0, txvQ1, txvQ2;
 
-    List<Map<String, Object>> sortedList = new ArrayList<>();
+    List<Chat> list = new ArrayList<>();
     ChatAdapter chatAdapter;
     FirebaseFirestore db;
     FirebaseUser user;
@@ -73,6 +75,10 @@ public class DetailConservationActivity extends AppCompatActivity {
         rec = findViewById(R.id.rec);
         edtMessage = findViewById(R.id.edt_message);
         imbSend = findViewById(R.id.imb_send);
+        txvQ0 = findViewById(R.id.txv_q0);
+        txvQ1 = findViewById(R.id.txv_q1);
+//        txvQ2 = findViewById(R.id.txv_q2);
+
         chatAdapter = new ChatAdapter(this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 1);
         rec.setLayoutManager(gridLayoutManager);
@@ -83,40 +89,31 @@ public class DetailConservationActivity extends AppCompatActivity {
         Map<String, Object> chatData = conservation.getChatData();
         for (String key : chatData.keySet()) {
             String value = String.valueOf(chatData.get(key));
-            Map<String, Object> map = new HashMap<>();
-            map.put(key, value);
-            sortedList.add(map);
-        }
-        sortMapListByTimestamp(sortedList);
-        Collections.reverse(sortedList);
 
-        for (Map<String, Object> map : sortedList) {
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                Log.e(TAG, entry.getKey()+ " "+String.valueOf(entry.getValue()));
-                db.collection("message").document(String.valueOf(entry.getValue()))
+            db.collection("message").document(value)
                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Map<String, Object> data = new HashMap<>();
-                                data = document.getData();
-                                Chat c = new Chat(String.valueOf(data.get("content")), entry.getKey(), Integer.parseInt(String.valueOf((Long)data.get("sender"))));
-                                list.add(c);
-                                chatAdapter.notifyDataSetChanged();
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    Map<String, Object> data = new HashMap<>();
+                                    data = document.getData();
+                                    Chat c = new Chat(String.valueOf(data.get("content")), key, Integer.parseInt(String.valueOf((Long)data.get("sender"))));
+                                    list.add(c);
+                                    sortByTime(list);
+                                    chatAdapter.notifyDataSetChanged();
+                                    gridLayoutManager.scrollToPosition(chatAdapter.getItemCount() - 1);
+
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
                             } else {
-                                Log.d(TAG, "No such document");
+                                Log.d(TAG, "get failed with ", task.getException());
                             }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
                         }
-                    }
-                });
-
-            }
+                    });
         }
-
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,14 +124,10 @@ public class DetailConservationActivity extends AppCompatActivity {
             }
         });
 
-        imbSend.setOnClickListener(new View.OnClickListener() {
+        txvQ0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Chat c = new Chat(String.valueOf(edtMessage.getText()), getCurrentDateTime(), 0);
-//                Map<String, Object> data = new HashMap<>();
-//                data.put("content", String.valueOf(edtMessage.getText()));
-//                data.put("sender", 0); //1:usersend 0:expertsend
-
+                Chat c = new Chat("Xin chào chuyên gia", getCurrentDateTime(), 0);
                 db.collection("message")
                         .add(c)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -143,7 +136,6 @@ public class DetailConservationActivity extends AppCompatActivity {
                                 conservation.addChatData(getCurrentDateTime(), documentReference.getId());
                                 db.collection("conservation").document(conservation.getId()).set(conservation);
                                 edtMessage.setText("");
-
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -154,6 +146,79 @@ public class DetailConservationActivity extends AppCompatActivity {
                         });
                 list.add(c);
                 chatAdapter.notifyDataSetChanged();
+                gridLayoutManager.scrollToPosition(chatAdapter.getItemCount() - 1);
+            }
+        });
+
+        txvQ1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                db.collection("expert").document(conservation.getEid())
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                    Expert e = document.toObject(Expert.class);
+
+                                    Chat c = new Chat(e.toString(), getCurrentDateTime(), 1);
+                                    db.collection("message")
+                                            .add(c)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    conservation.addChatData(getCurrentDateTime(), documentReference.getId());
+                                                    db.collection("conservation").document(conservation.getId()).set(conservation);
+                                                    edtMessage.setText("");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error adding document", e);
+                                                }
+                                            });
+                                    list.add(c);
+                                    chatAdapter.notifyDataSetChanged();
+                                    gridLayoutManager.scrollToPosition(chatAdapter.getItemCount() - 1);
+
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
+            }
+        });
+
+        imbSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Chat c = new Chat(String.valueOf(edtMessage.getText()), getCurrentDateTime(), 0);
+                db.collection("message")
+                        .add(c)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                conservation.addChatData(getCurrentDateTime(), documentReference.getId());
+                                db.collection("conservation").document(conservation.getId()).set(conservation);
+                                edtMessage.setText("");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
+                list.add(c);
+                chatAdapter.notifyDataSetChanged();
+                gridLayoutManager.scrollToPosition(chatAdapter.getItemCount() - 1);
             }
         });
 
@@ -165,27 +230,13 @@ public class DetailConservationActivity extends AppCompatActivity {
         String currentDateTimeString = dateFormat.format(currentDate);
         return currentDateTimeString;
     }
-
-    private void sortMapListByTimestamp (List<Map<String, Object>> mapList) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Collections.sort(mapList, new Comparator<Map<String, Object>>() {
+    public void sortByTime(List<Chat> chats) {
+        Collections.sort(chats, new Comparator<Chat>() {
             @Override
-            public int compare(Map<String, Object> map1, Map<String, Object> map2) {
-                String timestamp1 = map1.keySet().iterator().next();
-                String timestamp2 = map2.keySet().iterator().next();
-
-                try {
-                    Date date1 = dateFormat.parse(timestamp1);
-                    Date date2 = dateFormat.parse(timestamp2);
-                    return date1.compareTo(date2);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return 0; // Handle the error case
-                }
+            public int compare(Chat chat1, Chat chat2) {
+                return chat1.getTime().compareTo(chat2.getTime());
             }
         });
-
-        // Now the mapList is sorted by timestamps
     }
+
 }
