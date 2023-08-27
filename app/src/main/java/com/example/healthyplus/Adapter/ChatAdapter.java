@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -79,21 +80,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             holder.time.setText("Hôm nay"+chat.getTime().substring(10,16));
         else holder.time.setText(chat.getTime().substring(0,16));
 
-        Log.e(ContentValues.TAG, String.valueOf(chat.getSender()));
-        if(chat.getSender()==0){
+        ConstraintSet constraintSet1 = new ConstraintSet();
+        ConstraintSet constraintSet = new ConstraintSet();
+        if(chat.getName().equals("user")) {
             holder.content.setBackgroundResource(R.drawable.border_white_chat);
             holder.content.setTextColor(Color.parseColor("#404040"));
-
-            ConstraintSet constraintSet1 = new ConstraintSet();
-            constraintSet1.clone(holder.cs);
-            constraintSet1.connect(R.id.txv_time, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 0);
-            constraintSet1.applyTo(holder.cs);
-
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(holder.cs);
-            constraintSet.connect(R.id.txv_content, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 0);
-            constraintSet.applyTo(holder.cs);
+            holder.user.setImageResource(R.drawable.img_user_stars);
         }
+        else if(chat.getName().equals("expert")){
+            holder.content.setBackgroundResource(R.drawable.border_green_chat);
+            holder.content.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.user.setImageResource(R.drawable.img_expert);
+        }
+
 
         holder.cs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,11 +113,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         private ConstraintLayout cs;
         private TextView content, time;
+        private ImageView user;
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
             cs=itemView.findViewById(R.id.cs_layout);
             content=itemView.findViewById(R.id.txv_content);
             time=itemView.findViewById(R.id.txv_time);
+            user=itemView.findViewById(R.id.imv_user);
         }
     }
 }

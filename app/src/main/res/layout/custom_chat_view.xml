@@ -6,22 +6,29 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/imv_user"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/img_user_stars"
+        app:layout_constraintTop_toBottomOf="@+id/txv_time"
+        app:layout_constraintRight_toRightOf="parent"/>
     <TextView
         android:id="@+id/txv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="250dp"
-        android:text="Apply the drawable as back"
+        android:maxWidth="300dp"
+        android:text=""
         android:textSize="16dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black_word"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingRight="15dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/border_green_chat"
+        android:background="@drawable/border_white_chat"
         app:layout_constraintTop_toBottomOf="@+id/txv_time"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/imv_user"
         />
     <TextView
         android:id="@+id/txv_time"
@@ -33,6 +40,6 @@
         android:layout_marginRight="8dp"
         android:textColor="@color/gray_word"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:padding="20dp">
-
+            <ImageView
+                android:id="@+id/imv_user"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/img_expert"/>
             <TextView
                 android:id="@+id/txv_name"
                 android:layout_width="wrap_content"
@@ -31,6 +36,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"/>
+            <TextView
+                android:text="tuổi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

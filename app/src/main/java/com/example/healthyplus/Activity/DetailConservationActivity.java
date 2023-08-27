@@ -99,10 +99,13 @@ public class DetailConservationActivity extends AppCompatActivity {
                                 if (document.exists()) {
                                     Map<String, Object> data = new HashMap<>();
                                     data = document.getData();
-                                    Chat c = new Chat(String.valueOf(data.get("content")), key, Integer.parseInt(String.valueOf((Long)data.get("sender"))));
+                                    Chat c = new Chat(String.valueOf(data.get("content")), key,
+                                            Integer.parseInt(String.valueOf((Long)data.get("sender"))),
+                                            String.valueOf(data.get("name")));
                                     list.add(c);
                                     sortByTime(list);
                                     chatAdapter.notifyDataSetChanged();
+                                    Log.d(TAG, list.toString());
                                     gridLayoutManager.scrollToPosition(chatAdapter.getItemCount() - 1);
 
                                 } else {
@@ -118,8 +121,6 @@ public class DetailConservationActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -127,7 +128,7 @@ public class DetailConservationActivity extends AppCompatActivity {
         txvQ0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Chat c = new Chat("Xin chào chuyên gia", getCurrentDateTime(), 0);
+                Chat c = new Chat("Xin chào chuyên gia", getCurrentDateTime(), 0, "user");
                 db.collection("message")
                         .add(c)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -164,7 +165,7 @@ public class DetailConservationActivity extends AppCompatActivity {
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     Expert e = document.toObject(Expert.class);
 
-                                    Chat c = new Chat(e.toString(), getCurrentDateTime(), 1);
+                                    Chat c = new Chat(e.toString(), getCurrentDateTime(), 1, "expert");
                                     db.collection("message")
                                             .add(c)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -199,7 +200,7 @@ public class DetailConservationActivity extends AppCompatActivity {
         imbSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Chat c = new Chat(String.valueOf(edtMessage.getText()), getCurrentDateTime(), 0);
+                Chat c = new Chat(String.valueOf(edtMessage.getText()), getCurrentDateTime(), 0, "user");
                 db.collection("message")
                         .add(c)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

@@ -5,11 +5,21 @@ public class Chat {
     private String content;
     private String time;
     private int sender;
+    private String name;
 
-    public Chat(String content, String time, int sender) {
+    public Chat(String content, String time, int sender, String name) {
         this.content = content;
         this.time = time;
         this.sender = sender;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getContent() {
@@ -42,6 +52,7 @@ public class Chat {
                 "content='" + content + '\'' +
                 ", time='" + time + '\'' +
                 ", sender=" + sender +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
