@@ -46,8 +46,6 @@ public class IngredientActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 finish();
             }
         });

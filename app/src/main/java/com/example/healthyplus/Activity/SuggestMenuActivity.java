@@ -174,44 +174,53 @@ public class SuggestMenuActivity extends AppCompatActivity {
                 increaseWeightMain.add(item);
             else decreaseWeightMain.add(item);
         }
+
         switch (p.getAim()) {
             case 2:
                 txvAim.setText("Tăng cân");
                 txvBe.setText("nhiều hơn");
                 for (int i = 0; i < 3; i++) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(increaseWeightMain.size()); // Generates a random index within the list size
-                    Dish randomItem = increaseWeightMain.get(randomIndex); // Get the random element from the list
-                    recommendMenu.add(randomItem);
-                    totalKcal +=randomItem.getCalo();
-//                    boolean removed = increaseWeightMain.remove(randomItem); // Removes the object from the list
-                    increaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
+                    if (increaseWeightMain.size() > 0) {
+
+                        Random random = new Random();
+                        int randomIndex = random.nextInt(increaseWeightMain.size());
+                        Dish randomItem = increaseWeightMain.get(randomIndex);
+                        recommendMenu.add(randomItem);
+                        totalKcal += randomItem.getCalo();
+                        boolean removed = increaseWeightMain.remove(randomItem); // Removes the object from the list
+                        increaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
+                        Log.d(TAG, "recommendMenu: " + recommendMenu + increaseWeightMain.size());
+                    }
                 }
                 break;
             case 1:
                 txvAim.setText("Giữ cân");
                 txvBe.setText("khoảng");
                 for (int i = 0; i < 3; i++) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(decreaseWeightMain.size()); // Generates a random index within the list size
-                    Dish randomItem = decreaseWeightMain.get(randomIndex); // Get the random element from the list
-                    recommendMenu.add(randomItem);
-                    totalKcal +=randomItem.getCalo();
-//                    boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
-                    decreaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
+                    if (decreaseWeightMain.size() > 0) {
+                        Random random = new Random();
+                        int randomIndex = random.nextInt(decreaseWeightMain.size()); // Generates a random index within the list size
+                        Dish randomItem = decreaseWeightMain.get(randomIndex); // Get the random element from the list
+                        recommendMenu.add(randomItem);
+                        totalKcal += randomItem.getCalo();
+                        boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
+                        decreaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
+                    }
                 }
                 break;
             case 0:
                 txvAim.setText("Giảm cân");
                 txvBe.setText("ít hơn");
                 for (int i = 0; i < 3; i++) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(decreaseWeightMain.size()); // Generates a random index within the list size
-                    Dish randomItem = decreaseWeightMain.get(randomIndex); // Get the random element from the list
-                    recommendMenu.add(randomItem);
-                    totalKcal +=randomItem.getCalo();
-//                    boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
-                    decreaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
+                    if (decreaseWeightMain.size() > 0) {
+                        Random random = new Random();
+                        int randomIndex = random.nextInt(decreaseWeightMain.size()); // Generates a random index within the list size
+                        Dish randomItem = decreaseWeightMain.get(randomIndex); // Get the random element from the list
+                        recommendMenu.add(randomItem);
+                        totalKcal += randomItem.getCalo();
+                        boolean removed = decreaseWeightMain.remove(randomItem); // Removes the object from the list
+                        decreaseWeightMain.removeAll(java.util.Collections.singleton(randomItem));
+                    }
                 }
                 break;
 

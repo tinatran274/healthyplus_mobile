@@ -9,7 +9,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/na"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -94,7 +93,7 @@
                     app:borderWidthSize="4dp"
                     app:textColor="#018786"
                     app:max="100"
-                    app:progress="100"
+                    app:progress="0"
                     app:strong="50"
                     app:shapePadding="10dp"
                     app:layout_constraintStart_toStartOf="parent"

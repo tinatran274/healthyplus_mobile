@@ -49,8 +49,7 @@ public class LikedDishActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DishActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

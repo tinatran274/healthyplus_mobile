@@ -175,8 +175,8 @@ public class IngredientDetailActivity extends AppCompatActivity {
                                 }
                             });
                 }
-                Intent intent = new Intent(getApplicationContext(), ControlCaloriesActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), ControlCaloriesActivity.class);
+//                startActivity(intent);
                 finish();
             }
         });

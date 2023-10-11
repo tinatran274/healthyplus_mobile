@@ -92,7 +92,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Thảo luận với chuyên gia của Healthy+"/>
+                        android:text="Tương tác với chuyên gia của Healthy+"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -106,7 +106,10 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="120dp"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -136,23 +139,24 @@
                             android:id="@+id/rbGiamCan"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:text="1 năm (933.000đ chỉ 78.000đ/tháng)"
+                            android:text="1 năm (300.000đ chỉ 25.000đ/tháng)"
                             android:textStyle="bold"
                             android:paddingLeft="20dp"
                             android:textColor="@color/green_main"
                             android:background="@drawable/text_view_background"
                             android:layoutDirection="rtl" />
+
                         <RadioButton
                             android:id="@+id/rbDuyTri"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:text="1 tháng (100.000đ)"
-                            android:textStyle="bold"
-                            android:paddingLeft="20dp"
+                            android:layout_marginTop="10dp"
                             android:background="@drawable/text_view_background"
-                            android:textColor="@color/green_main"
                             android:layoutDirection="rtl"
-                            android:layout_marginTop="10dp"/>
+                            android:paddingLeft="20dp"
+                            android:text="1 tháng (29.000đ)"
+                            android:textColor="@color/green_main"
+                            android:textStyle="bold" />
                         />
 
                     </RadioGroup>
